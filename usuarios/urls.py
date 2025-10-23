@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import EmailsendView, LoginView , MeView
+from .views import EmailsendView, LoginView , MeView, UserListView 
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -7,5 +7,6 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/auth/me/", MeView.as_view(), name="me"), 
     path('api/enviar-correo/', EmailsendView.as_view(), name='api_enviar_correo'),
+    path('users/', UserListView.as_view(), name='api_user_list'),
 ]
 

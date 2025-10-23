@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def enviar_correo_de_prueba(receiver_email: str) -> bool:
+def enviar_correo(receiver_email: str) -> bool:
     """
     Envía un correo de prueba simple.
     
