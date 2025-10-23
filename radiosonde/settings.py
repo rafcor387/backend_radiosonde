@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os   
 from dotenv import load_dotenv
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,6 @@ load_dotenv(BASE_DIR / ".env")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -31,7 +31,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # O el de tu proveedor
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True # Para la conexión segura
+EMAIL_HOST_USER = config('EMAIL_HOST_USER') # Lee desde el archivo .env
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') # Lee desde el archivo .env
 
+# Esta será la dirección por defecto que aparecerá en el "From" si no especificas otra
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # Application definition
