@@ -8,17 +8,12 @@ class RolUser(models.Model):
     def __str__(self):
         return self.nombre
 
-
 class User(AbstractUser):
-    # No agregamos campo email, usaremos 'username' como email
     rol_user = models.ForeignKey(RolUser, on_delete=models.SET_NULL, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
-
     def __str__(self):
         return self.username
-
-
 
 class RolPersona(models.Model):
     nombre = models.CharField(max_length=50, unique=True)
@@ -26,7 +21,6 @@ class RolPersona(models.Model):
 
     def __str__(self):
         return self.nombre
-
 
 class Persona(models.Model):
     nombres = models.CharField(max_length=100)
