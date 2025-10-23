@@ -1,0 +1,9 @@
+django-cors-headers==4.9.0
+djangorestframework_simplejwt==5.5.1
+groq==0.32.0
+MetPy==1.7.1
+pip==25.2
+psycopg2-binary==2.9.11
+python-decouple==3.8
+python-dotenv==1.1.1
+setuptools==65.5.0
