@@ -6,10 +6,10 @@ from rest_framework.permissions import IsAuthenticated
 from .services import enviar_correo 
 from .serializers import LoginSerializer
 from .permissions import IsAdminUser
-
-from rest_framework.generics import ListAPIView # ¡Importa la vista genérica!
-from .models import User # Importa el modelo User
-from .serializers import UserListSerializer # ¡Importa tu nuevo serializer!
+from django.conf import settings
+from rest_framework.generics import ListAPIView 
+from .models import User, Persona, Invitacion
+from .serializers import UserListSerializer 
 
 
 class LoginView(APIView):
@@ -30,33 +30,43 @@ class MeView(APIView):
         return Response({"username": user.username}, status=status.HTTP_200_OK)
     
 class EmailsendView(APIView):
-    permission_classes = [IsAuthenticated, IsAdminUser]  
-
-    def post(self, request): 
+    def post(self, request):
         receiver_email = request.data.get('RECEIVER_EMAIL')
-
         if not receiver_email:
-            return Response({'error': 'El campo RECEIVER_EMAIL es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(...)
 
-        exito = enviar_correo(receiver_email)
+        if Persona.objects.filter(email=receiver_email).exists():
+            return Response({'error': 'Ya existe una persona o invitación para este email.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        if exito:
-            return Response({'message': f'Correo enviado exitosamente a {receiver_email}.'}, status=status.HTTP_200_OK)
-        else:
-            return Response({'error': 'No se pudo enviar el correo.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        persona_invitada = Persona.objects.create(email=receiver_email)
+
+        invitacion = Invitacion.objects.create(
+            guest=persona_invitada,
+            host=request.user
+        )
+
+        frontend_url = 'http://localhost:3000/register'
+        invitacion_url = f"{frontend_url}?token={invitacion.token}"
+
+        asunto = "Has sido invitado a nuestro sistema"
+        mensaje = (
+            f"¡Hola!\n\n"
+            f"Has sido invitado a unirte a nuestro sistema por {request.user.username}.\n"
+            f"Para completar tu registro, por favor haz clic en el siguiente enlace:\n\n"
+            f"{invitacion_url}\n\n"
+            f"¡Te esperamos!"
+        )
         
+        from django.core.mail import send_mail
+        send_mail(asunto, mensaje, settings.DEFAULT_FROM_EMAIL, [receiver_email])
+        
+        return Response({'message': f'Invitación enviada exitosamente a {receiver_email}.'}, status=status.HTTP_201_CREATED)
+            
         
 class UserListView(ListAPIView):
-    """
-    Vista para listar todos los usuarios del sistema.
-    - Solo accesible para administradores.
-    - Utiliza el UserListSerializer para formatear la salida.
-    """
-    # 1. ¿Qué objetos vamos a listar? Todos los usuarios.
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
     queryset = User.objects.all().order_by('id')
     
-    # 2. ¿Cómo los vamos a convertir a JSON? Con este serializer.
     serializer_class = UserListSerializer
     
-    # 3. ¿Quién puede acceder? Solo administradores autenticados.
-    permission_classes = [IsAuthenticated, IsAdminUser]

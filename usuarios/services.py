@@ -7,15 +7,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def enviar_correo(receiver_email: str) -> bool:
-    """
-    Envía un correo de prueba simple.
-    
-    Args:
-        receiver_email: La dirección de correo del destinatario.
-        
-    Returns:
-        True si el correo se envió con éxito, False en caso contrario.
-    """
     asunto = "Correo de Prueba desde Proyecto Django"
     mensaje = (
         f"¡Hola!\n\n"
@@ -30,7 +21,6 @@ def enviar_correo(receiver_email: str) -> bool:
         print(f"Correo de prueba enviado exitosamente a {receiver_email}")
         return True
     except smtplib.SMTPException as e:
-        # Puedes usar logging para registrar el error en un entorno de producción
         print(f"Error al enviar el correo: {e}")
         return False
     except Exception as e:

@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import User, RolUser
+from .models import User, RolUser, Persona
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()         
@@ -28,21 +28,19 @@ class LoginSerializer(serializers.Serializer):
         }
 
 class RolUserSerializer(serializers.ModelSerializer):
-    """Serializer para mostrar el nombre del rol."""
     class Meta:
         model = RolUser
         fields = ['nombre']
 
+class PersonaSummarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Persona
+        fields = ['nombres', 'apellido_paterno', 'email']
+
 class UserListSerializer(serializers.ModelSerializer):
-    """
-    Serializer para listar usuarios. Define qué campos se mostrarán en la API.
-    """
-    # Usamos el RolUserSerializer para mostrar el nombre del rol en lugar de solo su ID.
-    # 'read_only=True' porque no queremos que se pueda modificar el rol desde este endpoint.
     rol_user = RolUserSerializer(read_only=True)
+    persona = PersonaSummarySerializer(read_only=True)
 
     class Meta:
         model = User
-        # Lista de los campos que quieres que aparezcan en el JSON
-        fields = ['id', 'username', 'rol_user', 'date_joined']
-        # ¡NUNCA incluyas 'password' en un serializer de lectura!
+        fields = ['id', 'username', 'rol_user', 'persona']
