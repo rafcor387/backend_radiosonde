@@ -43,13 +43,13 @@ class PersonaSerializer(serializers.ModelSerializer):
         queryset=RolPersona.objects.all(),
         source='rol_persona', 
         write_only=True,
-        required=False,
-        allow_null=True
+        required=True,
+        allow_null=False
     )
     class Meta:
         model = Persona
         fields = ['id','nombres', 'apellido_paterno', 'apellido_materno', 'email', 'rol_persona', 'rol_persona_id','created']
-        read_only_fields = ['id', 'email', 'created']
+        read_only_fields = ['id', 'created']
     
     def validate_email(self, value):
         """Validar email único"""
@@ -81,26 +81,22 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ['id','username']
     
     def update(self, instance, validated_data):
-        # 1. Extraer los datos anidados de 'persona'
         persona_data = validated_data.pop('persona', None)
-
-        # 2. Actualizar la instancia principal del User
         instance = super().update(instance, validated_data)
 
-        # 3. Si se enviaron datos de persona
         if persona_data and instance.persona:
             persona_instance = instance.persona
             
-            # IMPORTANTE: Aquí está el cambio
-            # El campo ya viene como 'rol_persona' (objeto), no 'rol_persona_id'
-            # porque DRF lo procesó con source='rol_persona'
-            
-            # Actualizar directamente los campos de persona
             for attr, value in persona_data.items():
                 setattr(persona_instance, attr, value)
             
             persona_instance.save()
 
-        # 4. Refrescar la instancia
         instance.refresh_from_db()
         return instance
+    
+class NuevoUsuarioPasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(min_length=6, write_only=True)
+    
+    # Opcional: Si quieres confirmación de contraseña
+    # password_confirm = serializers.CharField(min_length=6, write_only=True) 

@@ -1,21 +1,88 @@
+#usuarios/views.py
 from rest_framework.views import APIView
+from django.db import transaction
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import status, permissions
-from rest_framework.permissions import IsAuthenticated
-from .services import enviar_correo 
-from .permissions import IsAdminUser
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from .permissions import HasValidInvitationToken
 from django.conf import settings
 from rest_framework.generics import ListAPIView 
-from .models import User, Persona, Invitacion
+from .models import User, Persona, Invitacion,RolUser
 from .serializers import (
     LoginSerializer,
     PersonaSerializer,
-    UserSerializer
+    UserSerializer,
+    NuevoUsuarioPasswordSerializer
 )
 from django.shortcuts import get_object_or_404
 
 
+class CompletarRegistroUserView(APIView):
+    """
+    Paso final: Recibe password y Token.
+    Crea el usuario linkeado a la persona y quema el token.
+    """
+    # SOLO permite entrar si trae el header 'Invitation-Token' válido
+    permission_classes = [HasValidInvitationToken] 
+
+    def post(self, request):
+        serializer = NuevoUsuarioPasswordSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        # 1. Obtener el token del header (Ya sabemos que es válido por el permiso)
+        token = request.META.get('HTTP_INVITATION_TOKEN')
+        
+        try:
+            # Recuperamos la invitación
+            invitacion = Invitacion.objects.get(token=token, estado='ENTREGADA')
+            persona = invitacion.guest
+            
+            # Validaciones extra de seguridad
+            if User.objects.filter(username=persona.email).exists():
+                return Response(
+                    {'error': 'Ya existe un usuario registrado con este email.'}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+        except Invitacion.DoesNotExist:
+            # Esto raramente pasará si el permiso HasValidInvitationToken funciona bien
+            return Response({'error': 'Token inválido'}, status=status.HTTP_403_FORBIDDEN)
+
+        # 2. Iniciar transacción atómica (Todo o nada)
+        with transaction.atomic():
+            password = serializer.validated_data['password']
+            
+            # Buscar Rol User ID 2 (Usuario Normal)
+            try:
+                rol_normal = RolUser.objects.get(id=2)
+            except RolUser.DoesNotExist:
+                # Fallback por si no existe el rol 2 en tu DB
+                rol_normal = None 
+
+            # 3. CREAR EL USUARIO
+            user = User.objects.create_user(
+                username=persona.email, # El email viene de la Persona (Seguro)
+                password=password,
+                persona=persona,
+                rol_user=rol_normal,
+                is_staff=True, # <--- Lo que pediste
+                # is_active=True y created se ponen solos por el modelo
+            )
+
+            # 4. ACTUALIZAR LA INVITACIÓN
+            invitacion.estado = 'ACEPTADA'
+            invitacion.host = user # Opcional: Guardamos quién aceptó (auto-referencia) o lo dejamos null
+            invitacion.save()
+
+        return Response(
+            {'message': 'Cuenta creada exitosamente. Ahora puedes iniciar sesión.'}, 
+            status=status.HTTP_201_CREATED
+        )
+    
+
+
+    
 class LoginView(APIView):
     permission_classes = []
 
@@ -36,21 +103,29 @@ class MeView(APIView):
 class EmailsendView(APIView):
     def post(self, request):
         receiver_email = request.data.get('RECEIVER_EMAIL')
+        
         if not receiver_email:
-            return Response(...)
+            # Es buena práctica devolver un error claro si falta el campo
+            return Response({'error': 'El campo RECEIVER_EMAIL es obligatorio'}, status=status.HTTP_400_BAD_REQUEST)
 
         if Persona.objects.filter(email=receiver_email).exists():
             return Response({'error': 'Ya existe una persona o invitación para este email.'}, status=status.HTTP_400_BAD_REQUEST)
 
+        # 1. Creamos la Persona (Aquí se genera el ID automáticamente)
         persona_invitada = Persona.objects.create(email=receiver_email)
 
+        # 2. Creamos la Invitación (Aquí se genera el Token automáticamente)
         invitacion = Invitacion.objects.create(
             guest=persona_invitada,
             host=request.user
         )
 
         frontend_url = 'http://localhost:3000/register'
-        invitacion_url = f"{frontend_url}?token={invitacion.token}"
+        
+        # --- CAMBIO AQUÍ ---
+        # Agregamos el parámetro "&id=" con el ID de la persona creada
+        invitacion_url = f"{frontend_url}?token={invitacion.token}&id={persona_invitada.id}"
+        # -------------------
 
         asunto = "Has sido invitado a nuestro sistema"
         mensaje = (
@@ -65,7 +140,7 @@ class EmailsendView(APIView):
         send_mail(asunto, mensaje, settings.DEFAULT_FROM_EMAIL, [receiver_email])
         
         return Response({'message': f'Invitación enviada exitosamente a {receiver_email}.'}, status=status.HTTP_201_CREATED)
-            
+    
 class UserDetailView(APIView):
     """
     Vista para TODAS las operaciones de usuario:
@@ -75,6 +150,23 @@ class UserDetailView(APIView):
     - Eliminar (DELETE con id)
     """
     permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        """
+        Crear un nuevo usuario (opcional - si lo necesitas)
+        Solo administradores
+        """
+        if not request.user.is_staff:
+            return Response(
+                {'error': 'Solo administradores pueden crear usuarios'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request, user_id=None):
         """
@@ -157,23 +249,6 @@ class UserDetailView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def post(self, request):
-        """
-        Crear un nuevo usuario (opcional - si lo necesitas)
-        Solo administradores
-        """
-        if not request.user.is_staff:
-            return Response(
-                {'error': 'Solo administradores pueden crear usuarios'},
-                status=status.HTTP_403_FORBIDDEN
-            )
-        
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
     def delete(self, request, user_id):
         """Eliminar un usuario - Solo admin"""
         # Solo admin puede eliminar
@@ -203,18 +278,34 @@ class UserDetailView(APIView):
             status=status.HTTP_200_OK
         )
 
-class PersonaDetailView(APIView):
-    """
-    Vista completa para gestión de Personas
-    Usa un único PersonaSerializer para todo
-    """
-    permission_classes = [IsAuthenticated]
+class PersonaView(APIView):
+    def get_permissions(self):
+        if self.request.method == 'PATCH':
+            return [HasValidInvitationToken()]
+        
+        return [IsAuthenticated(), IsAdminUser()]
+    
+    def patch(self, request, persona_id):
+        persona = get_object_or_404(Persona, id=persona_id)
+
+        token_header = request.META.get('HTTP_INVITATION_TOKEN')
+        invitacion = Invitacion.objects.filter(token=token_header).first()
+
+        if invitacion.guest.id != persona.id:
+             return Response(
+                 {'error': 'Este token no pertenece a la persona que intentas editar.'}, 
+                 status=status.HTTP_403_FORBIDDEN
+             )
+        
+        serializer = PersonaSerializer(persona, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request, persona_id=None):
-        """Obtener una persona o listar todas"""
-        
         if persona_id is None:
-            # Listar todas - solo admin
             if not request.user.is_staff:
                 # Usuario normal solo ve su propia persona
                 if hasattr(request.user, 'persona'):
@@ -225,25 +316,20 @@ class PersonaDetailView(APIView):
                     status=status.HTTP_404_NOT_FOUND
                 )
             
-            # Admin ve todas
             personas = Persona.objects.all().order_by('-created')
             serializer = PersonaSerializer(personas, many=True)
             return Response({
                 'count': personas.count(),
                 'personas': serializer.data
             })
-        
-        # Obtener persona específica
         persona = get_object_or_404(Persona, id=persona_id)
         
-        # Verificar permisos
         if not request.user.is_staff:
             if not hasattr(request.user, 'persona') or request.user.persona.id != persona.id:
                 return Response(
                     {'error': 'No tienes permisos para ver esta persona'},
                     status=status.HTTP_403_FORBIDDEN
                 )
-        
         serializer = PersonaSerializer(persona)
         return Response(serializer.data)
     
@@ -278,34 +364,6 @@ class PersonaDetailView(APIView):
             )
         
         serializer = PersonaSerializer(persona, data=request.data)
-        
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def patch(self, request, persona_id):
-        """Actualización parcial"""
-        persona = get_object_or_404(Persona, id=persona_id)
-        
-        # Verificar permisos
-        if not request.user.is_staff:
-            # Usuario normal solo edita su propia persona
-            if not hasattr(request.user, 'persona') or request.user.persona.id != persona.id:
-                return Response(
-                    {'error': 'No tienes permisos para editar esta persona'},
-                    status=status.HTTP_403_FORBIDDEN
-                )
-            
-            # No puede cambiar su rol
-            if 'rol_persona_id' in request.data:
-                return Response(
-                    {'error': 'No puedes cambiar tu propio rol'},
-                    status=status.HTTP_403_FORBIDDEN
-                )
-        
-        serializer = PersonaSerializer(persona, data=request.data, partial=True)
         
         if serializer.is_valid():
             serializer.save()

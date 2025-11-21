@@ -29,11 +29,11 @@ class RolPersona(models.Model):
     def __str__(self): return self.nombre
 
 class Persona(models.Model):
-    nombres = models.CharField(max_length=100, blank=True, null=True)
-    apellido_paterno = models.CharField(max_length=100, blank=True, null=True)
-    apellido_materno = models.CharField(max_length=100, blank=True, null=True)
+    nombres = models.CharField(max_length=100, blank=False, null=True)
+    apellido_paterno = models.CharField(max_length=100, blank=False, null=True)
+    apellido_materno = models.CharField(max_length=100, blank=False, null=True)
     email = models.EmailField(unique=True)
-    rol_persona = models.ForeignKey(RolPersona, on_delete=models.SET_NULL, null=True, blank=True)
+    rol_persona = models.ForeignKey(RolPersona, on_delete=models.PROTECT, null=False, blank=False)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -62,8 +62,9 @@ class Invitacion(models.Model):
     class EstadoInvitacion(models.TextChoices):
         ENTREGADA = 'ENTREGADA', 'Entregada'
         ACEPTADA = 'ACEPTADA', 'Aceptada'
-        IGNORADA = 'IGNORADA', 'Ignorada' 
-        
+        IGNORADA = 'IGNORADA', 'Ignorada'
+        CANCELADA = 'CANCELADA', 'Cancelada'
+
     guest = models.OneToOneField(Persona, on_delete=models.CASCADE)
     
     host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='invitaciones_enviadas')
