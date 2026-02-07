@@ -98,5 +98,3 @@ class UserSerializer(serializers.ModelSerializer):
 class NuevoUsuarioPasswordSerializer(serializers.Serializer):
     password = serializers.CharField(min_length=6, write_only=True)
     
-    # Opcional: Si quieres confirmación de contraseña
-    # password_confirm = serializers.CharField(min_length=6, write_only=True) 

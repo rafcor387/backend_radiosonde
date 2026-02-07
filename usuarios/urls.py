@@ -1,13 +1,12 @@
 #usuarios/urls.py
 from django.urls import path
 from . import views
-from .views import EmailsendView, LoginView , MeView, UserDetailView, PersonaView,CompletarRegistroUserView 
+from .views import EmailsendView, LoginView , MeView, UserDetailView, PersonaView,CompletarRegistroUserView, UserMeView
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
     path("api/auth/login/", LoginView.as_view(), name="login"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("api/auth/me/", MeView.as_view(), name="me"), 
     path('api/enviar-correo/', EmailsendView.as_view(), name='api_enviar_correo'),
 
     path('users/', UserDetailView.as_view(), name='user_list_create'),  
@@ -17,4 +16,7 @@ urlpatterns = [
     path('users/persona/<int:persona_id>/', PersonaView.as_view(), name='persona_detail'),
 
     path('users/register-complete/', CompletarRegistroUserView.as_view(), name='register_complete'),
+
+    path('api/auth/me/', UserMeView.as_view(), name='user_me'),
+
 ]

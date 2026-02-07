@@ -22,7 +22,6 @@ class CompletarRegistroUserView(APIView):
     Paso final: Recibe password y Token.
     Crea el usuario linkeado a la persona y quema el token.
     """
-    # SOLO permite entrar si trae el header 'Invitation-Token' válido
     permission_classes = [HasValidInvitationToken] 
 
     def post(self, request):
@@ -30,15 +29,12 @@ class CompletarRegistroUserView(APIView):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        # 1. Obtener el token del header (Ya sabemos que es válido por el permiso)
         token = request.META.get('HTTP_INVITATION_TOKEN')
         
         try:
-            # Recuperamos la invitación
             invitacion = Invitacion.objects.get(token=token, estado='ENTREGADA')
             persona = invitacion.guest
             
-            # Validaciones extra de seguridad
             if User.objects.filter(username=persona.email).exists():
                 return Response(
                     {'error': 'Ya existe un usuario registrado con este email.'}, 
@@ -140,6 +136,17 @@ class EmailsendView(APIView):
         send_mail(asunto, mensaje, settings.DEFAULT_FROM_EMAIL, [receiver_email])
         
         return Response({'message': f'Invitación enviada exitosamente a {receiver_email}.'}, status=status.HTTP_201_CREATED)
+
+
+
+class UserMeView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Serializamos el usuario actual (request.user)
+        # Esto usará tu UserSerializer que SI tiene el campo rol_user
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
     
 class UserDetailView(APIView):
     """
