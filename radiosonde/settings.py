@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'usuarios',
     'rest_framework',
     "corsheaders",
+    "drf_spectacular",
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -73,6 +74,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 MIDDLEWARE = [
@@ -176,3 +178,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_HEADERS = list(default_headers) + [
     "invitation-token",  
 ]
+
+
+SPECTACULAR_SETTINGS = {
+    'APPEND_COMPONENTS': {
+        "securitySchemes": {
+            "jwtAuth": {
+                "type": "http",
+                "scheme": "bearer",    
+                "bearerFormat": "JWT",  
+            }
+        }
+    },
+    'SECURITY': [
+        {'jwtAuth': []},
+    ],
+}
