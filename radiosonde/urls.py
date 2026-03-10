@@ -25,7 +25,7 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
 
     # Interfaz de Swagger (la que tú quieres, estilo .NET)
-    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 
     # Interfaz de Redoc (una alternativa más limpia, opcional)
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc')

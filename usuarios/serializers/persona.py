@@ -3,6 +3,12 @@ from usuarios.models import Persona, RolPersona
 from .rol import RolPersonaSerializer
 
 class PersonaSerializer(serializers.ModelSerializer):
+    # 1. EL "DTO" (Definición de campos)
+    class Meta:
+        model = Persona
+        fields = ['id', 'nombres', 'apellido_paterno', 'apellido_materno', 'email', 'rol_persona','rol_persona_id']
+        read_only_fields = ['id']
+        
     rol_persona = RolPersonaSerializer(read_only=True)
     rol_persona_id = serializers.PrimaryKeyRelatedField(
         queryset=RolPersona.objects.all(),
@@ -12,11 +18,7 @@ class PersonaSerializer(serializers.ModelSerializer):
         allow_null=False
     )
 
-    class Meta:
-        model = Persona
-        fields = ['id', 'nombres', 'apellido_paterno', 'apellido_materno', 'email', 'rol_persona',
-'rol_persona_id', 'created']
-        read_only_fields = ['id', 'created']
+
 
     def validate_email(self, value):
         if not self.instance:

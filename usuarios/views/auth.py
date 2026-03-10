@@ -5,14 +5,13 @@ from django.db import transaction
 from django.conf import settings
 from django.core.mail import send_mail
 from drf_spectacular.utils import extend_schema
-
 from usuarios.models import User, Persona, Invitacion, RolUser
 from usuarios.serializers import LoginSerializer, NuevoUsuarioPasswordSerializer
 from ..permissions import HasValidInvitationToken
 
 class LoginView(APIView):
     permission_classes = []
-    serializer_class = LoginSerializer  # Swagger ahora verá los campos
+    serializer_class = LoginSerializer 
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)

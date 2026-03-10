@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 # Importamos las vistas desde el paquete 'views' que creamos
 from .views.auth import LoginView, CompletarRegistroUserView, EmailsendView
 from .views.user import UserDetailView, UserMeView
-from .views.persona import PersonaView
+from .views.persona import PersonaListCreateView, PersonaDetailView
 
 urlpatterns = [
     #Tokens
@@ -21,6 +21,6 @@ urlpatterns = [
     path("users/me/", UserMeView.as_view(), name="user_me"),
 
     # Personas (Gestión)
-    path('persona/', PersonaView.as_view(), name='persona_list_create'),
-    path('persona/<int:persona_id>/', PersonaView.as_view(), name='persona_detail'),
+    path('persona/', PersonaListCreateView.as_view(), name='persona_list_create'),
+    path('persona/<int:pk>/', PersonaDetailView.as_view(), name='persona_detail'),
 ]

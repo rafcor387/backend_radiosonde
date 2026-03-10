@@ -30,7 +30,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=True)
+    CreationDate = models.DateTimeField(auto_now_add=True)
+    DeleteDate = models.DateTimeField(null=True, blank=True)
+    UpdateDate = models.DateTimeField(null=True, blank=True)
 
     objects = CustomUserManager()
     USERNAME_FIELD = 'username'
@@ -38,3 +40,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+    
+    class Meta:
+        db_table = 'usuarios'
