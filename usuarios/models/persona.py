@@ -10,11 +10,6 @@ class Persona(models.Model):
     CreationDate = models.DateTimeField(auto_now_add=True)
     DeleteDate = models.DateTimeField(null=True, blank=True)
     UpdateDate = models.DateTimeField(null=True, blank=True)
-   
-    def __str__(self):
-        if self.nombres:
-            return f"{self.nombres} {self.apellido_paterno}"
-        return self.email
     
     class Meta:
         db_table = 'persona'

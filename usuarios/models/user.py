@@ -37,9 +37,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
-
-    def __str__(self):
-        return self.username
     
     class Meta:
         db_table = 'usuarios'

@@ -3,6 +3,8 @@ from usuarios.models import Persona, RolPersona
 from .rol import RolPersonaSerializer
 
 class PersonaSerializer(serializers.ModelSerializer):
+    rol_persona = RolPersonaSerializer(read_only=True)
+
     class Meta:
         model = Persona
         fields = ['id', 'nombres', 'apellido_paterno','apellido_materno','rol_persona', 'email'] #esto se ve en el get

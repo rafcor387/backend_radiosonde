@@ -14,6 +14,3 @@ class Invitacion(models.Model):
     token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     estado = models.CharField(max_length=10, choices=EstadoInvitacion.choices, default=EstadoInvitacion.ENTREGADA)
     created = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Invitación para {self.guest.email} por {self.host.username if self.host else 'sistema'}"
