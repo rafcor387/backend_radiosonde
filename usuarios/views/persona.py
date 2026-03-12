@@ -4,46 +4,49 @@ from rest_framework import status
 from drf_spectacular.utils import extend_schema
 from usuarios.models import Persona
 from usuarios.serializers import PersonaSerializer
+from rest_framework.permissions import AllowAny
+from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
-class PersonaListCreateView(APIView):
+class PersonaSimpleView(APIView):
     serializer_class = PersonaSerializer
+    permission_classes = [AllowAny]
 
-    @extend_schema(summary="Listar todas las personas")
     def get(self, request):
-        personas = Persona.objects.all()
-        # "many=True" le dice a Django que es una lista de objetos
+        personas = Persona.objects.filter(DeleteDate__isnull=True)
         serializer = self.serializer_class(personas, many=True)
         return Response(serializer.data)
 
-    @extend_schema(summary="Crear una nueva persona")
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data)
+        return Response(serializer.errors)
     
 class PersonaDetailView(APIView):
     serializer_class = PersonaSerializer
-
-    @extend_schema(summary="Ver detalle de una persona")
-    def get(self, request, pk):
-        persona = Persona.objects.get(pk=pk) # Busca por ID
+    permission_classes = [AllowAny]
+    
+    def get(self,request,pk):
+        persona = Persona.objects.get(id=pk)
         serializer = self.serializer_class(persona)
         return Response(serializer.data)
+    
+    def patch(self, request, pk): 
+        persona = Persona.objects.get(id=pk) 
+        serializer = PersonaSerializer(persona, data=request.data, partial=True)
 
-    @extend_schema(summary="Actualizar una persona")
-    def put(self, request, pk):
-        persona = Persona.objects.get(pk=pk)
-        # Pasamos el objeto actual + la nueva data
-        serializer = self.serializer_class(persona, data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save() 
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @extend_schema(summary="Borrar una persona")
+        return Response(serializer.errors)
+    
     def delete(self, request, pk):
-        persona = Persona.objects.get(pk=pk)
-        persona.delete() # Borra de la base de datos
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        #persona = Persona.objects.get(id=pk)
+        persona = get_object_or_404(Persona, id=pk)
+
+        persona.DeleteDate = timezone.now() 
+        persona.save()
+
+        return Response({"message": "Eliminado lógicamente"})
