@@ -13,7 +13,7 @@ class PersonaView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        personas = Persona.objects.filter(DeleteDate__isnull=True)
+        personas = Persona.objects.filter(delete_date__isnull=True)
         serializer = self.serializer_class(personas, many=True)
         return Response(serializer.data)
 
@@ -46,7 +46,7 @@ class PersonaDetailView(APIView):
         #persona = Persona.objects.get(id=pk)
         persona = get_object_or_404(Persona, id=pk)
 
-        persona.DeleteDate = timezone.now() 
+        persona.delete_date = timezone.now() 
         persona.save()
 
         return Response({"message": "Eliminado lógicamente"})

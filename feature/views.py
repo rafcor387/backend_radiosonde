@@ -3,6 +3,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+from .serializers import RadiosondeUploadSerializer 
 
 from .rs_core import process_uploaded_tsv
 from .llm_groq import summarize_radiosonde
@@ -10,26 +11,20 @@ from .llm_groq import summarize_radiosonde
 from io import BytesIO
 
 class RadiosondeProcessView(APIView):
+    serializer_class = RadiosondeUploadSerializer
     parser_classes = [MultiPartParser, FormParser]
 
-    @extend_schema(
-        operation_id="upload_radiosonde",
-        description="Sube un archivo .tsv de radiosondeo para procesarlo.",
-        request={
-            'multipart/form-data': {
-                'type': 'object',
-                'properties': {
-                 'file': {
-                     'type': 'string',
-                     'format': 'binary'  # <-- Esto es lo que activa el botón de "Subir archivo"
-                 }
-             }
-         }
-     }
-    )
     def post(self, request, *args, **kwargs):
-        # 1) Obtener archivo (multipart o raw)
-        up = request.FILES.get('file') or request.FILES.get('upload')
+        #Pasamos los datos (incluyendo el archivo) al serializer
+        serializer = self.serializer_class(data=request.data)
+        
+        #Validamos: ¿Es un archivo real? ¿Viene en el campo 'file'?
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        #Obtenemos el archivo ya validado de forma segura
+        up = serializer.validated_data['file']
+
         if up is None and request.content_type and 'octet-stream' in request.content_type:
             up = BytesIO(request.body)
             up.name = request.headers.get('X-Filename', 'radiosonde.tsv')

@@ -25,3 +25,9 @@ class LoginSerializer(serializers.Serializer):
 
 class NuevoUsuarioPasswordSerializer(serializers.Serializer):
     password = serializers.CharField(min_length=6, write_only=True)
+    
+class InvitacionEmailSerializer(serializers.Serializer):
+    RECEIVER_EMAIL = serializers.EmailField(
+        required=True,
+        help_text="El correo electrónico de la persona a la que quieres invitar."
+    )

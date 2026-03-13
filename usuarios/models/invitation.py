@@ -8,9 +8,9 @@ class Invitacion(models.Model):
         IGNORADA = 'IGNORADA', 'Ignorada'
         CANCELADA = 'CANCELADA', 'Cancelada'
 
-    guest = models.OneToOneField('Persona', on_delete=models.CASCADE)
-    host = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, related_name='invitaciones_enviadas')
-
+    persona = models.OneToOneField('Persona', on_delete=models.CASCADE, null=True)
+    usuario = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, related_name='invitaciones_enviadas')
+    email = models.EmailField(null=True)
     token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     estado = models.CharField(max_length=10, choices=EstadoInvitacion.choices, default=EstadoInvitacion.ENTREGADA)
     creation_date = models.DateTimeField(auto_now_add=True)

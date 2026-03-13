@@ -8,6 +8,8 @@ from drf_spectacular.utils import extend_schema
 from usuarios.models import User, Persona, Invitacion, RolUser
 from usuarios.serializers import LoginSerializer, NuevoUsuarioPasswordSerializer
 from ..permissions import HasValidInvitationToken
+from usuarios.serializers.auth import InvitacionEmailSerializer 
+from rest_framework.permissions import AllowAny
 
 class LoginView(APIView):
     permission_classes = []
@@ -52,20 +54,43 @@ class CompletarRegistroUserView(APIView):
             return Response({'error': 'Token inválido'}, status=status.HTTP_403_FORBIDDEN)
 
 class EmailsendView(APIView):
-    # Aquí podríamos crear un serializer simple para que Swagger muestre RECEIVER_EMAIL
+    permission_classes = [AllowAny]
+    serializer_class = InvitacionEmailSerializer
+
     def post(self, request):
-        receiver_email = request.data.get('RECEIVER_EMAIL')
+        serializer = self.serializer_class(data=request.data)
+        
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        receiver_email = serializer.validated_data.get('RECEIVER_EMAIL')
+        
         if not receiver_email:
             return Response({'error': 'Email obligatorio'}, status=status.HTTP_400_BAD_REQUEST)
 
         if Persona.objects.filter(email=receiver_email).exists():
-            return Response({'error': 'Ya existe una invitación para este email.'},
-status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'Ya existe una invitación para este email.'},status=status.HTTP_400_BAD_REQUEST)
 
-        persona_invitada = Persona.objects.create(email=receiver_email)
-        invitacion = Invitacion.objects.create(guest=persona_invitada, host=request.user)
+        invitacion = Invitacion.objects.create(
+            email=receiver_email, 
+            usuario=request.user
+            )
+        
+        frontend_url = 'http://localhost:3000/register'
 
-        url = f"http://localhost:3000/register?token={invitacion.token}&id={persona_invitada.id}"
-        send_mail("Invitación al sistema", f"Enlace: {url}", settings.DEFAULT_FROM_EMAIL, [receiver_email])
-
-        return Response({'message': 'Invitación enviada.'}, status=status.HTTP_201_CREATED)
+        asunto = "Has sido invitado a nuestro sistema"
+        mensaje = (
+            f"¡Hola!\n\n"
+            f"Has sido invitado a unirte a nuestro sistema por {request.user.username}.\n"
+            f"Para completar tu registro, entra a nuestra pagina: {frontend_url}\n\n"
+            f"Debes usar tu token {invitacion.token} para poder Crear una Cuenta.\n\n"
+            f"¡Te esperamos!"
+        )
+        
+        send_mail(asunto, mensaje, settings.DEFAULT_FROM_EMAIL, [receiver_email])
+        
+        new_guest = Persona.objects.create(email=receiver_email, rol_persona_id=2)
+        invitacion.persona = new_guest
+        invitacion.save()
+                
+        return Response({'message': f'Invitación enviada exitosamente a {receiver_email}.'}, status=status.HTTP_201_CREATED)

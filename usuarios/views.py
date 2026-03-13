@@ -117,18 +117,13 @@ class EmailsendView(APIView):
         )
 
         frontend_url = 'http://localhost:3000/register'
-        
-        # --- CAMBIO AQUÍ ---
-        # Agregamos el parámetro "&id=" con el ID de la persona creada
-        invitacion_url = f"{frontend_url}?token={invitacion.token}&id={persona_invitada.id}"
-        # -------------------
 
         asunto = "Has sido invitado a nuestro sistema"
         mensaje = (
             f"¡Hola!\n\n"
             f"Has sido invitado a unirte a nuestro sistema por {request.user.username}.\n"
-            f"Para completar tu registro, por favor haz clic en el siguiente enlace:\n\n"
-            f"{invitacion_url}\n\n"
+            f"Para completar tu registro, entra a nuestra pagina: {frontend_url}\n\n"
+            f" y usa tu token {invitacion.token} para poder Crear una Cuenta.\n\n"
             f"¡Te esperamos!"
         )
         

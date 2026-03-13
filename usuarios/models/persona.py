@@ -12,4 +12,4 @@ class Persona(models.Model):
     update_date = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'persona'
+        db_table = 'personas'
