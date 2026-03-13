@@ -8,7 +8,7 @@ from rest_framework.permissions import AllowAny
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 
-class PersonaSimpleView(APIView):
+class PersonaView(APIView):
     serializer_class = PersonaSerializer
     permission_classes = [AllowAny]
 

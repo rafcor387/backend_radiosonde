@@ -13,4 +13,9 @@ class Invitacion(models.Model):
 
     token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     estado = models.CharField(max_length=10, choices=EstadoInvitacion.choices, default=EstadoInvitacion.ENTREGADA)
-    created = models.DateTimeField(auto_now_add=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
+    delete_date = models.DateTimeField(null=True, blank=True)
+    update_date = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'invitacion'

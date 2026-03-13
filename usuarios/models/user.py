@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from .rol import RolUser
 
 class CustomUserManager(BaseUserManager):
+    #crear usuario normal
     def create_user(self, username, password=None, **extra_fields):
         if not username:
             raise ValueError('El campo username es obligatorio.')
@@ -10,13 +11,12 @@ class CustomUserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
-
+    
+    #crear usuario admin
     def create_superuser(self, username, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
-        # Importación dentro del método para evitar fallos al arrancar
-        from .rol import RolUser
         admin_rol, _ = RolUser.objects.get_or_create(id=1, defaults={'nombre': 'Administrador'})
         extra_fields.setdefault('rol_user', admin_rol)
         return self.create_user(username, password, **extra_fields)
@@ -30,9 +30,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    CreationDate = models.DateTimeField(auto_now_add=True)
-    DeleteDate = models.DateTimeField(null=True, blank=True)
-    UpdateDate = models.DateTimeField(null=True, blank=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
+    delete_date = models.DateTimeField(null=True, blank=True)
+    update_date = models.DateTimeField(auto_now=True)
 
     objects = CustomUserManager()
     USERNAME_FIELD = 'username'

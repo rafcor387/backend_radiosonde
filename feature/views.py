@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
 from .rs_core import process_uploaded_tsv
 from .llm_groq import summarize_radiosonde
@@ -11,6 +12,21 @@ from io import BytesIO
 class RadiosondeProcessView(APIView):
     parser_classes = [MultiPartParser, FormParser]
 
+    @extend_schema(
+        operation_id="upload_radiosonde",
+        description="Sube un archivo .tsv de radiosondeo para procesarlo.",
+        request={
+            'multipart/form-data': {
+                'type': 'object',
+                'properties': {
+                 'file': {
+                     'type': 'string',
+                     'format': 'binary'  # <-- Esto es lo que activa el botón de "Subir archivo"
+                 }
+             }
+         }
+     }
+    )
     def post(self, request, *args, **kwargs):
         # 1) Obtener archivo (multipart o raw)
         up = request.FILES.get('file') or request.FILES.get('upload')

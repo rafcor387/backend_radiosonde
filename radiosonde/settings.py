@@ -34,11 +34,11 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # O el de tu proveedor
+EMAIL_HOST = 'smtp.gmail.com'  
 EMAIL_PORT = 587
-EMAIL_USE_TLS = True # Para la conexión segura
-EMAIL_HOST_USER = config('EMAIL_HOST_USER') # Lee desde el archivo .env
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') # Lee desde el archivo .env
+EMAIL_USE_TLS = True 
+EMAIL_HOST_USER = config('EMAIL_HOST_USER') 
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') 
 
 # Esta será la dirección por defecto que aparecerá en el "From" si no especificas otra
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
