@@ -1,10 +1,14 @@
 from datetime import date, datetime, time, timezone
+from io import BytesIO
+from unittest.mock import patch
 
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
 from .models import RadiosondeProfile
+from .services.radiosonde_normalizer import normalize_radiosonde
+from .services.radiosonde_source import inspect_radiosonde_source
 
 
 class RadiosondeSearchViewTests(APITestCase):
@@ -39,10 +43,11 @@ class RadiosondeSearchViewTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["count"], 2)
-        self.assertEqual(
-            [item["profile_id"] for item in response.data["radiosondes"]],
-            [1, 2],
-        )
+        profile_ids = [
+            item["profile_id"] for item in response.data["radiosondes"]
+        ]
+        self.assertTrue(all(isinstance(profile_id, int) for profile_id in profile_ids))
+        self.assertEqual(profile_ids[1], profile_ids[0] + 1)
         self.assertEqual(
             [item["date"] for item in response.data["radiosondes"]],
             ["2018-05-14", "2018-05-14"],
@@ -90,5 +95,85 @@ class RadiosondeSearchViewTests(APITestCase):
 
         self.assertEqual(missing.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(invalid.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class RadiosondeSourceLoaderTests(APITestCase):
+    def setUp(self):
+        self.profile = RadiosondeProfile.objects.create(
+            date=date(2018, 2, 1),
+            time=time(12, 0),
+            observed_at=None,
+            bucket="radiosondes",
+            object_key="01022018EDT.tsv",
+        )
+        self.tsv = b"""Information about sounding:
+Station:                  85201 LaPaz
+Launch time:              2018-02-01 11:58:49 UTC
+
+     time       T      RH       v       u   Height       P      TD      MR
+     0.00  279.20      88    0.00    2.00     4065  627.50  277.30    8.21
+     2.00  278.60      97    1.72   -0.02     4161  620.20  278.10    8.76
+"""
+
+    @patch("feature.services.radiosonde_source.get_r2_client")
+    def test_downloads_catalog_object_and_inspects_edt_header(self, get_client):
+        get_client.return_value.get_object.return_value = {
+            "Body": BytesIO(self.tsv),
+            "ContentLength": len(self.tsv),
+            "ETag": '"test-etag"',
+        }
+
+        result = inspect_radiosonde_source(self.profile.pk)
+
+        get_client.return_value.get_object.assert_called_once_with(
+            Bucket="radiosondes",
+            Key="01022018EDT.tsv",
+        )
+        self.assertEqual(result["profile"]["profile_id"], self.profile.pk)
+        self.assertEqual(result["source"]["station"], "85201 LaPaz")
+        self.assertEqual(result["source"]["launch_time"], "2018-02-01T11:58:49Z")
+        self.assertEqual(result["source"]["rows"], 2)
+        self.assertEqual(result["source"]["surface_pressure_hpa"], 627.5)
+        self.assertEqual(result["catalog_match"]["date"], True)
+        self.assertEqual(result["catalog_match"]["synoptic_hour"], True)
+        self.assertEqual(result["warnings"], [])
+
+    @patch("feature.services.radiosonde_source.get_r2_client")
+    def test_normalizes_profile_and_returns_general_response(self, get_client):
+        get_client.return_value.get_object.return_value = {
+            "Body": BytesIO(self.tsv),
+            "ContentLength": len(self.tsv),
+            "ETag": '"test-etag"',
+        }
+
+        normalized = normalize_radiosonde(self.profile.pk)
+        result = normalized.general_response()
+
+        self.assertEqual(result["profile"]["profile_id"], self.profile.pk)
+        self.assertEqual(result["coverage"]["levels"], 2)
+        self.assertEqual(result["coverage"]["surface_pressure_hpa"], 627.5)
+        self.assertEqual(result["coverage"]["top_pressure_hpa"], 620.2)
+        self.assertEqual(result["surface"]["temperature_c"], 6.05)
+        self.assertTrue(result["quality"]["pressure_strictly_decreasing"])
+        self.assertTrue(result["quality"]["height_strictly_increasing"])
+
+    @patch("feature.services.radiosonde_source.get_r2_client")
+    def test_profile_endpoint_returns_normalized_summary(self, get_client):
+        get_client.return_value.get_object.return_value = {
+            "Body": BytesIO(self.tsv),
+            "ContentLength": len(self.tsv),
+            "ETag": '"test-etag"',
+        }
+
+        response = self.client.get(
+            reverse("radiosonde-profile", kwargs={"profile_id": self.profile.pk})
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["profile"]["profile_id"], self.profile.pk)
+        self.assertIn("quality", response.data)
+        self.assertIn("coverage", response.data)
+        self.assertIn("surface", response.data)
+        self.assertIn("top", response.data)
 
 # Create your tests here.

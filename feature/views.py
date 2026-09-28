@@ -3,7 +3,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema, OpenApiTypes
 from .models import RadiosondeProfile
 from .serializers import (
     RadiosondeSearchQuerySerializer,
@@ -14,6 +14,11 @@ from .serializers import (
 
 from .rs_core import process_uploaded_tsv
 from .llm_groq import summarize_radiosonde
+from .services.radiosonde_normalizer import (
+    RadiosondeNormalizationError,
+    normalize_radiosonde,
+)
+from .services.radiosonde_source import RadiosondeSourceError
 
 from io import BytesIO
 
@@ -45,6 +50,35 @@ class RadiosondeSearchView(APIView):
             },
             status=status.HTTP_200_OK,
         )
+
+
+class RadiosondeProfileView(APIView):
+    """Devuelve los datos generales de un perfil normalizado en memoria."""
+
+    permission_classes = [AllowAny]
+
+    @extend_schema(responses={200: OpenApiTypes.OBJECT})
+    def get(self, request, profile_id, *args, **kwargs):
+        if not RadiosondeProfile.objects.filter(pk=profile_id).exists():
+            return Response(
+                {"detail": f"No existe un radiosondeo con profile_id={profile_id}."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        try:
+            result = normalize_radiosonde(profile_id).general_response()
+        except RadiosondeSourceError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+        except RadiosondeNormalizationError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            )
+
+        return Response(result, status=status.HTTP_200_OK)
 
 class RadiosondeProcessView(APIView):
     serializer_class = RadiosondeUploadSerializer

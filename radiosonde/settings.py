@@ -23,6 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Carga .env desde la raíz del proyecto
 load_dotenv(BASE_DIR / ".env")
 
+# Compatibilidad local con el módulo R2 existente en este monorepo. Las
+# variables de entorno del despliegue tienen prioridad porque override=False.
+load_dotenv(BASE_DIR.parent / "cloudflare_r2" / ".env")
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
