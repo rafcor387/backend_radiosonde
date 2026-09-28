@@ -1,14 +1,50 @@
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
-from .serializers import RadiosondeUploadSerializer 
+from drf_spectacular.utils import extend_schema
+from .models import RadiosondeProfile
+from .serializers import (
+    RadiosondeSearchQuerySerializer,
+    RadiosondeSearchResponseSerializer,
+    RadiosondeSearchResultSerializer,
+    RadiosondeUploadSerializer,
+)
 
 from .rs_core import process_uploaded_tsv
 from .llm_groq import summarize_radiosonde
 
 from io import BytesIO
+
+
+class RadiosondeSearchView(APIView):
+    """Busca los perfiles disponibles para una fecha, sin descargar el TSV."""
+
+    # Primera versión: búsqueda pública de metadatos mínimos. No expone bucket,
+    # object_key ni contenido del radiosondeo.
+    permission_classes = [AllowAny]
+
+    @extend_schema(
+        parameters=[RadiosondeSearchQuerySerializer],
+        responses={200: RadiosondeSearchResponseSerializer},
+    )
+    def get(self, request, *args, **kwargs):
+        query = RadiosondeSearchQuerySerializer(data=request.query_params)
+        query.is_valid(raise_exception=True)
+
+        profiles = RadiosondeProfile.objects.filter(
+            date=query.validated_data["date"]
+        ).order_by("time", "observed_at", "id")
+
+        radiosondes = RadiosondeSearchResultSerializer(profiles, many=True).data
+        return Response(
+            {
+                "count": len(radiosondes),
+                "radiosondes": radiosondes,
+            },
+            status=status.HTTP_200_OK,
+        )
 
 class RadiosondeProcessView(APIView):
     serializer_class = RadiosondeUploadSerializer
