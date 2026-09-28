@@ -10,6 +10,7 @@ from usuarios.serializers import LoginSerializer, NuevoUsuarioPasswordSerializer
 from ..permissions import HasValidInvitationToken
 from usuarios.serializers.auth import InvitacionEmailSerializer 
 from rest_framework.permissions import AllowAny
+from usuarios.services.email_services import enviar_invitacion_registro
 
 class LoginView(APIView):
     permission_classes = []
@@ -18,8 +19,8 @@ class LoginView(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            tokens = serializer.save()
-            return Response(tokens, status=status.HTTP_200_OK)
+            response = serializer.save()
+            return Response(response, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CompletarRegistroUserView(APIView):
@@ -34,7 +35,7 @@ class CompletarRegistroUserView(APIView):
         token = request.META.get('HTTP_INVITATION_TOKEN')
         try:
             invitacion = Invitacion.objects.get(token=token, estado='ENTREGADA')
-            persona = invitacion.guest
+            persona = invitacion.persona
             if User.objects.filter(username=persona.email).exists():
                 return Response({'error': 'Email ya registrado.'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -53,44 +54,28 @@ class CompletarRegistroUserView(APIView):
         except Invitacion.DoesNotExist:
             return Response({'error': 'Token inválido'}, status=status.HTTP_403_FORBIDDEN)
 
+from rest_framework.permissions import IsAuthenticated
+from ..permissions import HasValidInvitationToken, IsAdminUser
+
 class EmailsendView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated, IsAdminUser]
     serializer_class = InvitacionEmailSerializer
 
     def post(self, request):
+        # 1. Validar formato de entrada
         serializer = self.serializer_class(data=request.data)
-        
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         receiver_email = serializer.validated_data.get('RECEIVER_EMAIL')
         
-        if not receiver_email:
-            return Response({'error': 'Email obligatorio'}, status=status.HTTP_400_BAD_REQUEST)
-
-        if Persona.objects.filter(email=receiver_email).exists():
-            return Response({'error': 'Ya existe una invitación para este email.'},status=status.HTTP_400_BAD_REQUEST)
-
-        invitacion = Invitacion.objects.create(
-            email=receiver_email, 
-            usuario=request.user
+        # 2. Llamar a la lógica de negocio (El Servicio)
+        try:
+            enviar_invitacion_registro(receiver_email, request.user)
+            return Response(
+                {'message': f'Invitación enviada exitosamente a {receiver_email}.'}, 
+                status=status.HTTP_201_CREATED
             )
-        
-        frontend_url = 'http://localhost:3000/register'
-
-        asunto = "Has sido invitado a nuestro sistema"
-        mensaje = (
-            f"¡Hola!\n\n"
-            f"Has sido invitado a unirte a nuestro sistema por {request.user.username}.\n"
-            f"Para completar tu registro, entra a nuestra pagina: {frontend_url}\n\n"
-            f"Debes usar tu token {invitacion.token} para poder Crear una Cuenta.\n\n"
-            f"¡Te esperamos!"
-        )
-        
-        send_mail(asunto, mensaje, settings.DEFAULT_FROM_EMAIL, [receiver_email])
-        
-        new_guest = Persona.objects.create(email=receiver_email, rol_persona_id=2)
-        invitacion.persona = new_guest
-        invitacion.save()
-                
-        return Response({'message': f'Invitación enviada exitosamente a {receiver_email}.'}, status=status.HTTP_201_CREATED)
+        except ValueError as e:
+            # Si el servicio lanza un error (ej. correo ya existe), lo capturamos
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)

@@ -6,7 +6,13 @@ class IsAdminUser(BasePermission):
     message = "Solo los administradores pueden realizar esta acción."
 
     def has_permission(self, request, view):
-        return request.user.rol_user is not None and request.user.rol_user.id == 1
+        # Convertimos el nombre a minúsculas para evitar problemas con mayúsculas/minúsculas
+        return bool(
+            request.user and 
+            request.user.is_authenticated and 
+            request.user.rol_user and 
+            request.user.rol_user.nombre.lower() == 'administrador'
+        )
     
 class HasValidInvitationToken(permissions.BasePermission):
     """
