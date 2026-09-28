@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from django.http import HttpResponse
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -22,6 +23,18 @@ from .services.radiosonde_source import RadiosondeSourceError
 from .services.radiosonde_stability import (
     RadiosondeStabilityError,
     classify_radiosonde_stability,
+)
+from .services.radiosonde_skewt import (
+    PLOT_VERSION as SKEWT_PLOT_VERSION,
+    RadiosondeSkewTError,
+    get_or_create_skewt,
+    load_skewt_png,
+)
+from .services.radiosonde_hodograph import (
+    PLOT_VERSION as HODOGRAPH_PLOT_VERSION,
+    RadiosondeHodographError,
+    get_or_create_hodograph,
+    load_hodograph_png,
 )
 
 from io import BytesIO
@@ -112,6 +125,156 @@ class RadiosondeStabilityView(APIView):
             )
 
         return Response(result, status=status.HTTP_200_OK)
+
+
+class RadiosondeSkewTView(APIView):
+    """Genera/cachea el Skew-T y devuelve sólo su descriptor público."""
+
+    permission_classes = [AllowAny]
+
+    @extend_schema(responses={200: OpenApiTypes.OBJECT})
+    def get(self, request, profile_id, *args, **kwargs):
+        if not RadiosondeProfile.objects.filter(pk=profile_id).exists():
+            return Response(
+                {"detail": f"No existe un radiosondeo con profile_id={profile_id}."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        try:
+            artifact, normalized = get_or_create_skewt(profile_id)
+        except RadiosondeSourceError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+        except (RadiosondeNormalizationError, RadiosondeSkewTError) as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            )
+
+        return Response(
+            artifact.descriptor(normalized),
+            status=status.HTTP_200_OK,
+        )
+
+
+class RadiosondeSkewTImageView(APIView):
+    """Entrega el PNG del Skew-T en línea o como descarga."""
+
+    permission_classes = [AllowAny]
+
+    @extend_schema(responses={(200, "image/png"): OpenApiTypes.BINARY})
+    def get(self, request, profile_id, *args, **kwargs):
+        if not RadiosondeProfile.objects.filter(pk=profile_id).exists():
+            return Response(
+                {"detail": f"No existe un radiosondeo con profile_id={profile_id}."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        try:
+            artifact, png_bytes = load_skewt_png(profile_id)
+        except RadiosondeSourceError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+        except (RadiosondeNormalizationError, RadiosondeSkewTError) as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            )
+
+        download = request.query_params.get("download", "false").lower() in {
+            "1",
+            "true",
+            "yes",
+        }
+        disposition = "attachment" if download else "inline"
+        response = HttpResponse(png_bytes, content_type="image/png")
+        response["Content-Disposition"] = (
+            f'{disposition}; filename="{artifact.filename}"'
+        )
+        response["Cache-Control"] = "private, max-age=3600"
+        response["ETag"] = (
+            f'"skew-t-{SKEWT_PLOT_VERSION}-{artifact.source_sha256}"'
+        )
+        return response
+
+
+class RadiosondeHodographView(APIView):
+    """Genera/cachea el hodógrafo y devuelve sólo su descriptor público."""
+
+    permission_classes = [AllowAny]
+
+    @extend_schema(responses={200: OpenApiTypes.OBJECT})
+    def get(self, request, profile_id, *args, **kwargs):
+        if not RadiosondeProfile.objects.filter(pk=profile_id).exists():
+            return Response(
+                {"detail": f"No existe un radiosondeo con profile_id={profile_id}."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        try:
+            artifact, normalized = get_or_create_hodograph(profile_id)
+        except RadiosondeSourceError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+        except (RadiosondeNormalizationError, RadiosondeHodographError) as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            )
+
+        return Response(
+            artifact.descriptor(normalized),
+            status=status.HTTP_200_OK,
+        )
+
+
+class RadiosondeHodographImageView(APIView):
+    """Entrega el PNG del hodógrafo en línea o como descarga."""
+
+    permission_classes = [AllowAny]
+
+    @extend_schema(responses={(200, "image/png"): OpenApiTypes.BINARY})
+    def get(self, request, profile_id, *args, **kwargs):
+        if not RadiosondeProfile.objects.filter(pk=profile_id).exists():
+            return Response(
+                {"detail": f"No existe un radiosondeo con profile_id={profile_id}."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        try:
+            artifact, png_bytes = load_hodograph_png(profile_id)
+        except RadiosondeSourceError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+        except (RadiosondeNormalizationError, RadiosondeHodographError) as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            )
+
+        download = request.query_params.get("download", "false").lower() in {
+            "1",
+            "true",
+            "yes",
+        }
+        disposition = "attachment" if download else "inline"
+        response = HttpResponse(png_bytes, content_type="image/png")
+        response["Content-Disposition"] = (
+            f'{disposition}; filename="{artifact.filename}"'
+        )
+        response["Cache-Control"] = "private, max-age=3600"
+        response["ETag"] = (
+            f'"hodograph-{HODOGRAPH_PLOT_VERSION}-{artifact.source_sha256}"'
+        )
+        return response
 
 class RadiosondeProcessView(APIView):
     serializer_class = RadiosondeUploadSerializer

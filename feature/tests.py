@@ -1,6 +1,6 @@
 from datetime import date, datetime, time, timezone
 from io import BytesIO
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import numpy as np
 from django.urls import reverse
@@ -10,6 +10,11 @@ from rest_framework.test import APITestCase
 from .models import RadiosondeProfile
 from .services.radiosonde_normalizer import normalize_radiosonde
 from .services.radiosonde_source import inspect_radiosonde_source
+from .services.radiosonde_skewt import (
+    calculate_skewt_diagnostics,
+    render_skewt_png,
+)
+from .services.radiosonde_hodograph import render_hodograph_png
 from .services.radiosonde_stability import (
     _convective_potential_axis,
     _parcel_stability_axis,
@@ -206,6 +211,142 @@ Launch time:              2018-02-01 11:58:49 UTC
         self.assertEqual(response.data["classification"]["code"], "unstable")
         self.assertTrue(response.data["rules"]["convective_energy"])
         classify.assert_called_once_with(self.profile.pk)
+
+    @patch("feature.services.radiosonde_source.get_r2_client")
+    def test_renders_skew_t_as_png_in_memory(self, get_client):
+        get_client.return_value.get_object.return_value = {
+            "Body": BytesIO(self.tsv),
+            "ContentLength": len(self.tsv),
+            "ETag": '"test-etag"',
+        }
+        normalized = normalize_radiosonde(self.profile.pk)
+
+        png = render_skewt_png(normalized)
+
+        self.assertTrue(png.startswith(b"\x89PNG\r\n\x1a\n"))
+        self.assertGreater(len(png), 1000)
+
+    @patch("feature.services.radiosonde_source.get_r2_client")
+    def test_skew_t_diagnostics_expose_energy_levels_and_indices(self, get_client):
+        get_client.return_value.get_object.return_value = {
+            "Body": BytesIO(self.tsv),
+            "ContentLength": len(self.tsv),
+            "ETag": '"test-etag"',
+        }
+        normalized = normalize_radiosonde(self.profile.pk)
+
+        diagnostics = calculate_skewt_diagnostics(normalized)
+
+        self.assertIn("cape_j_kg", diagnostics["surface_based"])
+        self.assertIn("cin_j_kg", diagnostics["surface_based"])
+        self.assertIn("mixed_layer_50hpa", diagnostics)
+        self.assertIn("most_unstable_300hpa", diagnostics)
+        self.assertIn("lcl_pressure_hpa", diagnostics["levels"])
+        self.assertIn("precipitable_water_mm", diagnostics["indices"])
+
+    @patch("feature.views.get_or_create_skewt")
+    def test_skew_t_descriptor_endpoint_returns_relative_paths(self, create_skewt):
+        artifact = Mock()
+        artifact.descriptor.return_value = {
+            "type": "skew_t_diagram",
+            "profile": {"profile_id": self.profile.pk},
+            "image_path": f"/api/radiosondes/{self.profile.pk}/skew-t/image",
+            "download_path": (
+                f"/api/radiosondes/{self.profile.pk}/skew-t/image?download=true"
+            ),
+            "filename": "skew-t-LPZ-2018-02-01-1200Z.png",
+        }
+        create_skewt.return_value = (artifact, Mock())
+
+        response = self.client.get(
+            reverse("radiosonde-skew-t", kwargs={"profile_id": self.profile.pk})
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["type"], "skew_t_diagram")
+        self.assertTrue(response.data["image_path"].startswith("/api/"))
+        self.assertNotIn("image_base64", response.data)
+
+    @patch("feature.views.load_skewt_png")
+    def test_skew_t_image_endpoint_supports_download(self, load_png):
+        artifact = Mock(
+            filename="skew-t-LPZ-2018-02-01-1200Z.png",
+            source_sha256="a" * 64,
+        )
+        load_png.return_value = (artifact, b"\x89PNG\r\n\x1a\ncontent")
+
+        response = self.client.get(
+            reverse(
+                "radiosonde-skew-t-image",
+                kwargs={"profile_id": self.profile.pk},
+            ),
+            {"download": "true"},
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response["Content-Type"], "image/png")
+        self.assertTrue(response["Content-Disposition"].startswith("attachment"))
+        self.assertTrue(response.content.startswith(b"\x89PNG"))
+
+    @patch("feature.services.radiosonde_source.get_r2_client")
+    def test_renders_hodograph_as_png_in_memory(self, get_client):
+        get_client.return_value.get_object.return_value = {
+            "Body": BytesIO(self.tsv),
+            "ContentLength": len(self.tsv),
+            "ETag": '"test-etag"',
+        }
+        normalized = normalize_radiosonde(self.profile.pk)
+
+        png = render_hodograph_png(normalized)
+
+        self.assertTrue(png.startswith(b"\x89PNG\r\n\x1a\n"))
+        self.assertGreater(len(png), 1000)
+
+    @patch("feature.views.get_or_create_hodograph")
+    def test_hodograph_descriptor_endpoint_returns_relative_paths(self, create):
+        artifact = Mock()
+        artifact.descriptor.return_value = {
+            "type": "hodograph_diagram",
+            "profile": {"profile_id": self.profile.pk},
+            "image_path": (
+                f"/api/radiosondes/{self.profile.pk}/hodograph/image"
+            ),
+            "download_path": (
+                f"/api/radiosondes/{self.profile.pk}/hodograph/image?download=true"
+            ),
+            "filename": "hodografo-LPZ-2018-02-01-1200Z.png",
+        }
+        create.return_value = (artifact, Mock())
+
+        response = self.client.get(
+            reverse("radiosonde-hodograph", kwargs={"profile_id": self.profile.pk})
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["type"], "hodograph_diagram")
+        self.assertTrue(response.data["image_path"].startswith("/api/"))
+        self.assertNotIn("image_base64", response.data)
+
+    @patch("feature.views.load_hodograph_png")
+    def test_hodograph_image_endpoint_supports_download(self, load_png):
+        artifact = Mock(
+            filename="hodografo-LPZ-2018-02-01-1200Z.png",
+            source_sha256="b" * 64,
+        )
+        load_png.return_value = (artifact, b"\x89PNG\r\n\x1a\ncontent")
+
+        response = self.client.get(
+            reverse(
+                "radiosonde-hodograph-image",
+                kwargs={"profile_id": self.profile.pk},
+            ),
+            {"download": "true"},
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response["Content-Type"], "image/png")
+        self.assertTrue(response["Content-Disposition"].startswith("attachment"))
+        self.assertTrue(response.content.startswith(b"\x89PNG"))
 
 
 class RadiosondeStabilityRulesTests(APITestCase):
