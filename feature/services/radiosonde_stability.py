@@ -44,7 +44,10 @@ def classify_radiosonde_stability(profile_id: int) -> dict:
     return classify_normalized_stability(normalize_radiosonde(profile_id))
 
 
-def classify_normalized_stability(normalized: NormalizedRadiosonde) -> dict:
+def classify_normalized_stability(
+    normalized: NormalizedRadiosonde,
+    thermodynamics=None,
+) -> dict:
     """Genera un diagnóstico multieje mediante MetPy y reglas transparentes."""
     dataframe = normalized.dataframe
     if len(dataframe) < MIN_LEVELS:
@@ -68,7 +71,7 @@ def classify_normalized_stability(normalized: NormalizedRadiosonde) -> dict:
     metpy_warnings = []
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
-        thermodynamics = calculate_thermodynamics(normalized)
+        thermodynamics = thermodynamics or calculate_thermodynamics(normalized)
         cape = thermodynamics.stability_cape()
         calculation_warnings.extend(
             warning

@@ -4,6 +4,9 @@ from .views import (
     RadiosondeHodographImageView,
     RadiosondeHodographView,
     RadiosondeProfileView,
+    RadiosondeReportCreateView,
+    RadiosondeReportFileView,
+    RadiosondeReportStatusView,
     RadiosondeSearchView,
     RadiosondeSkewTImageView,
     RadiosondeSkewTView,
@@ -14,6 +17,21 @@ from .views import (
 
 urlpatterns = [
     path('radiosondes/search/', RadiosondeSearchView.as_view(), name='radiosonde-search'),
+    path(
+        'radiosonde-reports/',
+        RadiosondeReportCreateView.as_view(),
+        name='radiosonde-report-create',
+    ),
+    path(
+        'radiosonde-reports/<int:report_id>/',
+        RadiosondeReportStatusView.as_view(),
+        name='radiosonde-report-status',
+    ),
+    path(
+        'radiosonde-reports/<int:report_id>/file/',
+        RadiosondeReportFileView.as_view(),
+        name='radiosonde-report-file',
+    ),
     path(
         'radiosondes/<int:profile_id>/profile/',
         RadiosondeProfileView.as_view(),

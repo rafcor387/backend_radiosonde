@@ -7,7 +7,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from .models import RadiosondeProfile
+from .models import RadiosondeProfile, RadiosondeReport
 from .services.radiosonde_normalizer import normalize_radiosonde
 from .services.radiosonde_source import inspect_radiosonde_source
 from .services.radiosonde_skewt import (
@@ -25,6 +25,7 @@ from .services.radiosonde_stability import (
     _parcel_stability_axis,
     _static_stability_axis,
 )
+from .services.radiosonde_report import _aggregate_summary, generate_report_pdf
 
 
 class RadiosondeSearchViewTests(APITestCase):
@@ -88,7 +89,58 @@ class RadiosondeSearchViewTests(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, {"count": 0, "radiosondes": []})
+        self.assertEqual(
+            response.data,
+            {
+                "count": 0,
+                "total_count": 0,
+                "has_more": False,
+                "next_offset": None,
+                "radiosondes": [],
+            },
+        )
+
+    def test_searches_an_inclusive_date_range(self):
+        response = self.client.get(
+            reverse("radiosonde-search"),
+            {"start_date": "2018-05-14", "end_date": "2018-05-15"},
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 3)
+        self.assertEqual(response.data["total_count"], 3)
+        self.assertFalse(response.data["has_more"])
+        self.assertEqual(
+            [item["date"] for item in response.data["radiosondes"]],
+            ["2018-05-14", "2018-05-14", "2018-05-15"],
+        )
+
+    def test_filters_a_single_radiosonde_by_date_and_time(self):
+        response = self.client.get(
+            reverse("radiosonde-search"),
+            {"start_date": "2018-05-14", "time": "12:00Z"},
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 1)
+        self.assertEqual(response.data["radiosondes"][0]["time"], "12:00Z")
+
+    def test_paginates_interval_results(self):
+        response = self.client.get(
+            reverse("radiosonde-search"),
+            {
+                "start_date": "2018-05-14",
+                "end_date": "2018-05-15",
+                "limit": 1,
+                "offset": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 1)
+        self.assertEqual(response.data["total_count"], 3)
+        self.assertTrue(response.data["has_more"])
+        self.assertEqual(response.data["next_offset"], 2)
 
     def test_returns_null_time_and_observed_at_when_both_are_missing(self):
         response = self.client.get(
@@ -111,6 +163,103 @@ class RadiosondeSearchViewTests(APITestCase):
 
         self.assertEqual(missing.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(invalid.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_rejects_reversed_range(self):
+        response = self.client.get(
+            reverse("radiosonde-search"),
+            {"start_date": "2018-05-15", "end_date": "2018-05-14"},
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class RadiosondeReportTests(APITestCase):
+    def setUp(self):
+        self.report = RadiosondeReport.objects.create(
+            start_date=date(2018, 1, 1),
+            end_date=date(2018, 1, 2),
+            status=RadiosondeReport.Status.PROCESSING,
+            fingerprint="a" * 64,
+            report_version="v1",
+            bucket="radiosondes",
+            filename="informe-prueba.pdf",
+            profile_count=2,
+        )
+        self.rows = [
+            {
+                "profile_id": 1,
+                "date": "2018-01-01",
+                "time": "12:00Z",
+                "status": "ok",
+                "warnings": [],
+                "surface_temperature_c": 8.2,
+                "surface_relative_humidity_pct": 70.0,
+                "sb_cape_j_kg": 25.0,
+                "ml_cape_j_kg": 110.0,
+                "precipitable_water_mm": 14.0,
+                "maximum_wind_ms": 24.0,
+                "bulk_shear_0_6km_ms": 12.0,
+                "stability_label": "Perfil mixto",
+            },
+            {
+                "profile_id": 2,
+                "date": "2018-01-02",
+                "time": "12:00Z",
+                "status": "partial",
+                "warnings": ["Viento no disponible"],
+                "surface_temperature_c": 6.0,
+                "surface_relative_humidity_pct": 82.0,
+                "sb_cape_j_kg": 0.0,
+                "ml_cape_j_kg": 0.0,
+                "precipitable_water_mm": 12.0,
+                "maximum_wind_ms": None,
+                "bulk_shear_0_6km_ms": None,
+                "stability_label": "Estable",
+            },
+        ]
+
+    def test_generates_a_valid_pdf_in_memory(self):
+        summary = _aggregate_summary(self.rows)
+        pdf = generate_report_pdf(self.report, self.rows, summary)
+
+        self.assertTrue(pdf.startswith(b"%PDF-"))
+        self.assertGreater(len(pdf), 10_000)
+
+    @patch("feature.views.create_radiosonde_report")
+    def test_create_endpoint_returns_processing_descriptor(self, create):
+        create.return_value = (self.report, False)
+
+        response = self.client.post(
+            reverse("radiosonde-report-create"),
+            {
+                "start_date": "2018-01-01",
+                "end_date": "2018-01-02",
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
+        self.assertEqual(response.data["type"], "radiosonde_report")
+        self.assertEqual(response.data["status"], "processing")
+        self.assertEqual(response.data["report_id"], self.report.pk)
+        self.assertIsNone(response.data["view_path"])
+
+    @patch("feature.views.load_report_pdf")
+    def test_file_endpoint_serves_ready_pdf_as_download(self, load):
+        self.report.status = RadiosondeReport.Status.READY
+        self.report.object_key = "derived/reports/v1/test.pdf"
+        self.report.size_bytes = 9
+        self.report.save()
+        load.return_value = (self.report, b"%PDF-test")
+
+        response = self.client.get(
+            reverse("radiosonde-report-file", args=[self.report.pk]),
+            {"download": "true"},
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response["Content-Type"], "application/pdf")
+        self.assertTrue(response["Content-Disposition"].startswith("attachment"))
 
 
 class RadiosondeSourceLoaderTests(APITestCase):

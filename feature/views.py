@@ -5,8 +5,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema, OpenApiTypes
-from .models import RadiosondeProfile
+from .models import RadiosondeProfile, RadiosondeReport
 from .serializers import (
+    RadiosondeReportRequestSerializer,
     RadiosondeSearchQuerySerializer,
     RadiosondeSearchResponseSerializer,
     RadiosondeSearchResultSerializer,
@@ -44,12 +45,18 @@ from .services.radiosonde_hodograph import (
     get_or_create_hodograph,
     load_hodograph_png,
 )
+from .services.radiosonde_report import (
+    RadiosondeReportError,
+    create_radiosonde_report,
+    load_report_pdf,
+    report_descriptor,
+)
 
 from io import BytesIO
 
 
 class RadiosondeSearchView(APIView):
-    """Busca los perfiles disponibles para una fecha, sin descargar el TSV."""
+    """Busca metadatos por fecha exacta o intervalo, sin descargar el TSV."""
 
     # Primera versión: búsqueda pública de metadatos mínimos. No expone bucket,
     # object_key ni contenido del radiosondeo.
@@ -63,18 +70,125 @@ class RadiosondeSearchView(APIView):
         query = RadiosondeSearchQuerySerializer(data=request.query_params)
         query.is_valid(raise_exception=True)
 
+        validated = query.validated_data
         profiles = RadiosondeProfile.objects.filter(
-            date=query.validated_data["date"]
-        ).order_by("time", "observed_at", "id")
+            date__range=(validated["range_start"], validated["range_end"])
+        )
 
-        radiosondes = RadiosondeSearchResultSerializer(profiles, many=True).data
+        requested_time = validated.get("time")
+        if requested_time is not None:
+            profiles = profiles.filter(time=requested_time)
+
+        profiles = profiles.order_by("date", "time", "observed_at", "id")
+        total_count = profiles.count()
+        offset = validated["offset"]
+        limit = validated["limit"]
+        page = profiles[offset : offset + limit]
+
+        radiosondes = RadiosondeSearchResultSerializer(page, many=True).data
+        next_offset = offset + len(radiosondes)
+        has_more = next_offset < total_count
         return Response(
             {
                 "count": len(radiosondes),
+                "total_count": total_count,
+                "has_more": has_more,
+                "next_offset": next_offset if has_more else None,
                 "radiosondes": radiosondes,
             },
             status=status.HTTP_200_OK,
         )
+
+
+class RadiosondeReportCreateView(APIView):
+    """Crea o reutiliza un informe PDF para un intervalo de perfiles."""
+
+    permission_classes = [AllowAny]
+
+    @extend_schema(
+        request=RadiosondeReportRequestSerializer,
+        responses={200: OpenApiTypes.OBJECT, 202: OpenApiTypes.OBJECT},
+    )
+    def post(self, request, *args, **kwargs):
+        serializer = RadiosondeReportRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        values = serializer.validated_data
+        try:
+            report, cached = create_radiosonde_report(
+                start_date=values["start_date"],
+                end_date=values["end_date"],
+                requested_time=values.get("time"),
+            )
+        except RadiosondeReportError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            )
+
+        report.refresh_from_db()
+        response_status = (
+            status.HTTP_200_OK
+            if report.status == RadiosondeReport.Status.READY
+            else status.HTTP_202_ACCEPTED
+        )
+        return Response(
+            report_descriptor(report, cached=cached),
+            status=response_status,
+        )
+
+
+class RadiosondeReportStatusView(APIView):
+    """Devuelve el estado y progreso de un informe solicitado."""
+
+    permission_classes = [AllowAny]
+
+    @extend_schema(responses={200: OpenApiTypes.OBJECT})
+    def get(self, request, report_id, *args, **kwargs):
+        try:
+            report = RadiosondeReport.objects.get(pk=report_id)
+        except RadiosondeReport.DoesNotExist:
+            return Response(
+                {"detail": f"No existe un informe con report_id={report_id}."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        return Response(report_descriptor(report), status=status.HTTP_200_OK)
+
+
+class RadiosondeReportFileView(APIView):
+    """Entrega el PDF en línea o como descarga cuando el trabajo está listo."""
+
+    permission_classes = [AllowAny]
+
+    @extend_schema(responses={(200, "application/pdf"): OpenApiTypes.BINARY})
+    def get(self, request, report_id, *args, **kwargs):
+        if not RadiosondeReport.objects.filter(pk=report_id).exists():
+            return Response(
+                {"detail": f"No existe un informe con report_id={report_id}."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        try:
+            report, pdf_bytes = load_report_pdf(report_id)
+        except RadiosondeReportError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_409_CONFLICT,
+            )
+
+        download = request.query_params.get("download", "false").lower() in {
+            "1",
+            "true",
+            "yes",
+        }
+        disposition = "attachment" if download else "inline"
+        response = HttpResponse(pdf_bytes, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'{disposition}; filename="{report.filename}"'
+        )
+        response["Cache-Control"] = "private, max-age=3600"
+        response["ETag"] = (
+            f'"report-{report.report_version}-{report.fingerprint}"'
+        )
+        return response
 
 
 class RadiosondeProfileView(APIView):

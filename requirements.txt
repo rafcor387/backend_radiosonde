@@ -6,4 +6,5 @@ MetPy==1.7.1
 psycopg2-binary==2.9.11
 python-decouple==3.8
 python-dotenv==1.1.1
+reportlab==4.4.9
 setuptools==65.5.0
