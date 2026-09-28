@@ -2,6 +2,7 @@ from datetime import date, datetime, time, timezone
 from io import BytesIO
 from unittest.mock import patch
 
+import numpy as np
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -9,6 +10,11 @@ from rest_framework.test import APITestCase
 from .models import RadiosondeProfile
 from .services.radiosonde_normalizer import normalize_radiosonde
 from .services.radiosonde_source import inspect_radiosonde_source
+from .services.radiosonde_stability import (
+    _convective_potential_axis,
+    _parcel_stability_axis,
+    _static_stability_axis,
+)
 
 
 class RadiosondeSearchViewTests(APITestCase):
@@ -175,5 +181,65 @@ Launch time:              2018-02-01 11:58:49 UTC
         self.assertIn("coverage", response.data)
         self.assertIn("surface", response.data)
         self.assertIn("top", response.data)
+
+    @patch("feature.views.classify_radiosonde_stability")
+    def test_stability_endpoint_returns_explainable_classification(self, classify):
+        classify.return_value = {
+            "profile": {"profile_id": self.profile.pk},
+            "classification": {
+                "code": "unstable",
+                "label": "Inestable",
+                "method": "deterministic_metpy_rules_v1",
+                "primary_rule": "convective_energy",
+            },
+            "metrics": {},
+            "rules": {"convective_energy": True},
+            "quality": {},
+            "methodology": {},
+        }
+
+        response = self.client.get(
+            reverse("radiosonde-stability", kwargs={"profile_id": self.profile.pk})
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["classification"]["code"], "unstable")
+        self.assertTrue(response.data["rules"]["convective_energy"])
+        classify.assert_called_once_with(self.profile.pk)
+
+
+class RadiosondeStabilityRulesTests(APITestCase):
+    def test_static_stability_reports_mixed_layers_from_n2_sign(self):
+        result = _static_stability_axis(np.array([0.0001, -0.0001]))
+
+        self.assertEqual(result["code"], "mixed")
+        self.assertEqual(result["stable_fraction"], 0.5)
+        self.assertEqual(result["unstable_fraction"], 0.5)
+
+    def test_parcel_stability_uses_consensus_lapse_rate_categories(self):
+        result = _parcel_stability_axis(
+            np.array([4.0, 7.0, 10.5, 9.8]),
+            np.array([5.0, 5.0, 5.0, 5.0]),
+        )
+
+        self.assertEqual(result["code"], "mixed")
+        self.assertEqual(result["absolutely_stable_fraction"], 0.25)
+        self.assertEqual(result["conditionally_unstable_fraction"], 0.25)
+        self.assertEqual(result["absolutely_unstable_fraction"], 0.25)
+        self.assertEqual(result["neutral_fraction"], 0.25)
+
+    def test_convective_potential_marks_low_positive_cape_as_marginal(self):
+        result = _convective_potential_axis(
+            {
+                "surface_based": {"cape_j_kg": 0.0, "cin_j_kg": 0.0},
+                "mixed_layer_50hpa": {
+                    "cape_j_kg": 159.569,
+                    "cin_j_kg": -8.015,
+                },
+            }
+        )
+
+        self.assertEqual(result["code"], "marginal")
+        self.assertTrue(result["cape_positive"])
 
 # Create your tests here.
