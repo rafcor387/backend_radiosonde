@@ -24,6 +24,10 @@ from .services.radiosonde_stability import (
     RadiosondeStabilityError,
     classify_radiosonde_stability,
 )
+from .services.radiosonde_wind import (
+    RadiosondeWindError,
+    analyze_radiosonde_wind,
+)
 from .services.radiosonde_skewt import (
     PLOT_VERSION as SKEWT_PLOT_VERSION,
     RadiosondeSkewTError,
@@ -127,6 +131,35 @@ class RadiosondeStabilityView(APIView):
         return Response(result, status=status.HTTP_200_OK)
 
 
+class RadiosondeWindView(APIView):
+    """Devuelve diagnósticos cinemáticos MetPy del perfil de viento."""
+
+    permission_classes = [AllowAny]
+
+    @extend_schema(responses={200: OpenApiTypes.OBJECT})
+    def get(self, request, profile_id, *args, **kwargs):
+        if not RadiosondeProfile.objects.filter(pk=profile_id).exists():
+            return Response(
+                {"detail": f"No existe un radiosondeo con profile_id={profile_id}."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        try:
+            result = analyze_radiosonde_wind(profile_id)
+        except RadiosondeSourceError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+        except (RadiosondeNormalizationError, RadiosondeWindError) as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            )
+
+        return Response(result, status=status.HTTP_200_OK)
+
+
 class RadiosondeSkewTView(APIView):
     """Genera/cachea el Skew-T y devuelve sólo su descriptor público."""
 
@@ -222,7 +255,11 @@ class RadiosondeHodographView(APIView):
                 {"detail": str(exc)},
                 status=status.HTTP_502_BAD_GATEWAY,
             )
-        except (RadiosondeNormalizationError, RadiosondeHodographError) as exc:
+        except (
+            RadiosondeNormalizationError,
+            RadiosondeHodographError,
+            RadiosondeWindError,
+        ) as exc:
             return Response(
                 {"detail": str(exc)},
                 status=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -254,7 +291,11 @@ class RadiosondeHodographImageView(APIView):
                 {"detail": str(exc)},
                 status=status.HTTP_502_BAD_GATEWAY,
             )
-        except (RadiosondeNormalizationError, RadiosondeHodographError) as exc:
+        except (
+            RadiosondeNormalizationError,
+            RadiosondeHodographError,
+            RadiosondeWindError,
+        ) as exc:
             return Response(
                 {"detail": str(exc)},
                 status=status.HTTP_422_UNPROCESSABLE_ENTITY,

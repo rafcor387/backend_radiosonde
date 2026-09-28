@@ -15,6 +15,7 @@ from .services.radiosonde_skewt import (
     render_skewt_png,
 )
 from .services.radiosonde_hodograph import render_hodograph_png
+from .services.radiosonde_wind import analyze_normalized_wind
 from .services.radiosonde_stability import (
     _convective_potential_axis,
     _parcel_stability_axis,
@@ -347,6 +348,44 @@ Launch time:              2018-02-01 11:58:49 UTC
         self.assertEqual(response["Content-Type"], "image/png")
         self.assertTrue(response["Content-Disposition"].startswith("attachment"))
         self.assertTrue(response.content.startswith(b"\x89PNG"))
+
+    @patch("feature.services.radiosonde_source.get_r2_client")
+    def test_wind_analysis_handles_a_shallow_profile_transparently(self, get_client):
+        get_client.return_value.get_object.return_value = {
+            "Body": BytesIO(self.tsv),
+            "ContentLength": len(self.tsv),
+            "ETag": '"test-etag"',
+        }
+        normalized = normalize_radiosonde(self.profile.pk)
+
+        result = analyze_normalized_wind(normalized)
+
+        self.assertEqual(result["surface_wind"]["speed_ms"], 2.0)
+        self.assertIn("direction_from_deg", result["surface_wind"])
+        self.assertFalse(result["layers"]["0_1km"]["available"])
+        self.assertFalse(result["storm_motion"]["available"])
+        self.assertEqual(result["methodology"]["metpy_version"], "1.7.1")
+
+    @patch("feature.views.analyze_radiosonde_wind")
+    def test_wind_endpoint_returns_metpy_diagnostics(self, analyze):
+        analyze.return_value = {
+            "profile": {"profile_id": self.profile.pk},
+            "surface_wind": {
+                "speed_ms": 3.0,
+                "direction_from_deg": 80.0,
+            },
+            "layers": {"0_1km": {"available": True}},
+            "quality": {"warnings": []},
+            "methodology": {"metpy_version": "1.7.1"},
+        }
+
+        response = self.client.get(
+            reverse("radiosonde-wind", kwargs={"profile_id": self.profile.pk})
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["surface_wind"]["speed_ms"], 3.0)
+        analyze.assert_called_once_with(self.profile.pk)
 
 
 class RadiosondeStabilityRulesTests(APITestCase):

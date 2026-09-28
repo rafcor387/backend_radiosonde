@@ -8,6 +8,7 @@ from .views import (
     RadiosondeSkewTImageView,
     RadiosondeSkewTView,
     RadiosondeStabilityView,
+    RadiosondeWindView,
 )
 
 urlpatterns = [
@@ -21,6 +22,11 @@ urlpatterns = [
         'radiosondes/<int:profile_id>/stability/',
         RadiosondeStabilityView.as_view(),
         name='radiosonde-stability',
+    ),
+    path(
+        'radiosondes/<int:profile_id>/wind/',
+        RadiosondeWindView.as_view(),
+        name='radiosonde-wind',
     ),
     path(
         'radiosondes/<int:profile_id>/skew-t/',

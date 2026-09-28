@@ -15,11 +15,11 @@ from botocore.exceptions import BotoCoreError, ClientError
 
 from .r2_client import get_r2_client
 from .radiosonde_normalizer import NormalizedRadiosonde, normalize_radiosonde
+from .radiosonde_wind import calculate_wind_diagnostics, prepare_wind_profile
 
 
 PLOT_VERSION = "v2"
 MAX_HODOGRAPH_BYTES = 5 * 1024 * 1024
-MAX_HEIGHT_AGL_KM = 12.0
 HEIGHT_MARKERS_KM = (0.0, 1.0, 3.0, 6.0, 9.0, 12.0)
 
 
@@ -66,8 +66,8 @@ def get_or_create_hodograph(
 ) -> tuple[HodographArtifact, NormalizedRadiosonde]:
     """Normaliza el perfil y garantiza que su hodógrafo exista en R2."""
     normalized = normalize_radiosonde(profile_id)
-    wind_profile = _prepare_wind_profile(normalized)
-    diagnostics = _calculate_wind_diagnostics(wind_profile)
+    wind_profile = prepare_wind_profile(normalized)
+    diagnostics = calculate_wind_diagnostics(wind_profile)
     source_hash = hashlib.sha256(normalized.source.raw_bytes).hexdigest()
     object_key = (
         f"derived/hodograph/{PLOT_VERSION}/profile-{profile_id}/{source_hash}.png"
@@ -173,8 +173,8 @@ def render_hodograph_png(
     diagnostics: dict | None = None,
 ) -> bytes:
     """Renderiza un hodógrafo PNG íntegramente en memoria."""
-    wind_profile = wind_profile or _prepare_wind_profile(normalized)
-    diagnostics = diagnostics or _calculate_wind_diagnostics(wind_profile)
+    wind_profile = wind_profile or prepare_wind_profile(normalized)
+    diagnostics = diagnostics or calculate_wind_diagnostics(wind_profile)
     u = wind_profile["u_ms"]
     v = wind_profile["v_ms"]
     height_km = wind_profile["height_agl_km"]
@@ -243,74 +243,6 @@ def render_hodograph_png(
         plt.close(figure)
 
 
-def _prepare_wind_profile(normalized: NormalizedRadiosonde) -> dict:
-    dataframe = normalized.dataframe
-    required = {"u_wind_ms", "v_wind_ms", "height_msl_m"}
-    if not required.issubset(dataframe.columns):
-        raise RadiosondeHodographError(
-            "El radiosondeo no contiene componentes U/V y altura para el hodógrafo."
-        )
-
-    u = dataframe["u_wind_ms"].to_numpy(dtype=float)
-    v = dataframe["v_wind_ms"].to_numpy(dtype=float)
-    height = dataframe["height_msl_m"].to_numpy(dtype=float)
-    height_agl_km = (height - height[0]) / 1000.0
-    valid = (
-        np.isfinite(u)
-        & np.isfinite(v)
-        & np.isfinite(height_agl_km)
-        & (height_agl_km >= 0.0)
-        & (height_agl_km <= MAX_HEIGHT_AGL_KM)
-    )
-    u = u[valid]
-    v = v[valid]
-    height_agl_km = height_agl_km[valid]
-    if len(u) < 2:
-        raise RadiosondeHodographError(
-            "Se requieren al menos dos niveles de viento válidos entre 0 y 12 km AGL."
-        )
-
-    unique_height, unique_indices = np.unique(height_agl_km, return_index=True)
-    return {
-        "u_ms": u[unique_indices],
-        "v_ms": v[unique_indices],
-        "height_agl_km": unique_height,
-    }
-
-
-def _calculate_wind_diagnostics(wind_profile: dict) -> dict:
-    u = wind_profile["u_ms"]
-    v = wind_profile["v_ms"]
-    height = wind_profile["height_agl_km"]
-    speed = np.hypot(u, v)
-    max_index = int(np.nanargmax(speed))
-    diagnostics = {
-        "plotted_layer": {
-            "base_agl_km": round(float(height[0]), 2),
-            "top_agl_km": round(float(height[-1]), 2),
-            "wind_levels": int(len(height)),
-        },
-        "surface_wind": _wind_vector(float(u[0]), float(v[0])),
-        "maximum_wind": {
-            **_wind_vector(float(u[max_index]), float(v[max_index])),
-            "height_agl_km": round(float(height[max_index]), 2),
-        },
-        "bulk_shear": {},
-    }
-    for top_km in (1.0, 3.0, 6.0):
-        key = f"0_{int(top_km)}km"
-        if height[-1] < top_km:
-            diagnostics["bulk_shear"][key] = None
-            continue
-        top_u = float(np.interp(top_km, height, u))
-        top_v = float(np.interp(top_km, height, v))
-        diagnostics["bulk_shear"][key] = _wind_vector(
-            top_u - float(u[0]),
-            top_v - float(v[0]),
-        )
-    return diagnostics
-
-
 def _plot_height_markers(axis, wind_profile):
     u = wind_profile["u_ms"]
     v = wind_profile["v_ms"]
@@ -371,7 +303,13 @@ def _plot_diagnostics_panel(axis, diagnostics):
     y = _panel_section(axis, y - 0.02, "VIENTO")
     surface = diagnostics["surface_wind"]
     y = _panel_value(axis, y, "Superficie", surface["speed_ms"], "m/s")
-    y = _panel_value(axis, y, "Dirección desde", surface["direction_deg"], "°")
+    y = _panel_value(
+        axis,
+        y,
+        "Dirección desde",
+        surface["direction_from_deg"],
+        "°",
+    )
     maximum = diagnostics["maximum_wind"]
     y = _panel_value(axis, y, "Máximo", maximum["speed_ms"], "m/s")
     y = _panel_value(axis, y, "Altura del máximo", maximum["height_agl_km"], "km")
@@ -427,17 +365,6 @@ def _panel_value(axis, y, label, value, unit):
         va="top",
     )
     return y - 0.045
-
-
-def _wind_vector(u_ms: float, v_ms: float) -> dict:
-    speed = math.hypot(u_ms, v_ms)
-    direction = (math.degrees(math.atan2(-u_ms, -v_ms)) + 360.0) % 360.0
-    return {
-        "u_ms": round(u_ms, 1),
-        "v_ms": round(v_ms, 1),
-        "speed_ms": round(speed, 1),
-        "direction_deg": round(direction, 1),
-    }
 
 
 def _component_range(u, v) -> float:
