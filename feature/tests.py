@@ -59,28 +59,37 @@ class RadiosondeSearchViewTests(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["count"], 2)
+        self.assertEqual(response.data["count"], 1)
         profile_ids = [
             item["profile_id"] for item in response.data["radiosondes"]
         ]
         self.assertTrue(all(isinstance(profile_id, int) for profile_id in profile_ids))
-        self.assertEqual(profile_ids[1], profile_ids[0] + 1)
         self.assertEqual(
             [item["date"] for item in response.data["radiosondes"]],
-            ["2018-05-14", "2018-05-14"],
+            ["2018-05-14"],
         )
         self.assertEqual(
             [item["time"] for item in response.data["radiosondes"]],
-            ["00:00Z", "12:00Z"],
+            ["00:00Z"],
         )
         self.assertEqual(
             [item["observed_at"] for item in response.data["radiosondes"]],
-            ["2018-05-14T00:00:00Z", "2018-05-14T12:00:00Z"],
+            ["2018-05-14T00:00:00Z"],
         )
         self.assertEqual(
             set(response.data["radiosondes"][0]),
             {"profile_id", "date", "time", "observed_at"},
         )
+
+    def test_searches_requested_time_when_provided(self):
+        response = self.client.get(
+            reverse("radiosonde-search"),
+            {"date": "2018-05-14", "time": "12:00Z"},
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 1)
+        self.assertEqual(response.data["radiosondes"][0]["time"], "12:00Z")
 
     def test_returns_empty_result_when_date_does_not_exist(self):
         response = self.client.get(
@@ -93,54 +102,9 @@ class RadiosondeSearchViewTests(APITestCase):
             response.data,
             {
                 "count": 0,
-                "total_count": 0,
-                "has_more": False,
-                "next_offset": None,
                 "radiosondes": [],
             },
         )
-
-    def test_searches_an_inclusive_date_range(self):
-        response = self.client.get(
-            reverse("radiosonde-search"),
-            {"start_date": "2018-05-14", "end_date": "2018-05-15"},
-        )
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["count"], 3)
-        self.assertEqual(response.data["total_count"], 3)
-        self.assertFalse(response.data["has_more"])
-        self.assertEqual(
-            [item["date"] for item in response.data["radiosondes"]],
-            ["2018-05-14", "2018-05-14", "2018-05-15"],
-        )
-
-    def test_filters_a_single_radiosonde_by_date_and_time(self):
-        response = self.client.get(
-            reverse("radiosonde-search"),
-            {"start_date": "2018-05-14", "time": "12:00Z"},
-        )
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["count"], 1)
-        self.assertEqual(response.data["radiosondes"][0]["time"], "12:00Z")
-
-    def test_paginates_interval_results(self):
-        response = self.client.get(
-            reverse("radiosonde-search"),
-            {
-                "start_date": "2018-05-14",
-                "end_date": "2018-05-15",
-                "limit": 1,
-                "offset": 1,
-            },
-        )
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["count"], 1)
-        self.assertEqual(response.data["total_count"], 3)
-        self.assertTrue(response.data["has_more"])
-        self.assertEqual(response.data["next_offset"], 2)
 
     def test_returns_null_time_and_observed_at_when_both_are_missing(self):
         response = self.client.get(
@@ -164,7 +128,7 @@ class RadiosondeSearchViewTests(APITestCase):
         self.assertEqual(missing.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(invalid.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_rejects_reversed_range(self):
+    def test_rejects_interval_parameters_without_date(self):
         response = self.client.get(
             reverse("radiosonde-search"),
             {"start_date": "2018-05-15", "end_date": "2018-05-14"},

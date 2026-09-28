@@ -56,7 +56,7 @@ from io import BytesIO
 
 
 class RadiosondeSearchView(APIView):
-    """Busca metadatos por fecha exacta o intervalo, sin descargar el TSV."""
+    """Busca metadatos por una fecha exacta, sin descargar el TSV."""
 
     # Primera versión: búsqueda pública de metadatos mínimos. No expone bucket,
     # object_key ni contenido del radiosondeo.
@@ -72,28 +72,21 @@ class RadiosondeSearchView(APIView):
 
         validated = query.validated_data
         profiles = RadiosondeProfile.objects.filter(
-            date__range=(validated["range_start"], validated["range_end"])
+            date=validated["date"]
         )
-
         requested_time = validated.get("time")
         if requested_time is not None:
             profiles = profiles.filter(time=requested_time)
-
         profiles = profiles.order_by("date", "time", "observed_at", "id")
-        total_count = profiles.count()
-        offset = validated["offset"]
-        limit = validated["limit"]
-        page = profiles[offset : offset + limit]
-
-        radiosondes = RadiosondeSearchResultSerializer(page, many=True).data
-        next_offset = offset + len(radiosondes)
-        has_more = next_offset < total_count
+        profile = profiles.first()
+        radiosondes = (
+            RadiosondeSearchResultSerializer([profile], many=True).data
+            if profile is not None
+            else []
+        )
         return Response(
             {
                 "count": len(radiosondes),
-                "total_count": total_count,
-                "has_more": has_more,
-                "next_offset": next_offset if has_more else None,
                 "radiosondes": radiosondes,
             },
             status=status.HTTP_200_OK,
