@@ -15,6 +15,10 @@ from .services.radiosonde_skewt import (
     render_skewt_png,
 )
 from .services.radiosonde_hodograph import render_hodograph_png
+from .services.radiosonde_thermodynamics import (
+    analyze_normalized_thermodynamics,
+    calculate_thermodynamics,
+)
 from .services.radiosonde_wind import analyze_normalized_wind
 from .services.radiosonde_stability import (
     _convective_potential_axis,
@@ -187,6 +191,55 @@ Launch time:              2018-02-01 11:58:49 UTC
         self.assertIn("coverage", response.data)
         self.assertIn("surface", response.data)
         self.assertIn("top", response.data)
+
+    @patch("feature.services.radiosonde_source.get_r2_client")
+    def test_common_thermodynamic_engine_handles_shallow_profile(self, get_client):
+        get_client.return_value.get_object.return_value = {
+            "Body": BytesIO(self.tsv),
+            "ContentLength": len(self.tsv),
+            "ETag": '"test-etag"',
+        }
+        normalized = normalize_radiosonde(self.profile.pk)
+
+        result = analyze_normalized_thermodynamics(normalized)
+        common = calculate_thermodynamics(normalized)
+
+        self.assertEqual(
+            result["parcels"]["surface_based"]["origin"]["pressure_hpa"],
+            627.5,
+        )
+        self.assertIsNone(result["parcels"]["surface_based"]["cape_j_kg"])
+        self.assertIn("lcl", result["levels"])
+        self.assertFalse(result["downdraft"]["available"])
+        self.assertEqual(
+            common.diagram_diagnostics()["surface_based"]["cape_j_kg"],
+            result["parcels"]["surface_based"]["cape_j_kg"],
+        )
+
+    @patch("feature.views.analyze_radiosonde_thermodynamics")
+    def test_thermodynamics_endpoint_returns_common_diagnostics(self, analyze):
+        analyze.return_value = {
+            "profile": {"profile_id": self.profile.pk},
+            "parcels": {"surface_based": {"cape_j_kg": 0.0}},
+            "levels": {"lcl": {"pressure_hpa": 618.0}},
+            "indices": {"precipitable_water_mm": 15.7},
+            "quality": {"warnings": []},
+            "methodology": {"metpy_version": "1.7.1"},
+        }
+
+        response = self.client.get(
+            reverse(
+                "radiosonde-thermodynamics",
+                kwargs={"profile_id": self.profile.pk},
+            )
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data["levels"]["lcl"]["pressure_hpa"],
+            618.0,
+        )
+        analyze.assert_called_once_with(self.profile.pk)
 
     @patch("feature.views.classify_radiosonde_stability")
     def test_stability_endpoint_returns_explainable_classification(self, classify):

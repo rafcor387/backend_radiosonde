@@ -20,6 +20,10 @@ from .services.radiosonde_normalizer import (
     normalize_radiosonde,
 )
 from .services.radiosonde_source import RadiosondeSourceError
+from .services.radiosonde_thermodynamics import (
+    RadiosondeThermodynamicsError,
+    analyze_radiosonde_thermodynamics,
+)
 from .services.radiosonde_stability import (
     RadiosondeStabilityError,
     classify_radiosonde_stability,
@@ -94,6 +98,38 @@ class RadiosondeProfileView(APIView):
                 status=status.HTTP_502_BAD_GATEWAY,
             )
         except RadiosondeNormalizationError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            )
+
+        return Response(result, status=status.HTTP_200_OK)
+
+
+class RadiosondeThermodynamicsView(APIView):
+    """Devuelve el análisis termodinámico común de un radiosondeo."""
+
+    permission_classes = [AllowAny]
+
+    @extend_schema(responses={200: OpenApiTypes.OBJECT})
+    def get(self, request, profile_id, *args, **kwargs):
+        if not RadiosondeProfile.objects.filter(pk=profile_id).exists():
+            return Response(
+                {"detail": f"No existe un radiosondeo con profile_id={profile_id}."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        try:
+            result = analyze_radiosonde_thermodynamics(profile_id)
+        except RadiosondeSourceError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+        except (
+            RadiosondeNormalizationError,
+            RadiosondeThermodynamicsError,
+        ) as exc:
             return Response(
                 {"detail": str(exc)},
                 status=status.HTTP_422_UNPROCESSABLE_ENTITY,

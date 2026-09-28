@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 
 from .radiosonde_normalizer import NormalizedRadiosonde, normalize_radiosonde
+from .radiosonde_thermodynamics import calculate_thermodynamics
 
 
 MIN_LEVELS = 20
@@ -67,11 +68,12 @@ def classify_normalized_stability(normalized: NormalizedRadiosonde) -> dict:
     metpy_warnings = []
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
-        cape = _calculate_cape_cin(
-            pressure,
-            temperature,
-            dewpoint,
-            calculation_warnings,
+        thermodynamics = calculate_thermodynamics(normalized)
+        cape = thermodynamics.stability_cape()
+        calculation_warnings.extend(
+            warning
+            for warning in thermodynamics.warnings
+            if "CAPE/CIN" in warning
         )
         try:
             vertical = _calculate_vertical_metrics(
@@ -188,40 +190,6 @@ def classify_normalized_stability(normalized: NormalizedRadiosonde) -> dict:
             ),
         },
     }
-
-
-def _calculate_cape_cin(pressure, temperature, dewpoint, warning_messages):
-    result = {
-        "surface_based": {"cape_j_kg": None, "cin_j_kg": None},
-        "mixed_layer_50hpa": {"cape_j_kg": None, "cin_j_kg": None},
-    }
-    try:
-        cape, cin = mpcalc.surface_based_cape_cin(
-            pressure,
-            temperature,
-            dewpoint,
-        )
-        result["surface_based"] = {
-            "cape_j_kg": _quantity_number(cape, "J/kg"),
-            "cin_j_kg": _quantity_number(cin, "J/kg"),
-        }
-    except Exception as exc:
-        warning_messages.append(f"No se pudo calcular SB CAPE/CIN: {exc}")
-
-    try:
-        cape, cin = mpcalc.mixed_layer_cape_cin(
-            pressure,
-            temperature,
-            dewpoint,
-            depth=50 * units.hPa,
-        )
-        result["mixed_layer_50hpa"] = {
-            "cape_j_kg": _quantity_number(cape, "J/kg"),
-            "cin_j_kg": _quantity_number(cin, "J/kg"),
-        }
-    except Exception as exc:
-        warning_messages.append(f"No se pudo calcular ML CAPE/CIN: {exc}")
-    return result
 
 
 def _calculate_vertical_metrics(pressure, temperature, height_agl):
@@ -448,10 +416,6 @@ def _parcel_label(code):
         "absolutely_unstable": "Absolutamente inestable",
         "neutral": "Neutral",
     }[code]
-
-
-def _quantity_number(quantity, unit):
-    return _number(quantity.to(unit).magnitude)
 
 
 def _number(value, digits=3):

@@ -8,7 +8,6 @@ import matplotlib
 matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
-import metpy.calc as mpcalc
 from metpy.plots import SkewT
 from metpy.units import units
 import numpy as np
@@ -16,6 +15,10 @@ from botocore.exceptions import BotoCoreError, ClientError
 
 from .r2_client import get_r2_client
 from .radiosonde_normalizer import NormalizedRadiosonde, normalize_radiosonde
+from .radiosonde_thermodynamics import (
+    ThermodynamicAnalysis,
+    calculate_thermodynamics,
+)
 
 
 PLOT_VERSION = "v4"
@@ -71,7 +74,8 @@ def get_or_create_skewt(profile_id: int) -> tuple[SkewTArtifact, NormalizedRadio
     filename = _filename(normalized)
     bucket = normalized.source.record.bucket
     client = get_r2_client()
-    diagnostics = calculate_skewt_diagnostics(normalized)
+    thermodynamics = calculate_thermodynamics(normalized)
+    diagnostics = thermodynamics.diagram_diagnostics()
 
     cached_size = _cached_size(client, bucket, object_key)
     if cached_size is not None:
@@ -89,7 +93,11 @@ def get_or_create_skewt(profile_id: int) -> tuple[SkewTArtifact, NormalizedRadio
             normalized,
         )
 
-    png_bytes = render_skewt_png(normalized, diagnostics=diagnostics)
+    png_bytes = render_skewt_png(
+        normalized,
+        diagnostics=diagnostics,
+        thermodynamics=thermodynamics,
+    )
     if len(png_bytes) > MAX_SKEWT_BYTES:
         raise RadiosondeSkewTError(
             f"El PNG generado supera el límite de {MAX_SKEWT_BYTES} bytes."
@@ -164,149 +172,25 @@ def load_skewt_png(profile_id: int) -> tuple[SkewTArtifact, bytes]:
 
 
 def calculate_skewt_diagnostics(normalized: NormalizedRadiosonde) -> dict:
-    """Calcula magnitudes termodinámicas para el gráfico y su descriptor."""
-    dataframe = normalized.dataframe
-    pressure = dataframe["pressure_hpa"].to_numpy(dtype=float) * units.hPa
-    temperature = dataframe["temperature_k"].to_numpy(dtype=float) * units.kelvin
-    dewpoint = dataframe["dewpoint_k"].to_numpy(dtype=float) * units.kelvin
-    parcel = mpcalc.parcel_profile(
-        pressure,
-        temperature[0],
-        dewpoint[0],
-    )
-
-    diagnostics = {
-        "surface_based": {"cape_j_kg": None, "cin_j_kg": None},
-        "mixed_layer_50hpa": {"cape_j_kg": None, "cin_j_kg": None},
-        "most_unstable_300hpa": {"cape_j_kg": None, "cin_j_kg": None},
-        "levels": {
-            "lcl_pressure_hpa": None,
-            "lfc_pressure_hpa": None,
-            "el_pressure_hpa": None,
-            "ccl_pressure_hpa": None,
-        },
-        "indices": {
-            "lifted_index_c": None,
-            "precipitable_water_mm": None,
-            "convective_temperature_c": None,
-        },
-    }
-
-    available_depth = pressure[0] - pressure[-1]
-    if len(pressure) >= 10 and available_depth >= 50 * units.hPa:
-        try:
-            cape, cin = mpcalc.surface_based_cape_cin(
-                pressure, temperature, dewpoint
-            )
-            diagnostics["surface_based"] = _cape_cin_values(cape, cin)
-        except (ValueError, IndexError):
-            pass
-
-    if available_depth >= 50 * units.hPa:
-        try:
-            cape, cin = mpcalc.mixed_layer_cape_cin(
-                pressure,
-                temperature,
-                dewpoint,
-                depth=50 * units.hPa,
-            )
-            diagnostics["mixed_layer_50hpa"] = _cape_cin_values(cape, cin)
-        except (ValueError, IndexError):
-            pass
-
-    if available_depth >= 300 * units.hPa:
-        try:
-            cape, cin = mpcalc.most_unstable_cape_cin(
-                pressure,
-                temperature,
-                dewpoint,
-                depth=300 * units.hPa,
-            )
-            diagnostics["most_unstable_300hpa"] = _cape_cin_values(cape, cin)
-        except (ValueError, IndexError):
-            pass
-
-    try:
-        lcl_pressure, _ = mpcalc.lcl(pressure[0], temperature[0], dewpoint[0])
-        diagnostics["levels"]["lcl_pressure_hpa"] = _quantity_number(
-            lcl_pressure, "hPa"
-        )
-    except (ValueError, IndexError):
-        pass
-    try:
-        lfc_pressure, _ = mpcalc.lfc(
-            pressure,
-            temperature,
-            dewpoint,
-            parcel_temperature_profile=parcel,
-        )
-        diagnostics["levels"]["lfc_pressure_hpa"] = _quantity_number(
-            lfc_pressure, "hPa"
-        )
-    except (ValueError, IndexError):
-        pass
-    try:
-        el_pressure, _ = mpcalc.el(
-            pressure,
-            temperature,
-            dewpoint,
-            parcel_temperature_profile=parcel,
-        )
-        diagnostics["levels"]["el_pressure_hpa"] = _quantity_number(
-            el_pressure, "hPa"
-        )
-    except (ValueError, IndexError):
-        pass
-    try:
-        ccl_pressure, _, convective_temperature = mpcalc.ccl(
-            pressure, temperature, dewpoint
-        )
-        diagnostics["levels"]["ccl_pressure_hpa"] = _quantity_number(
-            ccl_pressure, "hPa"
-        )
-        diagnostics["indices"]["convective_temperature_c"] = _quantity_number(
-            convective_temperature, "degC"
-        )
-    except (ValueError, IndexError):
-        pass
-    if pressure[0] >= 500 * units.hPa and pressure[-1] <= 500 * units.hPa:
-        try:
-            lifted_index = mpcalc.lifted_index(
-                pressure, temperature, parcel
-            )
-            diagnostics["indices"]["lifted_index_c"] = _quantity_number(
-                lifted_index, "delta_degC"
-            )
-        except (ValueError, IndexError):
-            pass
-    try:
-        precipitable_water = mpcalc.precipitable_water(pressure, dewpoint)
-        diagnostics["indices"]["precipitable_water_mm"] = _quantity_number(
-            precipitable_water, "mm"
-        )
-    except (ValueError, IndexError):
-        pass
-
-    return diagnostics
+    """Adapta el motor común al contrato compacto del diagrama."""
+    return calculate_thermodynamics(normalized).diagram_diagnostics()
 
 
 def render_skewt_png(
     normalized: NormalizedRadiosonde,
     diagnostics: dict | None = None,
+    thermodynamics: ThermodynamicAnalysis | None = None,
 ) -> bytes:
     """Renderiza un Skew-T PNG íntegramente en memoria."""
+    thermodynamics = thermodynamics or calculate_thermodynamics(normalized)
     dataframe = normalized.dataframe
-    pressure = dataframe["pressure_hpa"].to_numpy(dtype=float) * units.hPa
-    temperature = dataframe["temperature_k"].to_numpy(dtype=float) * units.kelvin
-    dewpoint = dataframe["dewpoint_k"].to_numpy(dtype=float) * units.kelvin
+    pressure = thermodynamics.pressure
+    temperature = thermodynamics.temperature
+    dewpoint = thermodynamics.dewpoint
     temperature_c = temperature.to("degC")
     dewpoint_c = dewpoint.to("degC")
-    parcel = mpcalc.parcel_profile(
-        pressure,
-        temperature[0],
-        dewpoint[0],
-    ).to("degC")
-    diagnostics = diagnostics or calculate_skewt_diagnostics(normalized)
+    parcel = thermodynamics.surface_parcel.to("degC")
+    diagnostics = diagnostics or thermodynamics.diagram_diagnostics()
 
     figure = plt.figure(figsize=(13, 10), dpi=140)
     try:
@@ -339,7 +223,7 @@ def render_skewt_png(
         except (ValueError, IndexError):
             pass
 
-        _plot_characteristic_levels(skew, pressure, temperature, dewpoint, parcel)
+        _plot_characteristic_levels(skew, thermodynamics.level_markers)
         _plot_wind_barbs(skew, dataframe, pressure)
         _configure_axes(skew, pressure, temperature_c, dewpoint_c)
         _plot_diagnostics_panel(diagnostics_axis, diagnostics)
@@ -495,44 +379,16 @@ def _cached_size(client, bucket: str, object_key: str) -> int | None:
         ) from exc
 
 
-def _plot_characteristic_levels(skew, pressure, temperature, dewpoint, parcel):
-    markers = []
-    try:
-        lcl_pressure, lcl_temperature = mpcalc.lcl(
-            pressure[0], temperature[0], dewpoint[0]
-        )
-        markers.append(("LCL", lcl_pressure, lcl_temperature.to("degC"), "#06b6d4"))
-    except (ValueError, IndexError):
-        pass
-    try:
-        lfc_pressure, lfc_temperature = mpcalc.lfc(
-            pressure,
-            temperature,
-            dewpoint,
-            parcel_temperature_profile=parcel.to("kelvin"),
-        )
-        markers.append(("LFC", lfc_pressure, lfc_temperature.to("degC"), "#d946ef"))
-    except (ValueError, IndexError):
-        pass
-    try:
-        el_pressure, el_temperature = mpcalc.el(
-            pressure,
-            temperature,
-            dewpoint,
-            parcel_temperature_profile=parcel.to("kelvin"),
-        )
-        markers.append(("EL", el_pressure, el_temperature.to("degC"), "#f97316"))
-    except (ValueError, IndexError):
-        pass
-
-    for label, level_pressure, level_temperature, color in markers:
+def _plot_characteristic_levels(skew, level_markers):
+    colors = {"LCL": "#06b6d4", "LFC": "#d946ef", "EL": "#f97316"}
+    for label, (level_pressure, level_temperature) in level_markers.items():
         if _finite_quantity(level_pressure) and _finite_quantity(level_temperature):
             skew.ax.plot(
-                level_temperature,
+                level_temperature.to("degC"),
                 level_pressure,
                 marker="o",
                 markersize=6,
-                markerfacecolor=color,
+                markerfacecolor=colors[label],
                 markeredgecolor="#111827",
                 linestyle="none",
                 label=label,
@@ -581,24 +437,6 @@ def _filename(normalized: NormalizedRadiosonde) -> str:
     record = normalized.source.record
     time_part = record.time.strftime("%H%MZ") if record.time else "sin-hora"
     return f"skew-t-LPZ-{record.date.isoformat()}-{time_part}.png"
-
-
-def _cape_cin_values(cape, cin) -> dict:
-    return {
-        "cape_j_kg": _quantity_number(cape, "J/kg"),
-        "cin_j_kg": _quantity_number(cin, "J/kg"),
-    }
-
-
-def _quantity_number(value, unit: str) -> float | None:
-    try:
-        numbers = np.asarray(value.to(unit).magnitude, dtype=float).reshape(-1)
-    except (AttributeError, TypeError, ValueError):
-        return None
-    finite = numbers[np.isfinite(numbers)]
-    if not finite.size:
-        return None
-    return round(float(finite[0]), 1)
 
 
 def _finite_quantity(value) -> bool:
