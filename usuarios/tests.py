@@ -2,8 +2,11 @@ from datetime import timedelta
 
 from django.db import IntegrityError, transaction
 from django.db.models.deletion import ProtectedError
-from django.test import TestCase
+from django.test import TestCase, override_settings
+from django.urls import reverse
 from django.utils import timezone
+from rest_framework import status
+from rest_framework.test import APITestCase
 
 from usuarios.models import Invitation, Person, PersonRole, User, UserRole
 
@@ -134,3 +137,72 @@ class UserSchemaTests(TestCase):
                 status=Invitation.Status.ACCEPTED,
                 expires_at=timezone.now() + timedelta(days=2),
             )
+
+
+@override_settings(DEBUG=True)
+class BootstrapAdminEndpointTests(APITestCase):
+    def setUp(self):
+        self.url = reverse("bootstrap-admin")
+        self.payload = {
+            "name": "Cárlos",
+            "paternal_surname": "Pérez",
+            "maternal_surname": "Bravo",
+            "email": "ADMIN@Example.com",
+            "person_role_code": "TEACHER",
+            "password": "admin",
+            "password_confirm": "admin",
+        }
+
+    def test_bootstrap_creates_person_and_superuser(self):
+        response = self.client.post(self.url, self.payload, format="json")
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertRegex(response.data["username"], r"^CPB\d{6}$")
+        self.assertEqual(response.data["email"], "admin@example.com")
+        self.assertEqual(response.data["person_role"], "TEACHER")
+        self.assertEqual(response.data["user_role"], "ADMINISTRATOR")
+        self.assertTrue(response.data["is_active"])
+        self.assertTrue(response.data["is_staff"])
+        self.assertTrue(response.data["is_superuser"])
+
+        user = User.objects.get(pk=response.data["id"])
+        self.assertTrue(user.check_password("admin"))
+        self.assertEqual(Person.objects.count(), 1)
+
+    def test_bootstrap_can_only_run_once(self):
+        first_response = self.client.post(self.url, self.payload, format="json")
+        second_payload = {
+            **self.payload,
+            "email": "second@example.com",
+        }
+        second_response = self.client.post(self.url, second_payload, format="json")
+
+        self.assertEqual(first_response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(second_response.status_code, status.HTTP_409_CONFLICT)
+        self.assertEqual(
+            second_response.data["code"],
+            "BOOTSTRAP_ALREADY_COMPLETED",
+        )
+        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(Person.objects.count(), 1)
+
+    @override_settings(DEBUG=False)
+    def test_bootstrap_is_disabled_outside_debug(self):
+        response = self.client.post(self.url, self.payload, format="json")
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.data["code"], "BOOTSTRAP_DISABLED")
+        self.assertEqual(User.objects.count(), 0)
+        self.assertEqual(Person.objects.count(), 0)
+
+    def test_bootstrap_validates_password_confirmation(self):
+        response = self.client.post(
+            self.url,
+            {**self.payload, "password_confirm": "different"},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data["code"], "VALIDATION_ERROR")
+        self.assertIn("password_confirm", response.data["errors"])
+        self.assertEqual(User.objects.count(), 0)

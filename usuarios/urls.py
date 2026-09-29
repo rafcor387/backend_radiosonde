@@ -1,8 +1,12 @@
-"""User-module routes.
+from django.urls import path
 
-The legacy routes were intentionally removed while the controllers are rebuilt
-on top of the new English domain model.
-"""
+from usuarios.views.user import BootstrapAdminView
 
 
-urlpatterns = []
+urlpatterns = [
+    path(
+        "users/bootstrap-admin/",
+        BootstrapAdminView.as_view(),
+        name="bootstrap-admin",
+    ),
+]
