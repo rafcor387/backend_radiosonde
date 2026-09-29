@@ -1,3 +1,1 @@
-from .auth import LoginView, CompletarRegistroUserView, EmailsendView
-from .user import UserMeView, UserDetailView
-from .persona import PersonaView, PersonaDetailView
+"""API controllers will be rebuilt on top of the English domain model."""
