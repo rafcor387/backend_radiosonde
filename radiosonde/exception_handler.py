@@ -9,6 +9,7 @@ from rest_framework.exceptions import (
     NotAuthenticated,
     NotFound,
     PermissionDenied,
+    Throttled,
     ValidationError,
 )
 from rest_framework.response import Response
@@ -91,6 +92,13 @@ def api_exception_handler(exc, context):
             ErrorCode.METHOD_NOT_ALLOWED,
             "El método HTTP no está permitido para este recurso.",
             status.HTTP_405_METHOD_NOT_ALLOWED,
+        )
+
+    if isinstance(exc, Throttled):
+        return error_response(
+            ErrorCode.RATE_LIMIT_EXCEEDED,
+            "Se realizaron demasiadas solicitudes. Intente nuevamente más tarde.",
+            status.HTTP_429_TOO_MANY_REQUESTS,
         )
 
     response = drf_exception_handler(exc, context)

@@ -1,5 +1,8 @@
 from datetime import timedelta
+from urllib.parse import parse_qs, urlparse
 
+from django.core import mail
+from django.core.cache import cache
 from django.db import IntegrityError, transaction
 from django.db.models.deletion import ProtectedError
 from django.test import TestCase, override_settings
@@ -10,6 +13,9 @@ from rest_framework.test import APITestCase
 from rest_framework_simplejwt.tokens import AccessToken
 
 from usuarios.models import Invitation, Person, PersonRole, User, UserRole
+from usuarios.services.password_reset_token_service import (
+    PasswordResetTokenService,
+)
 
 
 class UserSchemaTests(TestCase):
@@ -325,3 +331,291 @@ class AuthenticationControllerTests(APITestCase):
         self.assertEqual(invalid.data["code"], "AUTH_TOKEN_INVALID")
         self.assertEqual(expired.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(expired.data["code"], "AUTH_TOKEN_EXPIRED")
+
+
+@override_settings(
+    EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+    PASSWORD_RESET_CONFIRM_URL="http://frontend.test/password/reset",
+)
+class PasswordControllerTests(APITestCase):
+    current_password = "SecurePassword!934"
+    new_password = "CompletelyDifferent!842"
+
+    def setUp(self):
+        person = Person.objects.create(
+            name="Maria",
+            paternal_surname="Quispe",
+            maternal_surname="Flores",
+            email="maria@example.com",
+            person_role=PersonRole.objects.get(code=PersonRole.Code.STUDENT),
+        )
+        self.user = User.objects.create_user(
+            username="MQF654321",
+            password=self.current_password,
+            person=person,
+            user_role=UserRole.objects.get(code=UserRole.Code.USER),
+        )
+
+    def authenticate(self):
+        response = self.client.post(
+            reverse("auth-login"),
+            {
+                "username": self.user.username,
+                "password": self.current_password,
+            },
+            format="json",
+        )
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f"Bearer {response.data['access']}"
+        )
+        return response.data["access"]
+
+    def request_reset_token(self):
+        response = self.client.post(
+            reverse("auth-password-forgot"),
+            {"email": self.user.person.email},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
+        self.assertEqual(len(mail.outbox), 1)
+        reset_url = next(
+            part
+            for part in mail.outbox[0].body.split()
+            if part.startswith("http://frontend.test/password/reset")
+        )
+        return parse_qs(urlparse(reset_url).query)["token"][0]
+
+    def test_change_password_requires_authentication(self):
+        response = self.client.post(
+            reverse("auth-password-change"),
+            {
+                "current_password": self.current_password,
+                "new_password": self.new_password,
+                "new_password_confirm": self.new_password,
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.data["code"], "AUTH_REQUIRED")
+
+    def test_change_password_rejects_incorrect_current_password(self):
+        self.authenticate()
+        response = self.client.post(
+            reverse("auth-password-change"),
+            {
+                "current_password": "WrongPassword!123",
+                "new_password": self.new_password,
+                "new_password_confirm": self.new_password,
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            response.data["code"],
+            "AUTH_CURRENT_PASSWORD_INCORRECT",
+        )
+        self.assertIn("current_password", response.data["errors"])
+
+    def test_change_password_validates_confirmation_and_strength(self):
+        self.authenticate()
+        mismatch = self.client.post(
+            reverse("auth-password-change"),
+            {
+                "current_password": self.current_password,
+                "new_password": self.new_password,
+                "new_password_confirm": "AnotherPassword!734",
+            },
+            format="json",
+        )
+        weak = self.client.post(
+            reverse("auth-password-change"),
+            {
+                "current_password": self.current_password,
+                "new_password": "123",
+                "new_password_confirm": "123",
+            },
+            format="json",
+        )
+
+        self.assertEqual(mismatch.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(mismatch.data["code"], "VALIDATION_ERROR")
+        self.assertEqual(
+            mismatch.data["errors"]["new_password_confirm"][0]["code"],
+            "password_mismatch",
+        )
+        self.assertEqual(weak.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(weak.data["code"], "VALIDATION_ERROR")
+        self.assertIn("new_password", weak.data["errors"])
+
+    def test_change_password_invalidates_existing_tokens(self):
+        old_access = self.authenticate()
+        response = self.client.post(
+            reverse("auth-password-change"),
+            {
+                "current_password": self.current_password,
+                "new_password": self.new_password,
+                "new_password_confirm": self.new_password,
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {old_access}")
+        me = self.client.get(reverse("auth-me"))
+        self.assertEqual(me.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(me.data["code"], "AUTH_TOKEN_INVALIDATED")
+
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password(self.new_password))
+        self.assertEqual(self.user.token_version, 2)
+
+    def test_forgot_sends_email_without_revealing_account_existence(self):
+        existing = self.client.post(
+            reverse("auth-password-forgot"),
+            {"email": "MARIA@EXAMPLE.COM"},
+            format="json",
+        )
+        missing = self.client.post(
+            reverse("auth-password-forgot"),
+            {"email": "missing@example.com"},
+            format="json",
+        )
+
+        self.assertEqual(existing.status_code, status.HTTP_202_ACCEPTED)
+        self.assertEqual(missing.status_code, status.HTTP_202_ACCEPTED)
+        self.assertEqual(existing.data, missing.data)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("http://frontend.test/password/reset?token=", mail.outbox[0].body)
+
+    def test_forgot_does_not_send_email_for_inactive_user(self):
+        self.user.is_active = False
+        self.user.save(update_fields=["is_active"])
+
+        response = self.client.post(
+            reverse("auth-password-forgot"),
+            {"email": self.user.person.email},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_forgot_is_rate_limited_with_standard_error(self):
+        cache.clear()
+        try:
+            responses = [
+                self.client.post(
+                    reverse("auth-password-forgot"),
+                    {"email": "missing@example.com"},
+                    format="json",
+                )
+                for _ in range(6)
+            ]
+        finally:
+            cache.clear()
+
+        self.assertTrue(
+            all(
+                response.status_code == status.HTTP_202_ACCEPTED
+                for response in responses[:5]
+            )
+        )
+        self.assertEqual(
+            responses[5].status_code,
+            status.HTTP_429_TOO_MANY_REQUESTS,
+        )
+        self.assertEqual(
+            responses[5].data["code"],
+            "RATE_LIMIT_EXCEEDED",
+        )
+
+    def test_confirm_resets_password_and_token_cannot_be_reused(self):
+        token = self.request_reset_token()
+        payload = {
+            "token": token,
+            "new_password": self.new_password,
+            "new_password_confirm": self.new_password,
+        }
+
+        confirmed = self.client.post(
+            reverse("auth-password-confirm"),
+            payload,
+            format="json",
+        )
+        reused = self.client.post(
+            reverse("auth-password-confirm"),
+            payload,
+            format="json",
+        )
+
+        self.assertEqual(confirmed.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(reused.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            reused.data["code"],
+            "PASSWORD_RESET_TOKEN_INVALID",
+        )
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password(self.new_password))
+        self.assertEqual(self.user.token_version, 2)
+
+    def test_confirm_accepts_encoded_token_copied_from_email_link(self):
+        response = self.client.post(
+            reverse("auth-password-forgot"),
+            {"email": self.user.person.email},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
+        reset_url = next(
+            part
+            for part in mail.outbox[0].body.split()
+            if part.startswith("http://frontend.test/password/reset")
+        )
+        encoded_token = reset_url.split("token=", 1)[1]
+        self.assertIn("%3A", encoded_token)
+
+        confirmed = self.client.post(
+            reverse("auth-password-confirm"),
+            {
+                "token": encoded_token,
+                "new_password": self.new_password,
+                "new_password_confirm": self.new_password,
+            },
+            format="json",
+        )
+
+        self.assertEqual(confirmed.status_code, status.HTTP_204_NO_CONTENT)
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password(self.new_password))
+
+    def test_confirm_rejects_invalid_and_expired_tokens(self):
+        payload = {
+            "token": "invalid-token",
+            "new_password": self.new_password,
+            "new_password_confirm": self.new_password,
+        }
+        invalid = self.client.post(
+            reverse("auth-password-confirm"),
+            payload,
+            format="json",
+        )
+
+        token = PasswordResetTokenService.create(self.user)
+        with override_settings(PASSWORD_RESET_TIMEOUT=-1):
+            expired = self.client.post(
+                reverse("auth-password-confirm"),
+                {**payload, "token": token},
+                format="json",
+            )
+
+        self.assertEqual(invalid.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            invalid.data["code"],
+            "PASSWORD_RESET_TOKEN_INVALID",
+        )
+        self.assertEqual(expired.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            expired.data["code"],
+            "PASSWORD_RESET_TOKEN_EXPIRED",
+        )

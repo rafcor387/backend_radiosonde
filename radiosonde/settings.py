@@ -47,6 +47,12 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 # Esta será la dirección por defecto que aparecerá en el "From" si no especificas otra
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+PASSWORD_RESET_TIMEOUT = int(os.getenv("PASSWORD_RESET_TIMEOUT", "3600"))
+PASSWORD_RESET_CONFIRM_URL = os.getenv(
+    "PASSWORD_RESET_CONFIRM_URL",
+    "http://localhost:3000/password/reset",
+)
+
 
 # Application definition
 
@@ -80,6 +86,10 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'EXCEPTION_HANDLER': 'radiosonde.exception_handler.api_exception_handler',
+    'DEFAULT_THROTTLE_RATES': {
+        'password_forgot': '5/minute',
+        'password_confirm': '10/minute',
+    },
 }
 
 MIDDLEWARE = [
