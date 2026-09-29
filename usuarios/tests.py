@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APITestCase
+from rest_framework_simplejwt.tokens import AccessToken
 
 from usuarios.models import Invitation, Person, PersonRole, User, UserRole
 
@@ -206,3 +207,121 @@ class BootstrapAdminEndpointTests(APITestCase):
         self.assertEqual(response.data["code"], "VALIDATION_ERROR")
         self.assertIn("password_confirm", response.data["errors"])
         self.assertEqual(User.objects.count(), 0)
+
+
+class AuthenticationControllerTests(APITestCase):
+    password = "SecurePassword!934"
+
+    def setUp(self):
+        person = Person.objects.create(
+            name="Ana",
+            paternal_surname="Lopez",
+            maternal_surname="Mamani",
+            email="ana@example.com",
+            person_role=PersonRole.objects.get(code=PersonRole.Code.TEACHER),
+        )
+        self.user = User.objects.create_user(
+            username="ALM123456",
+            password=self.password,
+            person=person,
+            user_role=UserRole.objects.get(code=UserRole.Code.USER),
+        )
+
+    def login(self, username=None, password=None):
+        return self.client.post(
+            reverse("auth-login"),
+            {
+                "username": username or self.user.username,
+                "password": password or self.password,
+            },
+            format="json",
+        )
+
+    def authenticate(self):
+        response = self.login()
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f"Bearer {response.data['access']}"
+        )
+        return response.data["access"]
+
+    def test_login_returns_access_token_without_refresh_token(self):
+        response = self.login(username="alm123456")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("access", response.data)
+        self.assertNotIn("refresh", response.data)
+        self.assertEqual(response.data["token_type"], "Bearer")
+        self.assertEqual(response.data["expires_in"], 8 * 60 * 60)
+        self.assertEqual(response.data["user"]["username"], "ALM123456")
+        self.assertEqual(response.data["user"]["person"]["email"], "ana@example.com")
+        self.assertEqual(response.data["user"]["user_role"]["code"], "USER")
+        self.user.refresh_from_db()
+        self.assertIsNotNone(self.user.last_login)
+
+    def test_login_rejects_incorrect_credentials_and_inactive_users(self):
+        wrong_password = self.login(password="incorrect")
+        self.assertEqual(wrong_password.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(wrong_password.data["code"], "AUTH_INVALID_CREDENTIALS")
+
+        self.user.is_active = False
+        self.user.save(update_fields=["is_active"])
+        inactive = self.login()
+        self.assertEqual(inactive.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(inactive.data["code"], "AUTH_INVALID_CREDENTIALS")
+
+    def test_login_returns_standard_field_errors(self):
+        response = self.client.post(
+            reverse("auth-login"),
+            {"username": "", "password": self.password},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data["code"], "VALIDATION_ERROR")
+        self.assertEqual(
+            response.data["errors"]["username"],
+            [
+                {
+                    "code": "blank",
+                    "message": "El campo username no puede estar vacío.",
+                }
+            ],
+        )
+
+    def test_me_requires_authentication_and_returns_current_user(self):
+        unauthenticated = self.client.get(reverse("auth-me"))
+        self.assertEqual(unauthenticated.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(unauthenticated.data["code"], "AUTH_REQUIRED")
+
+        self.authenticate()
+        response = self.client.get(reverse("auth-me"))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["id"], self.user.id)
+        self.assertEqual(response.data["person"]["name"], "Ana")
+
+    def test_logout_invalidates_the_access_token(self):
+        self.authenticate()
+
+        logout = self.client.post(reverse("auth-logout"))
+        me = self.client.get(reverse("auth-me"))
+
+        self.assertEqual(logout.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(me.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(me.data["code"], "AUTH_TOKEN_INVALIDATED")
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.token_version, 2)
+
+    def test_invalid_and_expired_tokens_use_distinct_errors(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Bearer invalid-token")
+        invalid = self.client.get(reverse("auth-me"))
+
+        expired_token = AccessToken.for_user(self.user)
+        expired_token["token_version"] = self.user.token_version
+        expired_token.set_exp(lifetime=timedelta(seconds=-1))
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {expired_token}")
+        expired = self.client.get(reverse("auth-me"))
+
+        self.assertEqual(invalid.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(invalid.data["code"], "AUTH_TOKEN_INVALID")
+        self.assertEqual(expired.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(expired.data["code"], "AUTH_TOKEN_EXPIRED")

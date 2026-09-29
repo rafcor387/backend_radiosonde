@@ -8,7 +8,7 @@ from usuarios.serializers.user import (
     BootstrapAdminResponseSerializer,
     BootstrapAdminSerializer,
 )
-from usuarios.services.user_service import UserService, UserServiceError
+from usuarios.services.user_service import UserService
 
 
 class BootstrapAdminView(APIView):
@@ -29,29 +29,11 @@ class BootstrapAdminView(APIView):
     )
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
-        if not serializer.is_valid():
-            return Response(
-                {
-                    "code": "VALIDATION_ERROR",
-                    "message": "Los datos enviados no son válidos.",
-                    "errors": serializer.errors,
-                },
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+        serializer.is_valid(raise_exception=True)
 
         data = serializer.validated_data.copy()
         data.pop("password_confirm")
-        try:
-            user = UserService.create_bootstrap_admin(**data)
-        except UserServiceError as exc:
-            return Response(
-                {
-                    "code": exc.code,
-                    "message": exc.message,
-                    "errors": {},
-                },
-                status=exc.status_code,
-            )
+        user = UserService.create_bootstrap_admin(**data)
 
         return Response(
             BootstrapAdminResponseSerializer(user).data,

@@ -21,7 +21,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, Sp
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('feature/', include('feature.urls')),
-    path('api/v1/', include('usuarios.urls')),
+    path('', include('usuarios.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
 
     # Interfaz de Swagger (la que tú quieres, estilo .NET)

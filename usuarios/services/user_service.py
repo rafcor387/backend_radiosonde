@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import transaction
 
+from usuarios.exceptions import ServiceError
 from usuarios.models import Person, PersonRole, User, UserRole
 from usuarios.services.username_service import (
     UsernameGenerationError,
@@ -8,12 +9,8 @@ from usuarios.services.username_service import (
 )
 
 
-class UserServiceError(Exception):
-    def __init__(self, code, message, status_code):
-        self.code = code
-        self.message = message
-        self.status_code = status_code
-        super().__init__(message)
+class UserServiceError(ServiceError):
+    pass
 
 
 class UserService:

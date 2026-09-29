@@ -73,12 +73,13 @@ CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'usuarios.authentication.VersionedJWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'EXCEPTION_HANDLER': 'radiosonde.exception_handler.api_exception_handler',
 }
 
 MIDDLEWARE = [
@@ -114,11 +115,7 @@ WSGI_APPLICATION = 'radiosonde.wsgi.application'
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': True,
-    'BLACKLIST_AFTER_ROTATION': True,
-    # Otros ajustes posibles (firma, algoritmo, etc.)
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=8),
 }
 
 # Database
@@ -188,16 +185,4 @@ SPECTACULAR_SETTINGS = {
     # FileField necesita un componente de request separado para que Swagger
     # lo represente como string($binary) y muestre el selector de archivos.
     'COMPONENT_SPLIT_REQUEST': True,
-    'APPEND_COMPONENTS': {
-        "securitySchemes": {
-            "jwtAuth": {
-                "type": "http",
-                "scheme": "bearer",    
-                "bearerFormat": "JWT",  
-            }
-        }
-    },
-    'SECURITY': [
-        {'jwtAuth': []},
-    ],
 }
