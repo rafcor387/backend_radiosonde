@@ -90,6 +90,34 @@ class LoadedRadiosondeSource:
         }
 
 
+@dataclass
+class ParsedRadiosondeSource:
+    raw_bytes: bytes
+    dataframe: pd.DataFrame
+    station: str | None
+    launch_time: datetime | None
+
+
+def parse_radiosonde_bytes(raw_bytes: bytes) -> ParsedRadiosondeSource:
+    """Valida y reconoce un TSV EDT ya disponible en memoria."""
+    if not raw_bytes:
+        raise RadiosondeSourceError("El archivo TSV está vacío.")
+    if len(raw_bytes) > MAX_RADIOSONDE_BYTES:
+        raise RadiosondeSourceError(
+            f"El archivo supera el límite de {MAX_RADIOSONDE_BYTES} bytes."
+        )
+
+    text = raw_bytes.decode("utf-8-sig", errors="replace")
+    dataframe = _read_edt_dataframe(text)
+    station, launch_time = _read_header_metadata(text)
+    return ParsedRadiosondeSource(
+        raw_bytes=raw_bytes,
+        dataframe=dataframe,
+        station=station,
+        launch_time=launch_time,
+    )
+
+
 def load_radiosonde_source(profile_id: int) -> LoadedRadiosondeSource:
     """Descarga desde R2 y reconoce el TSV asociado a un profile_id."""
     try:
@@ -132,16 +160,14 @@ def load_radiosonde_source(profile_id: int) -> LoadedRadiosondeSource:
             f"El objeto supera el límite de {MAX_RADIOSONDE_BYTES} bytes."
         )
 
-    text = raw_bytes.decode("utf-8", errors="replace")
-    dataframe = _read_edt_dataframe(text)
-    station, launch_time = _read_header_metadata(text)
+    parsed = parse_radiosonde_bytes(raw_bytes)
 
     return LoadedRadiosondeSource(
         record=record,
         raw_bytes=raw_bytes,
-        dataframe=dataframe,
-        station=station,
-        launch_time=launch_time,
+        dataframe=parsed.dataframe,
+        station=parsed.station,
+        launch_time=parsed.launch_time,
         etag=(response.get("ETag") or "").strip('"') or None,
     )
 

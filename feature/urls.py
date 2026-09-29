@@ -12,10 +12,16 @@ from .views import (
     RadiosondeSkewTView,
     RadiosondeStabilityView,
     RadiosondeThermodynamicsView,
+    RadiosondeUploadView,
     RadiosondeWindView,
 )
 
 urlpatterns = [
+    path(
+        'radiosondes/upload/',
+        RadiosondeUploadView.as_view(),
+        name='radiosonde-upload',
+    ),
     path('radiosondes/search/', RadiosondeSearchView.as_view(), name='radiosonde-search'),
     path(
         'radiosonde-reports/',

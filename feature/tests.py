@@ -3,6 +3,8 @@ from io import BytesIO
 from unittest.mock import Mock, patch
 
 import numpy as np
+from botocore.exceptions import ClientError
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -26,6 +28,112 @@ from .services.radiosonde_stability import (
     _static_stability_axis,
 )
 from .services.radiosonde_report import _aggregate_summary, generate_report_pdf
+
+
+VALID_UPLOAD_TSV = b"""Station: 85201 LaPaz
+Launch time: 2018-02-01 11:58:49 UTC
+
+time P T TD Height u v
+0 626.6 279.20 278.20 4200.0 1.0 2.0
+1 620.0 278.50 277.50 4300.0 1.5 2.5
+"""
+
+
+class RadiosondeUploadViewTests(APITestCase):
+    def setUp(self):
+        self.client.force_authenticate(user=Mock(is_authenticated=True))
+
+    @patch("feature.services.radiosonde_upload.get_r2_client")
+    def test_uploads_tsv_and_creates_catalog_record(self, get_client):
+        r2 = Mock()
+        r2.head_object.side_effect = ClientError(
+            {
+                "Error": {"Code": "404"},
+                "ResponseMetadata": {"HTTPStatusCode": 404},
+            },
+            "HeadObject",
+        )
+        r2.put_object.return_value = {"ETag": '"upload-etag"'}
+        get_client.return_value = r2
+        uploaded = SimpleUploadedFile(
+            "01022018EDT.tsv",
+            VALID_UPLOAD_TSV,
+            content_type="text/tab-separated-values",
+        )
+
+        response = self.client.post(
+            reverse("radiosonde-upload"),
+            {"file": uploaded},
+            format="multipart",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        record = RadiosondeProfile.objects.get()
+        self.assertEqual(record.date, date(2018, 2, 1))
+        self.assertEqual(record.time, time(12, 0))
+        self.assertEqual(
+            record.observed_at,
+            datetime(2018, 2, 1, 11, 58, 49, tzinfo=timezone.utc),
+        )
+        self.assertEqual(record.bucket, "radiosondes")
+        self.assertEqual(record.object_key, "01022018EDT.tsv")
+        self.assertEqual(response.data["profile"]["profile_id"], record.pk)
+        self.assertEqual(response.data["profile"]["time"], "12:00Z")
+        self.assertEqual(response.data["storage"]["etag"], "upload-etag")
+        self.assertTrue(response.data["created"])
+        put = r2.put_object.call_args.kwargs
+        self.assertEqual(put["Bucket"], "radiosondes")
+        self.assertEqual(put["Key"], "01022018EDT.tsv")
+        self.assertEqual(put["Body"], VALID_UPLOAD_TSV)
+
+    @patch("feature.services.radiosonde_upload.get_r2_client")
+    def test_rejects_duplicate_object_key_without_contacting_r2(self, get_client):
+        RadiosondeProfile.objects.create(
+            date=date(2018, 2, 1),
+            time=time(12, 0),
+            bucket="radiosondes",
+            object_key="01022018EDT.tsv",
+        )
+        uploaded = SimpleUploadedFile("01022018EDT.tsv", VALID_UPLOAD_TSV)
+
+        response = self.client.post(
+            reverse("radiosonde-upload"),
+            {"file": uploaded},
+            format="multipart",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+        self.assertEqual(RadiosondeProfile.objects.count(), 1)
+        get_client.assert_not_called()
+
+    @patch("feature.services.radiosonde_upload.get_r2_client")
+    def test_rejects_a_different_station_before_contacting_r2(self, get_client):
+        uploaded = SimpleUploadedFile(
+            "otro.tsv",
+            VALID_UPLOAD_TSV.replace(b"85201 LaPaz", b"12345 SantaCruz"),
+        )
+
+        response = self.client.post(
+            reverse("radiosonde-upload"),
+            {"file": uploaded},
+            format="multipart",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+        self.assertEqual(RadiosondeProfile.objects.count(), 0)
+        get_client.assert_not_called()
+
+    def test_requires_authentication(self):
+        self.client.force_authenticate(user=None)
+        uploaded = SimpleUploadedFile("01022018EDT.tsv", VALID_UPLOAD_TSV)
+
+        response = self.client.post(
+            reverse("radiosonde-upload"),
+            {"file": uploaded},
+            format="multipart",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class RadiosondeSearchViewTests(APITestCase):

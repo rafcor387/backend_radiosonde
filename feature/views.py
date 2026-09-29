@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from django.http import HttpResponse
 from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema, OpenApiTypes
@@ -51,8 +51,47 @@ from .services.radiosonde_report import (
     load_report_pdf,
     report_descriptor,
 )
+from .services.radiosonde_upload import (
+    RadiosondeUploadConflictError,
+    RadiosondeUploadError,
+    RadiosondeUploadStorageError,
+    upload_radiosonde_tsv,
+)
 
 from io import BytesIO
+
+
+class RadiosondeUploadView(APIView):
+    """Carga un TSV validado en R2 y lo registra en el catálogo."""
+
+    parser_classes = [MultiPartParser, FormParser]
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(
+        request=RadiosondeUploadSerializer,
+        responses={201: OpenApiTypes.OBJECT},
+    )
+    def post(self, request, *args, **kwargs):
+        serializer = RadiosondeUploadSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        try:
+            result = upload_radiosonde_tsv(serializer.validated_data["file"])
+        except RadiosondeUploadConflictError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_409_CONFLICT,
+            )
+        except RadiosondeUploadStorageError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+        except RadiosondeUploadError as exc:
+            return Response(
+                {"detail": str(exc)},
+                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            )
+        return Response(result, status=status.HTTP_201_CREATED)
 
 
 class RadiosondeSearchView(APIView):
