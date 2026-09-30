@@ -37,6 +37,30 @@ class UserListSerializer(serializers.ModelSerializer):
         ]
 
 
+class UserDetailPersonSerializer(UserListPersonSerializer):
+    class Meta(UserListPersonSerializer.Meta):
+        fields = [
+            *UserListPersonSerializer.Meta.fields,
+            "created_at",
+        ]
+
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    person = UserDetailPersonSerializer(read_only=True)
+    user_role = UserRoleSerializer(read_only=True)
+
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "username",
+            "person",
+            "user_role",
+            "is_active",
+            "created_at",
+        ]
+
+
 class BootstrapAdminSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100, allow_blank=False)
     paternal_surname = serializers.CharField(max_length=100, allow_blank=False)

@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import transaction
 
+from usuarios.error_codes import ErrorCode
 from usuarios.exceptions import ServiceError
 from usuarios.models import Person, PersonRole, User, UserRole
 from usuarios.services.username_service import (
@@ -24,6 +25,25 @@ class UserService:
             .select_related("person__person_role", "user_role")
             .order_by("id")
         )
+
+    @staticmethod
+    def get_by_id(*, user_id):
+        user = (
+            User.objects.filter(
+                pk=user_id,
+                deleted_at__isnull=True,
+                person__deleted_at__isnull=True,
+            )
+            .select_related("person__person_role", "user_role")
+            .first()
+        )
+        if user is None:
+            raise UserServiceError(
+                ErrorCode.USER_NOT_FOUND,
+                "El usuario solicitado no existe.",
+                404,
+            )
+        return user
 
     @staticmethod
     @transaction.atomic

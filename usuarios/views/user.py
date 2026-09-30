@@ -8,6 +8,7 @@ from usuarios.permissions import IsAdministrator
 from usuarios.serializers.user import (
     BootstrapAdminResponseSerializer,
     BootstrapAdminSerializer,
+    UserDetailSerializer,
     UserListSerializer,
 )
 from usuarios.services.user_service import UserService
@@ -25,6 +26,22 @@ class UserListView(APIView):
         users = UserService.list_all()
         return Response(
             UserListSerializer(users, many=True).data,
+            status=status.HTTP_200_OK,
+        )
+
+
+class UserDetailView(APIView):
+    permission_classes = [IsAuthenticated, IsAdministrator]
+
+    @extend_schema(
+        responses={200: UserDetailSerializer},
+        summary="Get a user by ID",
+        tags=["Users"],
+    )
+    def get(self, request, user_id):
+        user = UserService.get_by_id(user_id=user_id)
+        return Response(
+            UserDetailSerializer(user).data,
             status=status.HTTP_200_OK,
         )
 

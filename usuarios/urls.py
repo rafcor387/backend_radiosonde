@@ -14,7 +14,7 @@ from usuarios.views.invitation import (
     InvitationListCreateView,
     InvitationValidateView,
 )
-from usuarios.views.user import BootstrapAdminView, UserListView
+from usuarios.views.user import BootstrapAdminView, UserDetailView, UserListView
 
 
 urlpatterns = [
@@ -62,4 +62,9 @@ urlpatterns = [
         name="bootstrap-admin",
     ),
     path("users/", UserListView.as_view(), name="user-list"),
+    path(
+        "users/<int:user_id>/",
+        UserDetailView.as_view(),
+        name="user-detail",
+    ),
 ]

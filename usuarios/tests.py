@@ -484,6 +484,77 @@ class UserListControllerTests(APITestCase):
         )
         self.assertFalse(suspended_data["is_active"])
 
+    def test_administrator_gets_user_detail_with_creation_dates(self):
+        self.authenticate(self.admin)
+
+        response = self.client.get(
+            reverse("user-detail", args=[self.normal_user.id])
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            set(response.data),
+            {
+                "id",
+                "username",
+                "person",
+                "user_role",
+                "is_active",
+                "created_at",
+            },
+        )
+        self.assertEqual(response.data["id"], self.normal_user.id)
+        self.assertEqual(response.data["username"], "USR123456")
+        self.assertTrue(response.data["is_active"])
+        self.assertIsNotNone(response.data["created_at"])
+        self.assertEqual(response.data["person"]["name"], "Normal")
+        self.assertEqual(response.data["person"]["paternal_surname"], "Perez")
+        self.assertEqual(response.data["person"]["maternal_surname"], "Mamani")
+        self.assertEqual(response.data["person"]["email"], "user@example.com")
+        self.assertIsNotNone(response.data["person"]["created_at"])
+        self.assertEqual(
+            response.data["person"]["person_role"]["code"],
+            PersonRole.Code.STUDENT,
+        )
+        self.assertEqual(
+            response.data["user_role"]["code"],
+            UserRole.Code.USER,
+        )
+
+    def test_only_administrator_can_get_user_detail(self):
+        unauthenticated = self.client.get(
+            reverse("user-detail", args=[self.normal_user.id])
+        )
+        self.assertEqual(unauthenticated.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        self.authenticate(self.normal_user)
+        forbidden = self.client.get(
+            reverse("user-detail", args=[self.normal_user.id])
+        )
+        self.assertEqual(forbidden.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(forbidden.data["code"], "PERMISSION_DENIED")
+
+    def test_get_user_detail_rejects_missing_and_logically_deleted_users(self):
+        deleted = self.create_user(
+            username="DEL654321",
+            email="detail-deleted@example.com",
+            person_role=self.student_role,
+            user_role=UserRole.objects.get(code=UserRole.Code.USER),
+            name="Deleted",
+        )
+        deleted.delete()
+        self.authenticate(self.admin)
+
+        missing = self.client.get(reverse("user-detail", args=[999999]))
+        deleted_response = self.client.get(
+            reverse("user-detail", args=[deleted.id])
+        )
+
+        self.assertEqual(missing.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(missing.data["code"], "USER_NOT_FOUND")
+        self.assertEqual(deleted_response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(deleted_response.data["code"], "USER_NOT_FOUND")
+
 
 @override_settings(
     EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
