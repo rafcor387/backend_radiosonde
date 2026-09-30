@@ -19,6 +19,23 @@ from usuarios.services.username_service import (
 class InvitationService:
     @staticmethod
     @transaction.atomic
+    def list_all():
+        now = timezone.now()
+        Invitation.objects.filter(
+            status=Invitation.Status.PENDING,
+            expires_at__lte=now,
+        ).update(
+            status=Invitation.Status.EXPIRED,
+            updated_at=now,
+        )
+        return Invitation.objects.select_related(
+            "person_role",
+            "invited_by",
+            "invited_by__person",
+        ).all()
+
+    @staticmethod
+    @transaction.atomic
     def create_and_send(*, email, person_role_code, invited_by):
         normalized_email = email.strip().casefold()
         now = timezone.now()

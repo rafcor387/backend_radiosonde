@@ -729,6 +729,76 @@ class InvitationCreateControllerTests(APITestCase):
         self.assertEqual(forbidden.data["code"], "PERMISSION_DENIED")
         self.assertEqual(Invitation.objects.count(), 0)
 
+    def test_only_administrator_can_list_invitations(self):
+        unauthenticated = self.client.get(reverse("invitation-create"))
+        self.assertEqual(
+            unauthenticated.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+        )
+
+        self.authenticate(self.normal_user)
+        forbidden = self.client.get(reverse("invitation-create"))
+        self.assertEqual(forbidden.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(forbidden.data["code"], "PERMISSION_DENIED")
+
+    def test_administrator_lists_invitations_with_requested_fields(self):
+        first = self.create_invitation_for_token("first-list-token")
+        second = Invitation.objects.create(
+            email="second@example.com",
+            person_role=PersonRole.objects.get(code=PersonRole.Code.TEACHER),
+            invited_by=self.admin,
+            token_hash=InvitationTokenService.hash("second-list-token"),
+            expires_at=timezone.now() + timedelta(hours=24),
+        )
+        self.authenticate(self.admin)
+
+        response = self.client.get(reverse("invitation-create"))
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            [item["id"] for item in response.data],
+            [second.id, first.id],
+        )
+        self.assertSetEqual(
+            set(response.data[0]),
+            {
+                "id",
+                "email",
+                "person_role",
+                "status",
+                "invited_by",
+                "created_at",
+            },
+        )
+        self.assertEqual(response.data[0]["email"], "second@example.com")
+        self.assertEqual(response.data[0]["person_role"]["name"], "Docente")
+        self.assertEqual(response.data[0]["status"], "PENDIENTE")
+        self.assertEqual(
+            response.data[0]["invited_by"],
+            {
+                "id": self.admin.id,
+                "username": self.admin.username,
+                "full_name": "Test ADM User",
+            },
+        )
+        self.assertIsNotNone(response.data[0]["created_at"])
+
+    def test_list_marks_elapsed_pending_invitations_as_expired(self):
+        invitation = self.create_invitation_for_token("elapsed-list-token")
+        service_now = invitation.expires_at + timedelta(seconds=1)
+        self.authenticate(self.admin)
+
+        with patch(
+            "usuarios.services.invitation_service.timezone.now",
+            return_value=service_now,
+        ):
+            response = self.client.get(reverse("invitation-create"))
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data[0]["status"], "EXPIRADA")
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.status, Invitation.Status.EXPIRED)
+
     def test_administrator_creates_and_sends_invitation(self):
         self.authenticate(self.admin)
         before = timezone.now()

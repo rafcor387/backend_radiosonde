@@ -10,7 +10,7 @@ from usuarios.views.authentication import (
 )
 from usuarios.views.invitation import (
     InvitationAcceptView,
-    InvitationCreateView,
+    InvitationListCreateView,
     InvitationValidateView,
 )
 from usuarios.views.user import BootstrapAdminView
@@ -37,7 +37,7 @@ urlpatterns = [
     ),
     path(
         "invitations/",
-        InvitationCreateView.as_view(),
+        InvitationListCreateView.as_view(),
         name="invitation-create",
     ),
     path(

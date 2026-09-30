@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from usuarios.models import Invitation, PersonRole
+from usuarios.models import Invitation, PersonRole, User
 from usuarios.serializers.authentication import (
     PersonRoleSerializer,
     field_errors,
@@ -39,6 +39,41 @@ class InvitationResponseSerializer(serializers.ModelSerializer):
             "expires_at",
             "created_at",
             "updated_at",
+        ]
+
+
+class InvitationInviterSerializer(serializers.ModelSerializer):
+    full_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ["id", "username", "full_name"]
+
+    def get_full_name(self, obj) -> str:
+        return " ".join(
+            part
+            for part in [
+                obj.person.name,
+                obj.person.paternal_surname,
+                obj.person.maternal_surname,
+            ]
+            if part
+        )
+
+
+class InvitationListSerializer(serializers.ModelSerializer):
+    person_role = PersonRoleSerializer(read_only=True)
+    invited_by = InvitationInviterSerializer(read_only=True)
+
+    class Meta:
+        model = Invitation
+        fields = [
+            "id",
+            "email",
+            "person_role",
+            "status",
+            "invited_by",
+            "created_at",
         ]
 
 
