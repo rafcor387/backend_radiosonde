@@ -10,6 +10,7 @@ from usuarios.serializers.user import (
     BootstrapAdminSerializer,
     UserDetailSerializer,
     UserListSerializer,
+    UserUpdateSerializer,
 )
 from usuarios.services.user_service import UserService
 
@@ -40,6 +41,24 @@ class UserDetailView(APIView):
     )
     def get(self, request, user_id):
         user = UserService.get_by_id(user_id=user_id)
+        return Response(
+            UserDetailSerializer(user).data,
+            status=status.HTTP_200_OK,
+        )
+
+    @extend_schema(
+        request=UserUpdateSerializer,
+        responses={200: UserDetailSerializer},
+        summary="Update a user's roles or status",
+        tags=["Users"],
+    )
+    def patch(self, request, user_id):
+        serializer = UserUpdateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = UserService.update(
+            user_id=user_id,
+            **serializer.validated_data,
+        )
         return Response(
             UserDetailSerializer(user).data,
             status=status.HTTP_200_OK,

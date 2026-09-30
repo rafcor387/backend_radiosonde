@@ -1,9 +1,10 @@
 from rest_framework import serializers
 
-from usuarios.models import Person, PersonRole, User
+from usuarios.models import Person, PersonRole, User, UserRole
 from usuarios.serializers.authentication import (
     PersonRoleSerializer,
     UserRoleSerializer,
+    field_errors,
 )
 
 
@@ -59,6 +60,39 @@ class UserDetailSerializer(serializers.ModelSerializer):
             "is_active",
             "created_at",
         ]
+
+
+class UserUpdateSerializer(serializers.Serializer):
+    person_role_code = serializers.ChoiceField(
+        choices=PersonRole.Code.choices,
+        required=False,
+        error_messages={
+            **field_errors("person_role_code"),
+            "invalid_choice": "El rol de persona seleccionado no es válido.",
+        },
+    )
+    user_role_code = serializers.ChoiceField(
+        choices=UserRole.Code.choices,
+        required=False,
+        error_messages={
+            **field_errors("user_role_code"),
+            "invalid_choice": "El rol de usuario seleccionado no es válido.",
+        },
+    )
+    is_active = serializers.BooleanField(
+        required=False,
+        error_messages={
+            **field_errors("is_active"),
+            "invalid": "El campo is_active debe ser verdadero o falso.",
+        },
+    )
+
+    def validate(self, attrs):
+        if not attrs:
+            raise serializers.ValidationError(
+                "Debe enviar al menos un campo permitido para actualizar."
+            )
+        return attrs
 
 
 class BootstrapAdminSerializer(serializers.Serializer):

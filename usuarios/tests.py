@@ -555,6 +555,148 @@ class UserListControllerTests(APITestCase):
         self.assertEqual(deleted_response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(deleted_response.data["code"], "USER_NOT_FOUND")
 
+    def test_administrator_updates_user_roles_and_status(self):
+        original_token_version = self.normal_user.token_version
+        self.authenticate(self.admin)
+
+        response = self.client.patch(
+            reverse("user-detail", args=[self.normal_user.id]),
+            {
+                "person_role_code": PersonRole.Code.TEACHER,
+                "user_role_code": UserRole.Code.ADMINISTRATOR,
+                "is_active": False,
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data["person"]["person_role"]["code"],
+            PersonRole.Code.TEACHER,
+        )
+        self.assertEqual(
+            response.data["user_role"]["code"],
+            UserRole.Code.ADMINISTRATOR,
+        )
+        self.assertFalse(response.data["is_active"])
+
+        self.normal_user.refresh_from_db()
+        self.normal_user.person.refresh_from_db()
+        self.assertEqual(
+            self.normal_user.person.person_role.code,
+            PersonRole.Code.TEACHER,
+        )
+        self.assertEqual(
+            self.normal_user.user_role.code,
+            UserRole.Code.ADMINISTRATOR,
+        )
+        self.assertFalse(self.normal_user.is_active)
+        self.assertEqual(
+            self.normal_user.token_version,
+            original_token_version + 1,
+        )
+
+    def test_update_is_partial_and_preserves_non_editable_fields(self):
+        original_person = {
+            "name": self.normal_user.person.name,
+            "paternal_surname": self.normal_user.person.paternal_surname,
+            "maternal_surname": self.normal_user.person.maternal_surname,
+            "email": self.normal_user.person.email,
+        }
+        original_username = self.normal_user.username
+        original_user_role = self.normal_user.user_role_id
+        original_token_version = self.normal_user.token_version
+        self.authenticate(self.admin)
+
+        response = self.client.patch(
+            reverse("user-detail", args=[self.normal_user.id]),
+            {"person_role_code": PersonRole.Code.TEACHER},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.normal_user.refresh_from_db()
+        self.normal_user.person.refresh_from_db()
+        self.assertEqual(self.normal_user.username, original_username)
+        self.assertEqual(self.normal_user.user_role_id, original_user_role)
+        self.assertTrue(self.normal_user.is_active)
+        self.assertEqual(
+            self.normal_user.token_version,
+            original_token_version,
+        )
+        self.assertEqual(
+            {
+                "name": self.normal_user.person.name,
+                "paternal_surname": self.normal_user.person.paternal_surname,
+                "maternal_surname": self.normal_user.person.maternal_surname,
+                "email": self.normal_user.person.email,
+            },
+            original_person,
+        )
+
+    def test_update_rejects_empty_body_invalid_roles_and_unknown_fields(self):
+        self.authenticate(self.admin)
+        url = reverse("user-detail", args=[self.normal_user.id])
+
+        empty = self.client.patch(url, {}, format="json")
+        invalid_role = self.client.patch(
+            url,
+            {"user_role_code": "INVALID"},
+            format="json",
+        )
+        unknown_only = self.client.patch(
+            url,
+            {"name": "Changed"},
+            format="json",
+        )
+
+        self.assertEqual(empty.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("non_field_errors", empty.data["errors"])
+        self.assertEqual(invalid_role.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("user_role_code", invalid_role.data["errors"])
+        self.assertEqual(unknown_only.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("non_field_errors", unknown_only.data["errors"])
+
+    def test_only_administrator_can_update_user(self):
+        url = reverse("user-detail", args=[self.normal_user.id])
+        payload = {"is_active": False}
+
+        unauthenticated = self.client.patch(url, payload, format="json")
+        self.assertEqual(unauthenticated.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        self.authenticate(self.normal_user)
+        forbidden = self.client.patch(url, payload, format="json")
+        self.assertEqual(forbidden.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(forbidden.data["code"], "PERMISSION_DENIED")
+
+    def test_update_rejects_missing_and_logically_deleted_users(self):
+        deleted = self.create_user(
+            username="DEL987654",
+            email="update-deleted@example.com",
+            person_role=self.student_role,
+            user_role=UserRole.objects.get(code=UserRole.Code.USER),
+            name="Deleted",
+        )
+        deleted.delete()
+        self.authenticate(self.admin)
+        payload = {"is_active": False}
+
+        missing = self.client.patch(
+            reverse("user-detail", args=[999999]),
+            payload,
+            format="json",
+        )
+        deleted_response = self.client.patch(
+            reverse("user-detail", args=[deleted.id]),
+            payload,
+            format="json",
+        )
+
+        self.assertEqual(missing.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(missing.data["code"], "USER_NOT_FOUND")
+        self.assertEqual(deleted_response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(deleted_response.data["code"], "USER_NOT_FOUND")
+
 
 @override_settings(
     EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",

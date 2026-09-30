@@ -202,4 +202,8 @@ SPECTACULAR_SETTINGS = {
     # FileField necesita un componente de request separado para que Swagger
     # lo represente como string($binary) y muestre el selector de archivos.
     'COMPONENT_SPLIT_REQUEST': True,
+    'ENUM_NAME_OVERRIDES': {
+        'PersonRoleCode': 'usuarios.models.PersonRole.Code',
+        'UserRoleCode': 'usuarios.models.UserRole.Code',
+    },
 }

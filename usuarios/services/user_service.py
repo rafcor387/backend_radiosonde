@@ -47,6 +47,79 @@ class UserService:
 
     @staticmethod
     @transaction.atomic
+    def update(
+        *,
+        user_id,
+        person_role_code=None,
+        user_role_code=None,
+        is_active=None,
+    ):
+        user = (
+            User.objects.select_for_update()
+            .filter(
+                pk=user_id,
+                deleted_at__isnull=True,
+                person__deleted_at__isnull=True,
+            )
+            .select_related("person__person_role", "user_role")
+            .first()
+        )
+        if user is None:
+            raise UserServiceError(
+                ErrorCode.USER_NOT_FOUND,
+                "El usuario solicitado no existe.",
+                404,
+            )
+
+        if person_role_code is not None:
+            try:
+                person_role = PersonRole.objects.get(code=person_role_code)
+            except PersonRole.DoesNotExist as exc:
+                raise UserServiceError(
+                    ErrorCode.PERSON_ROLE_NOT_FOUND,
+                    "El rol de persona seleccionado no existe.",
+                    400,
+                ) from exc
+
+            if user.person.person_role_id != person_role.id:
+                user.person.person_role = person_role
+                user.person.save(update_fields=["person_role", "updated_at"])
+
+        user_update_fields = []
+        invalidate_tokens = False
+
+        if user_role_code is not None:
+            try:
+                user_role = UserRole.objects.get(code=user_role_code)
+            except UserRole.DoesNotExist as exc:
+                raise UserServiceError(
+                    ErrorCode.USER_ROLE_NOT_FOUND,
+                    "El rol de usuario seleccionado no existe.",
+                    400,
+                ) from exc
+
+            if user.user_role_id != user_role.id:
+                user.user_role = user_role
+                user_update_fields.append("user_role")
+                invalidate_tokens = True
+
+        if is_active is not None and user.is_active != is_active:
+            user.is_active = is_active
+            user_update_fields.append("is_active")
+            invalidate_tokens = True
+
+        if invalidate_tokens:
+            user.token_version += 1
+            user_update_fields.append("token_version")
+
+        if user_update_fields:
+            user_update_fields.append("updated_at")
+            user.save(update_fields=user_update_fields)
+
+        return user
+
+    @staticmethod
+    @transaction.atomic
     def create_bootstrap_admin(
         *,
         name,
