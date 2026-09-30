@@ -8,7 +8,8 @@ from usuarios.permissions import IsAdministrator
 from usuarios.serializers.invitation import (
     InvitationAcceptSerializer,
     InvitationCreateSerializer,
-    InvitationListSerializer,
+    InvitationListQuerySerializer,
+    InvitationPaginatedListSerializer,
     InvitationResponseSerializer,
     InvitationValidationResponseSerializer,
 )
@@ -21,14 +22,17 @@ class InvitationListCreateView(APIView):
     serializer_class = InvitationCreateSerializer
 
     @extend_schema(
-        responses={200: InvitationListSerializer(many=True)},
+        parameters=[InvitationListQuerySerializer],
+        responses={200: InvitationPaginatedListSerializer},
         summary="List invitations",
         tags=["Invitations"],
     )
     def get(self, request):
-        invitations = InvitationService.list_all()
+        query = InvitationListQuerySerializer(data=request.query_params)
+        query.is_valid(raise_exception=True)
+        result = InvitationService.list_all(**query.validated_data)
         return Response(
-            InvitationListSerializer(invitations, many=True).data,
+            InvitationPaginatedListSerializer(result).data,
             status=status.HTTP_200_OK,
         )
 

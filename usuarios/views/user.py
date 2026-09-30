@@ -11,7 +11,8 @@ from usuarios.serializers.user import (
     BootstrapAdminSerializer,
     OwnProfileUpdateSerializer,
     UserDetailSerializer,
-    UserListSerializer,
+    UserListQuerySerializer,
+    UserPaginatedListSerializer,
     UserUpdateSerializer,
 )
 from usuarios.services.user_service import UserService
@@ -21,14 +22,18 @@ class UserListView(APIView):
     permission_classes = [IsAuthenticated, IsAdministrator]
 
     @extend_schema(
-        responses={200: UserListSerializer(many=True)},
+        operation_id="users_list",
+        parameters=[UserListQuerySerializer],
+        responses={200: UserPaginatedListSerializer},
         summary="List users",
         tags=["Users"],
     )
     def get(self, request):
-        users = UserService.list_all()
+        query = UserListQuerySerializer(data=request.query_params)
+        query.is_valid(raise_exception=True)
+        result = UserService.list_all(**query.validated_data)
         return Response(
-            UserListSerializer(users, many=True).data,
+            UserPaginatedListSerializer(result).data,
             status=status.HTTP_200_OK,
         )
 

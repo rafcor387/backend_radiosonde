@@ -17,9 +17,11 @@ from usuarios.services.username_service import (
 
 
 class InvitationService:
+    PAGE_SIZE = 10
+
     @staticmethod
     @transaction.atomic
-    def list_all():
+    def list_all(*, page=1, email=None, status=None):
         now = timezone.now()
         Invitation.objects.filter(
             status=Invitation.Status.PENDING,
@@ -28,11 +30,21 @@ class InvitationService:
             status=Invitation.Status.EXPIRED,
             updated_at=now,
         )
-        return Invitation.objects.select_related(
+        invitations = Invitation.objects.select_related(
             "person_role",
             "invited_by",
             "invited_by__person",
         ).order_by("-created_at", "-id")
+
+        if email is not None:
+            invitations = invitations.filter(email__icontains=email)
+        if status is not None:
+            invitations = invitations.filter(status=status)
+
+        count = invitations.count()
+        offset = (page - 1) * InvitationService.PAGE_SIZE
+        items = invitations[offset : offset + InvitationService.PAGE_SIZE]
+        return {"count": count, "items": items}
 
     @staticmethod
     def cancel(*, invitation_id):

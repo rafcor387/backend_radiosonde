@@ -38,6 +38,51 @@ class UserListSerializer(serializers.ModelSerializer):
         ]
 
 
+class UserListQuerySerializer(serializers.Serializer):
+    page = serializers.IntegerField(
+        required=False,
+        default=1,
+        min_value=1,
+        error_messages={
+            "invalid": "El campo page debe ser un número entero.",
+            "min_value": "El campo page debe ser mayor o igual a 1.",
+        },
+    )
+    username = serializers.CharField(
+        required=False,
+        allow_blank=False,
+        max_length=20,
+        error_messages=field_errors("username"),
+    )
+    person_role = serializers.ChoiceField(
+        required=False,
+        choices=PersonRole.Code.choices,
+        error_messages={
+            **field_errors("person_role"),
+            "invalid_choice": "El rol de persona seleccionado no es válido.",
+        },
+    )
+    user_role = serializers.ChoiceField(
+        required=False,
+        choices=UserRole.Code.choices,
+        error_messages={
+            **field_errors("user_role"),
+            "invalid_choice": "El rol de usuario seleccionado no es válido.",
+        },
+    )
+    name = serializers.CharField(
+        required=False,
+        allow_blank=False,
+        max_length=100,
+        error_messages=field_errors("name"),
+    )
+
+
+class UserPaginatedListSerializer(serializers.Serializer):
+    count = serializers.IntegerField(min_value=0)
+    items = UserListSerializer(many=True)
+
+
 class UserDetailPersonSerializer(UserListPersonSerializer):
     class Meta(UserListPersonSerializer.Meta):
         fields = [

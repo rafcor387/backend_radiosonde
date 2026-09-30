@@ -421,9 +421,12 @@ class UserListControllerTests(APITestCase):
         response = self.client.get(reverse("user-list"))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 2)
+        self.assertEqual(response.data["count"], 2)
+        self.assertEqual(len(response.data["items"]), 2)
         listed_user = next(
-            item for item in response.data if item["id"] == self.normal_user.id
+            item
+            for item in response.data["items"]
+            if item["id"] == self.normal_user.id
         )
         self.assertEqual(
             set(listed_user),
@@ -476,13 +479,105 @@ class UserListControllerTests(APITestCase):
 
         response = self.client.get(reverse("user-list"))
 
-        listed_ids = {item["id"] for item in response.data}
+        listed_ids = {item["id"] for item in response.data["items"]}
         self.assertIn(suspended.id, listed_ids)
         self.assertNotIn(deleted.id, listed_ids)
         suspended_data = next(
-            item for item in response.data if item["id"] == suspended.id
+            item
+            for item in response.data["items"]
+            if item["id"] == suspended.id
         )
         self.assertFalse(suspended_data["is_active"])
+
+    def test_list_paginates_users_ten_at_a_time(self):
+        created_users = [
+            self.create_user(
+                username=f"PAG{index:06d}",
+                email=f"paged{index:02d}@example.com",
+                person_role=self.student_role,
+                user_role=UserRole.objects.get(code=UserRole.Code.USER),
+                name=f"Paged{index}",
+            )
+            for index in range(10)
+        ]
+        self.authenticate(self.admin)
+
+        first_page = self.client.get(reverse("user-list"), {"page": 1})
+        second_page = self.client.get(reverse("user-list"), {"page": 2})
+
+        self.assertEqual(first_page.status_code, status.HTTP_200_OK)
+        self.assertEqual(first_page.data["count"], 12)
+        self.assertEqual(len(first_page.data["items"]), 10)
+        self.assertEqual(second_page.data["count"], 12)
+        self.assertEqual(len(second_page.data["items"]), 2)
+        expected_ids = [
+            self.admin.id,
+            self.normal_user.id,
+            *[user.id for user in created_users],
+        ]
+        self.assertEqual(
+            [item["id"] for item in first_page.data["items"]],
+            expected_ids[:10],
+        )
+        self.assertEqual(
+            [item["id"] for item in second_page.data["items"]],
+            expected_ids[10:],
+        )
+
+    def test_list_filters_by_username_roles_and_person_name(self):
+        self.authenticate(self.admin)
+        url = reverse("user-list")
+
+        by_username = self.client.get(url, {"username": "usr123"})
+        by_person_role = self.client.get(
+            url,
+            {"person_role": PersonRole.Code.STUDENT},
+        )
+        by_user_role = self.client.get(
+            url,
+            {"user_role": UserRole.Code.USER},
+        )
+        by_name = self.client.get(url, {"name": "norm"})
+
+        for response in [
+            by_username,
+            by_person_role,
+            by_user_role,
+            by_name,
+        ]:
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.data["count"], 1)
+            self.assertEqual(
+                response.data["items"][0]["id"],
+                self.normal_user.id,
+            )
+
+    def test_list_validates_page_and_role_query_params(self):
+        self.authenticate(self.admin)
+        url = reverse("user-list")
+
+        invalid_page = self.client.get(url, {"page": 0})
+        invalid_person_role = self.client.get(
+            url,
+            {"person_role": "INVALID"},
+        )
+        invalid_user_role = self.client.get(
+            url,
+            {"user_role": "INVALID"},
+        )
+
+        self.assertEqual(invalid_page.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("page", invalid_page.data["errors"])
+        self.assertEqual(
+            invalid_person_role.status_code,
+            status.HTTP_400_BAD_REQUEST,
+        )
+        self.assertIn("person_role", invalid_person_role.data["errors"])
+        self.assertEqual(
+            invalid_user_role.status_code,
+            status.HTTP_400_BAD_REQUEST,
+        )
+        self.assertIn("user_role", invalid_user_role.data["errors"])
 
     def test_administrator_gets_user_detail_with_creation_dates(self):
         self.authenticate(self.admin)
@@ -1227,12 +1322,13 @@ class InvitationCreateControllerTests(APITestCase):
         response = self.client.get(reverse("invitation-create"))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 2)
         self.assertEqual(
-            [item["id"] for item in response.data],
+            [item["id"] for item in response.data["items"]],
             [second.id, first.id],
         )
         self.assertSetEqual(
-            set(response.data[0]),
+            set(response.data["items"][0]),
             {
                 "id",
                 "email",
@@ -1242,18 +1338,24 @@ class InvitationCreateControllerTests(APITestCase):
                 "created_at",
             },
         )
-        self.assertEqual(response.data[0]["email"], "second@example.com")
-        self.assertEqual(response.data[0]["person_role"]["name"], "Docente")
-        self.assertEqual(response.data[0]["status"], "PENDIENTE")
         self.assertEqual(
-            response.data[0]["invited_by"],
+            response.data["items"][0]["email"],
+            "second@example.com",
+        )
+        self.assertEqual(
+            response.data["items"][0]["person_role"]["name"],
+            "Docente",
+        )
+        self.assertEqual(response.data["items"][0]["status"], "PENDIENTE")
+        self.assertEqual(
+            response.data["items"][0]["invited_by"],
             {
                 "id": self.admin.id,
                 "username": self.admin.username,
                 "full_name": "Test ADM User",
             },
         )
-        self.assertIsNotNone(response.data[0]["created_at"])
+        self.assertIsNotNone(response.data["items"][0]["created_at"])
 
     def test_list_marks_elapsed_pending_invitations_as_expired(self):
         invitation = self.create_invitation_for_token("elapsed-list-token")
@@ -1267,9 +1369,104 @@ class InvitationCreateControllerTests(APITestCase):
             response = self.client.get(reverse("invitation-create"))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data[0]["status"], "EXPIRADA")
+        self.assertEqual(response.data["items"][0]["status"], "EXPIRADA")
         invitation.refresh_from_db()
         self.assertEqual(invitation.status, Invitation.Status.EXPIRED)
+
+    def test_list_paginates_invitations_ten_at_a_time(self):
+        invitations = [
+            Invitation.objects.create(
+                email=f"guest{index:02d}@example.com",
+                person_role=self.person_role,
+                invited_by=self.admin,
+                token_hash=InvitationTokenService.hash(f"page-token-{index}"),
+                expires_at=timezone.now() + timedelta(hours=24),
+            )
+            for index in range(12)
+        ]
+        self.authenticate(self.admin)
+
+        first_page = self.client.get(
+            reverse("invitation-create"),
+            {"page": 1},
+        )
+        second_page = self.client.get(
+            reverse("invitation-create"),
+            {"page": 2},
+        )
+
+        self.assertEqual(first_page.status_code, status.HTTP_200_OK)
+        self.assertEqual(first_page.data["count"], 12)
+        self.assertEqual(len(first_page.data["items"]), 10)
+        self.assertEqual(second_page.data["count"], 12)
+        self.assertEqual(len(second_page.data["items"]), 2)
+        expected_ids = [invitation.id for invitation in reversed(invitations)]
+        self.assertEqual(
+            [item["id"] for item in first_page.data["items"]],
+            expected_ids[:10],
+        )
+        self.assertEqual(
+            [item["id"] for item in second_page.data["items"]],
+            expected_ids[10:],
+        )
+
+    def test_list_filters_by_email_and_status(self):
+        matching = Invitation.objects.create(
+            email="target.person@example.com",
+            person_role=self.person_role,
+            invited_by=self.admin,
+            token_hash=InvitationTokenService.hash("matching-filter-token"),
+            expires_at=timezone.now() + timedelta(hours=24),
+        )
+        cancelled = Invitation.objects.create(
+            email="target.cancelled@example.com",
+            person_role=self.person_role,
+            invited_by=self.admin,
+            token_hash=InvitationTokenService.hash("cancelled-filter-token"),
+            expires_at=timezone.now() + timedelta(hours=24),
+        )
+        cancelled.delete()
+        Invitation.objects.create(
+            email="unrelated@example.com",
+            person_role=self.person_role,
+            invited_by=self.admin,
+            token_hash=InvitationTokenService.hash("unrelated-filter-token"),
+            expires_at=timezone.now() + timedelta(hours=24),
+        )
+        self.authenticate(self.admin)
+
+        by_email = self.client.get(
+            reverse("invitation-create"),
+            {"email": "TARGET.PERSON"},
+        )
+        by_status = self.client.get(
+            reverse("invitation-create"),
+            {"status": Invitation.Status.CANCELLED},
+        )
+
+        self.assertEqual(by_email.status_code, status.HTTP_200_OK)
+        self.assertEqual(by_email.data["count"], 1)
+        self.assertEqual(by_email.data["items"][0]["id"], matching.id)
+        self.assertEqual(by_status.status_code, status.HTTP_200_OK)
+        self.assertEqual(by_status.data["count"], 1)
+        self.assertEqual(by_status.data["items"][0]["id"], cancelled.id)
+
+    def test_list_validates_page_and_status_query_params(self):
+        self.authenticate(self.admin)
+
+        invalid_page = self.client.get(
+            reverse("invitation-create"),
+            {"page": 0},
+        )
+        invalid_status = self.client.get(
+            reverse("invitation-create"),
+            {"status": "INVALID"},
+        )
+
+        self.assertEqual(invalid_page.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("page", invalid_page.data["errors"])
+        self.assertEqual(invalid_status.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("status", invalid_status.data["errors"])
 
     def test_only_administrator_can_cancel_invitation(self):
         invitation = self.create_invitation_for_token("cancel-permission-token")

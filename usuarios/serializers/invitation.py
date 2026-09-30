@@ -77,6 +77,40 @@ class InvitationListSerializer(serializers.ModelSerializer):
         ]
 
 
+class InvitationListQuerySerializer(serializers.Serializer):
+    page = serializers.IntegerField(
+        required=False,
+        default=1,
+        min_value=1,
+        error_messages={
+            "invalid": "El campo page debe ser un número entero.",
+            "min_value": "El campo page debe ser mayor o igual a 1.",
+        },
+    )
+    email = serializers.CharField(
+        required=False,
+        allow_blank=False,
+        max_length=254,
+        error_messages=field_errors("email"),
+    )
+    status = serializers.ChoiceField(
+        required=False,
+        choices=Invitation.Status.choices,
+        error_messages={
+            **field_errors("status"),
+            "invalid_choice": "El estado de invitación seleccionado no es válido.",
+        },
+    )
+
+    def validate_email(self, value):
+        return value.strip().casefold()
+
+
+class InvitationPaginatedListSerializer(serializers.Serializer):
+    count = serializers.IntegerField(min_value=0)
+    items = InvitationListSerializer(many=True)
+
+
 class InvitationValidationDetailsSerializer(serializers.ModelSerializer):
     person_role = PersonRoleSerializer(read_only=True)
 

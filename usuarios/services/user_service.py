@@ -15,9 +15,18 @@ class UserServiceError(ServiceError):
 
 
 class UserService:
+    PAGE_SIZE = 10
+
     @staticmethod
-    def list_all():
-        return (
+    def list_all(
+        *,
+        page=1,
+        username=None,
+        person_role=None,
+        user_role=None,
+        name=None,
+    ):
+        users = (
             User.objects.filter(
                 deleted_at__isnull=True,
                 person__deleted_at__isnull=True,
@@ -25,6 +34,20 @@ class UserService:
             .select_related("person__person_role", "user_role")
             .order_by("id")
         )
+
+        if username is not None:
+            users = users.filter(username__icontains=username)
+        if person_role is not None:
+            users = users.filter(person__person_role__code=person_role)
+        if user_role is not None:
+            users = users.filter(user_role__code=user_role)
+        if name is not None:
+            users = users.filter(person__name__icontains=name)
+
+        count = users.count()
+        offset = (page - 1) * UserService.PAGE_SIZE
+        items = users[offset : offset + UserService.PAGE_SIZE]
+        return {"count": count, "items": items}
 
     @staticmethod
     def get_by_id(*, user_id):
