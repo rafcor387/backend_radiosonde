@@ -398,11 +398,13 @@ class UserListControllerTests(APITestCase):
         user_role,
         name,
         is_active=True,
+        paternal_surname="Perez",
+        maternal_surname="Mamani",
     ):
         person = Person.objects.create(
             name=name,
-            paternal_surname="Perez",
-            maternal_surname="Mamani",
+            paternal_surname=paternal_surname,
+            maternal_surname=maternal_surname,
             email=email,
             person_role=person_role,
         )
@@ -538,7 +540,17 @@ class UserListControllerTests(APITestCase):
             expected_ids[10:],
         )
 
-    def test_list_filters_by_username_roles_and_person_name(self):
+    def test_list_filters_by_username_roles_full_name_and_status(self):
+        same_name = self.create_user(
+            username="SUS123456",
+            email="same-name@example.com",
+            person_role=self.student_role,
+            user_role=UserRole.objects.get(code=UserRole.Code.USER),
+            name="Normal",
+            paternal_surname="Quispe",
+            maternal_surname="Flores",
+            is_active=False,
+        )
         self.authenticate(self.admin)
         url = reverse("user-list")
 
@@ -551,22 +563,30 @@ class UserListControllerTests(APITestCase):
             url,
             {"user_role": UserRole.Code.USER},
         )
-        by_name = self.client.get(url, {"name": "norm"})
+        by_name = self.client.get(url, {"name": "normal perez"})
+        by_status = self.client.get(url, {"is_active": "false"})
 
-        for response in [
-            by_username,
-            by_person_role,
-            by_user_role,
-            by_name,
+        for response, expected_user in [
+            (by_username, self.normal_user),
+            (by_name, self.normal_user),
+            (by_status, same_name),
         ]:
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             self.assertEqual(response.data["count"], 1)
             self.assertEqual(
                 response.data["items"][0]["id"],
-                self.normal_user.id,
+                expected_user.id,
             )
 
-    def test_list_validates_page_and_role_query_params(self):
+        for response in [by_person_role, by_user_role]:
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.data["count"], 2)
+            self.assertSetEqual(
+                {item["id"] for item in response.data["items"]},
+                {self.normal_user.id, same_name.id},
+            )
+
+    def test_list_validates_page_role_and_status_query_params(self):
         self.authenticate(self.admin)
         url = reverse("user-list")
 
@@ -579,6 +599,7 @@ class UserListControllerTests(APITestCase):
             url,
             {"user_role": "INVALID"},
         )
+        invalid_status = self.client.get(url, {"is_active": "INVALID"})
 
         self.assertEqual(invalid_page.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("page", invalid_page.data["errors"])
@@ -592,6 +613,11 @@ class UserListControllerTests(APITestCase):
             status.HTTP_400_BAD_REQUEST,
         )
         self.assertIn("user_role", invalid_user_role.data["errors"])
+        self.assertEqual(
+            invalid_status.status_code,
+            status.HTTP_400_BAD_REQUEST,
+        )
+        self.assertIn("is_active", invalid_status.data["errors"])
 
     def test_administrator_gets_user_detail_with_creation_dates(self):
         self.authenticate(self.admin)

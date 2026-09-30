@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.db import transaction
+from django.db.models import Value
+from django.db.models.functions import Concat
 
 from usuarios.error_codes import ErrorCode
 from usuarios.exceptions import ServiceError
@@ -25,6 +27,7 @@ class UserService:
         person_role=None,
         user_role=None,
         name=None,
+        is_active=None,
     ):
         users = (
             User.objects.filter(
@@ -42,7 +45,17 @@ class UserService:
         if user_role is not None:
             users = users.filter(user_role__code=user_role)
         if name is not None:
-            users = users.filter(person__name__icontains=name)
+            users = users.annotate(
+                full_name=Concat(
+                    "person__name",
+                    Value(" "),
+                    "person__paternal_surname",
+                    Value(" "),
+                    "person__maternal_surname",
+                )
+            ).filter(full_name__icontains=name)
+        if is_active is not None:
+            users = users.filter(is_active=is_active)
 
         count = users.count()
         offset = (page - 1) * UserService.PAGE_SIZE

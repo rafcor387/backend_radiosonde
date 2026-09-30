@@ -73,8 +73,17 @@ class UserListQuerySerializer(serializers.Serializer):
     name = serializers.CharField(
         required=False,
         allow_blank=False,
-        max_length=100,
+        max_length=302,
         error_messages=field_errors("name"),
+    )
+    is_active = serializers.BooleanField(
+        required=False,
+        default=None,
+        allow_null=True,
+        error_messages={
+            **field_errors("is_active"),
+            "invalid": "El campo is_active debe ser verdadero o falso.",
+        },
     )
 
 
