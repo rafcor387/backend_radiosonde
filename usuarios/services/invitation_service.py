@@ -35,6 +35,66 @@ class InvitationService:
         ).all()
 
     @staticmethod
+    def cancel(*, invitation_id):
+        invitation = None
+        cancelled = False
+
+        with transaction.atomic():
+            invitation = (
+                Invitation.objects.select_for_update()
+                .filter(pk=invitation_id)
+                .first()
+            )
+            now = timezone.now()
+
+            if (
+                invitation is not None
+                and invitation.status == Invitation.Status.PENDING
+                and invitation.expires_at <= now
+            ):
+                invitation.status = Invitation.Status.EXPIRED
+                invitation.save(update_fields=["status", "updated_at"])
+            elif (
+                invitation is not None
+                and invitation.status == Invitation.Status.PENDING
+            ):
+                invitation.status = Invitation.Status.CANCELLED
+                invitation.cancelled_at = now
+                invitation.save(
+                    update_fields=["status", "cancelled_at", "updated_at"]
+                )
+                cancelled = True
+
+        if invitation is None:
+            raise ServiceError(
+                ErrorCode.INVITATION_NOT_FOUND,
+                "La invitación solicitada no existe.",
+                404,
+            )
+        if cancelled:
+            return invitation
+        if invitation.status == Invitation.Status.EXPIRED:
+            raise ServiceError(
+                ErrorCode.INVITATION_EXPIRED,
+                "La invitación ha vencido y no puede cancelarse.",
+                410,
+            )
+        if invitation.status == Invitation.Status.CANCELLED:
+            raise ServiceError(
+                ErrorCode.INVITATION_ALREADY_CANCELLED,
+                "La invitación ya fue cancelada.",
+                409,
+            )
+        if invitation.status == Invitation.Status.ACCEPTED:
+            raise ServiceError(
+                ErrorCode.INVITATION_ALREADY_ACCEPTED,
+                "La invitación ya fue aceptada y no puede cancelarse.",
+                409,
+            )
+
+        return invitation
+
+    @staticmethod
     @transaction.atomic
     def create_and_send(*, email, person_role_code, invited_by):
         normalized_email = email.strip().casefold()

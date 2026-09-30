@@ -10,6 +10,7 @@ from usuarios.views.authentication import (
 )
 from usuarios.views.invitation import (
     InvitationAcceptView,
+    InvitationCancelView,
     InvitationListCreateView,
     InvitationValidateView,
 )
@@ -49,6 +50,11 @@ urlpatterns = [
         "invitations/<str:token>/accept/",
         InvitationAcceptView.as_view(),
         name="invitation-accept",
+    ),
+    path(
+        "invitations/<int:invitation_id>/cancel/",
+        InvitationCancelView.as_view(),
+        name="invitation-cancel",
     ),
     path(
         "users/bootstrap-admin/",

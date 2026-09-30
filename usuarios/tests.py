@@ -799,6 +799,110 @@ class InvitationCreateControllerTests(APITestCase):
         invitation.refresh_from_db()
         self.assertEqual(invitation.status, Invitation.Status.EXPIRED)
 
+    def test_only_administrator_can_cancel_invitation(self):
+        invitation = self.create_invitation_for_token("cancel-permission-token")
+
+        unauthenticated = self.client.post(
+            reverse("invitation-cancel", args=[invitation.id])
+        )
+        self.assertEqual(
+            unauthenticated.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+        )
+
+        self.authenticate(self.normal_user)
+        forbidden = self.client.post(
+            reverse("invitation-cancel", args=[invitation.id])
+        )
+        self.assertEqual(forbidden.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(forbidden.data["code"], "PERMISSION_DENIED")
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.status, Invitation.Status.PENDING)
+
+    def test_administrator_cancels_pending_invitation_logically(self):
+        raw_token = "cancel-pending-token"
+        invitation = self.create_invitation_for_token(raw_token)
+        self.authenticate(self.admin)
+
+        response = self.client.post(
+            reverse("invitation-cancel", args=[invitation.id])
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertTrue(Invitation.objects.filter(pk=invitation.id).exists())
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.status, Invitation.Status.CANCELLED)
+        self.assertIsNotNone(invitation.cancelled_at)
+
+        self.client.credentials()
+        validate = self.client.get(
+            reverse("invitation-validate", kwargs={"token": raw_token})
+        )
+        self.assertEqual(validate.status_code, status.HTTP_410_GONE)
+        self.assertEqual(validate.data["code"], "INVITATION_CANCELLED")
+
+    def test_cancel_rejects_missing_and_already_cancelled_invitation(self):
+        invitation = self.create_invitation_for_token("cancel-twice-token")
+        invitation.delete()
+        self.authenticate(self.admin)
+
+        missing = self.client.post(reverse("invitation-cancel", args=[999999]))
+        repeated = self.client.post(
+            reverse("invitation-cancel", args=[invitation.id])
+        )
+
+        self.assertEqual(missing.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(missing.data["code"], "INVITATION_NOT_FOUND")
+        self.assertEqual(repeated.status_code, status.HTTP_409_CONFLICT)
+        self.assertEqual(
+            repeated.data["code"],
+            "INVITATION_ALREADY_CANCELLED",
+        )
+
+    def test_cancel_rejects_accepted_invitation(self):
+        invitation = self.create_invitation_for_token("accepted-cancel-token")
+        invitation.status = Invitation.Status.ACCEPTED
+        invitation.accepted_at = timezone.now()
+        invitation.accepted_user = self.normal_user
+        invitation.save(
+            update_fields=[
+                "status",
+                "accepted_at",
+                "accepted_user",
+                "updated_at",
+            ]
+        )
+        self.authenticate(self.admin)
+
+        response = self.client.post(
+            reverse("invitation-cancel", args=[invitation.id])
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+        self.assertEqual(
+            response.data["code"],
+            "INVITATION_ALREADY_ACCEPTED",
+        )
+
+    def test_cancel_marks_elapsed_invitation_as_expired(self):
+        invitation = self.create_invitation_for_token("elapsed-cancel-token")
+        service_now = invitation.expires_at + timedelta(seconds=1)
+        self.authenticate(self.admin)
+
+        with patch(
+            "usuarios.services.invitation_service.timezone.now",
+            return_value=service_now,
+        ):
+            response = self.client.post(
+                reverse("invitation-cancel", args=[invitation.id])
+            )
+
+        self.assertEqual(response.status_code, status.HTTP_410_GONE)
+        self.assertEqual(response.data["code"], "INVITATION_EXPIRED")
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.status, Invitation.Status.EXPIRED)
+        self.assertIsNone(invitation.cancelled_at)
+
     def test_administrator_creates_and_sends_invitation(self):
         self.authenticate(self.admin)
         before = timezone.now()

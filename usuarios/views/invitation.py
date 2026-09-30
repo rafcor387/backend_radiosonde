@@ -1,4 +1,4 @@
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import OpenApiResponse, extend_schema
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -92,3 +92,17 @@ class InvitationAcceptView(APIView):
             CurrentUserSerializer(user).data,
             status=status.HTTP_201_CREATED,
         )
+
+
+class InvitationCancelView(APIView):
+    permission_classes = [IsAuthenticated, IsAdministrator]
+
+    @extend_schema(
+        request=None,
+        responses={204: OpenApiResponse(description="Invitation cancelled")},
+        summary="Cancel a pending invitation",
+        tags=["Invitations"],
+    )
+    def post(self, request, invitation_id):
+        InvitationService.cancel(invitation_id=invitation_id)
+        return Response(status=status.HTTP_204_NO_CONTENT)
