@@ -120,6 +120,50 @@ class UserService:
 
     @staticmethod
     @transaction.atomic
+    def update_own_profile(
+        *,
+        current_user,
+        name=None,
+        paternal_surname=None,
+        maternal_surname=None,
+    ):
+        user = (
+            User.objects.select_for_update()
+            .filter(
+                pk=current_user.pk,
+                deleted_at__isnull=True,
+                person__deleted_at__isnull=True,
+            )
+            .select_related("person__person_role", "user_role")
+            .first()
+        )
+        if user is None:
+            raise UserServiceError(
+                ErrorCode.USER_NOT_FOUND,
+                "El usuario solicitado no existe.",
+                404,
+            )
+
+        person = user.person
+        update_fields = []
+        editable_values = {
+            "name": name,
+            "paternal_surname": paternal_surname,
+            "maternal_surname": maternal_surname,
+        }
+        for field, value in editable_values.items():
+            if value is not None and getattr(person, field) != value:
+                setattr(person, field, value.strip())
+                update_fields.append(field)
+
+        if update_fields:
+            update_fields.append("updated_at")
+            person.save(update_fields=update_fields)
+
+        return user
+
+    @staticmethod
+    @transaction.atomic
     def create_bootstrap_admin(
         *,
         name,
@@ -149,7 +193,7 @@ class UserService:
         normalized_email = email.strip().casefold()
         if Person.objects.filter(email__iexact=normalized_email).exists():
             raise UserServiceError(
-                "EMAIL_ALREADY_EXISTS",
+                ErrorCode.EMAIL_ALREADY_EXISTS,
                 "Ya existe una persona con este correo electrónico.",
                 409,
             )

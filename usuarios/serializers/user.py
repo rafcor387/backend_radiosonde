@@ -95,6 +95,45 @@ class UserUpdateSerializer(serializers.Serializer):
         return attrs
 
 
+class OwnProfileUpdateSerializer(serializers.Serializer):
+    name = serializers.CharField(
+        max_length=100,
+        required=False,
+        allow_blank=False,
+        error_messages=field_errors("name"),
+    )
+    paternal_surname = serializers.CharField(
+        max_length=100,
+        required=False,
+        allow_blank=False,
+        error_messages=field_errors("paternal_surname"),
+    )
+    maternal_surname = serializers.CharField(
+        max_length=100,
+        required=False,
+        allow_blank=False,
+        error_messages=field_errors("maternal_surname"),
+    )
+
+    def validate(self, attrs):
+        unknown_fields = set(self.initial_data) - set(self.fields)
+        if unknown_fields:
+            raise serializers.ValidationError(
+                {
+                    field: serializers.ErrorDetail(
+                        "Este campo no está permitido.",
+                        code="not_allowed",
+                    )
+                    for field in sorted(unknown_fields)
+                }
+            )
+        if not attrs:
+            raise serializers.ValidationError(
+                "Debe enviar al menos un campo permitido para actualizar."
+            )
+        return attrs
+
+
 class BootstrapAdminSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100, allow_blank=False)
     paternal_surname = serializers.CharField(max_length=100, allow_blank=False)

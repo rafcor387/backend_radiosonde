@@ -5,9 +5,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from usuarios.permissions import IsAdministrator
+from usuarios.serializers.authentication import CurrentUserSerializer
 from usuarios.serializers.user import (
     BootstrapAdminResponseSerializer,
     BootstrapAdminSerializer,
+    OwnProfileUpdateSerializer,
     UserDetailSerializer,
     UserListSerializer,
     UserUpdateSerializer,
@@ -61,6 +63,28 @@ class UserDetailView(APIView):
         )
         return Response(
             UserDetailSerializer(user).data,
+            status=status.HTTP_200_OK,
+        )
+
+
+class OwnProfileUpdateView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(
+        request=OwnProfileUpdateSerializer,
+        responses={200: CurrentUserSerializer},
+        summary="Update the current user's profile",
+        tags=["Users"],
+    )
+    def patch(self, request):
+        serializer = OwnProfileUpdateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = UserService.update_own_profile(
+            current_user=request.user,
+            **serializer.validated_data,
+        )
+        return Response(
+            CurrentUserSerializer(user).data,
             status=status.HTTP_200_OK,
         )
 

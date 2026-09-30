@@ -698,6 +698,134 @@ class UserListControllerTests(APITestCase):
         self.assertEqual(deleted_response.data["code"], "USER_NOT_FOUND")
 
 
+class OwnProfileUpdateControllerTests(APITestCase):
+    password = "SecurePassword!934"
+
+    def setUp(self):
+        self.person_role = PersonRole.objects.get(code=PersonRole.Code.STUDENT)
+        self.user_role = UserRole.objects.get(code=UserRole.Code.USER)
+        person = Person.objects.create(
+            name="Carlos",
+            paternal_surname="Perez",
+            maternal_surname="Bravo",
+            email="carlos@example.com",
+            person_role=self.person_role,
+        )
+        self.user = User.objects.create_user(
+            username="CPB145631",
+            password=self.password,
+            person=person,
+            user_role=self.user_role,
+        )
+        self.url = reverse("user-profile-update")
+
+    def authenticate(self):
+        token = AccessToken.for_user(self.user)
+        token["token_version"] = self.user.token_version
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+
+    def test_authenticated_user_updates_own_profile(self):
+        self.authenticate()
+
+        response = self.client.patch(
+            self.url,
+            {
+                "name": "Carla",
+                "paternal_surname": "Quispe",
+                "maternal_surname": "Mamani",
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["id"], self.user.id)
+        self.assertEqual(response.data["username"], "CPB145631")
+        self.assertEqual(response.data["person"]["name"], "Carla")
+        self.assertEqual(
+            response.data["person"]["paternal_surname"],
+            "Quispe",
+        )
+        self.assertEqual(
+            response.data["person"]["maternal_surname"],
+            "Mamani",
+        )
+        self.assertEqual(
+            response.data["person"]["email"],
+            "carlos@example.com",
+        )
+        self.assertEqual(
+            response.data["person"]["person_role"]["code"],
+            PersonRole.Code.STUDENT,
+        )
+        self.assertEqual(
+            response.data["user_role"]["code"],
+            UserRole.Code.USER,
+        )
+        self.assertTrue(response.data["is_active"])
+
+    def test_profile_update_is_partial(self):
+        self.authenticate()
+
+        response = self.client.patch(
+            self.url,
+            {"name": "Carlota"},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.user.person.refresh_from_db()
+        self.assertEqual(self.user.person.name, "Carlota")
+        self.assertEqual(self.user.person.paternal_surname, "Perez")
+        self.assertEqual(self.user.person.maternal_surname, "Bravo")
+        self.assertEqual(self.user.person.email, "carlos@example.com")
+
+    def test_profile_update_requires_authentication(self):
+        response = self.client.patch(
+            self.url,
+            {"name": "Changed"},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.data["code"], "AUTH_REQUIRED")
+
+    def test_profile_update_rejects_empty_invalid_and_protected_fields(self):
+        self.authenticate()
+
+        empty = self.client.patch(self.url, {}, format="json")
+        blank = self.client.patch(
+            self.url,
+            {"name": "   "},
+            format="json",
+        )
+        protected = self.client.patch(
+            self.url,
+            {
+                "email": "changed@example.com",
+                "username": "CHANGED123456",
+                "is_active": False,
+                "user_role_code": "ADMINISTRATOR",
+            },
+            format="json",
+        )
+
+        self.assertEqual(empty.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("non_field_errors", empty.data["errors"])
+        self.assertEqual(blank.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("name", blank.data["errors"])
+        self.assertEqual(protected.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("email", protected.data["errors"])
+        self.assertIn("username", protected.data["errors"])
+        self.assertIn("is_active", protected.data["errors"])
+        self.assertIn("user_role_code", protected.data["errors"])
+        self.user.refresh_from_db()
+        self.user.person.refresh_from_db()
+        self.assertEqual(self.user.username, "CPB145631")
+        self.assertTrue(self.user.is_active)
+        self.assertEqual(self.user.user_role, self.user_role)
+        self.assertEqual(self.user.person.email, "carlos@example.com")
+
+
 @override_settings(
     EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
     PASSWORD_RESET_CONFIRM_URL="http://frontend.test/password/reset",
