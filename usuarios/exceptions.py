@@ -19,3 +19,12 @@ class InvalidCredentialsError(ServiceError):
             "Credenciales incorrectas.",
             401,
         )
+
+
+class SuspendedUserError(ServiceError):
+    def __init__(self):
+        super().__init__(
+            ErrorCode.AUTH_USER_SUSPENDED,
+            "Usuario suspendido.",
+            403,
+        )

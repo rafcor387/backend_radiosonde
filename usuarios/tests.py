@@ -285,16 +285,30 @@ class AuthenticationControllerTests(APITestCase):
         self.user.refresh_from_db()
         self.assertIsNotNone(self.user.last_login)
 
-    def test_login_rejects_incorrect_credentials_and_inactive_users(self):
+    def test_login_rejects_incorrect_credentials(self):
         wrong_password = self.login(password="incorrect")
         self.assertEqual(wrong_password.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(wrong_password.data["code"], "AUTH_INVALID_CREDENTIALS")
 
+    def test_login_reports_suspended_user_with_correct_credentials(self):
         self.user.is_active = False
         self.user.save(update_fields=["is_active"])
-        inactive = self.login()
-        self.assertEqual(inactive.status_code, status.HTTP_401_UNAUTHORIZED)
-        self.assertEqual(inactive.data["code"], "AUTH_INVALID_CREDENTIALS")
+
+        suspended = self.login()
+
+        self.assertEqual(suspended.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(suspended.data["code"], "AUTH_USER_SUSPENDED")
+        self.assertEqual(suspended.data["message"], "Usuario suspendido.")
+        self.assertNotIn("access", suspended.data)
+
+    def test_suspended_user_with_wrong_password_keeps_generic_error(self):
+        self.user.is_active = False
+        self.user.save(update_fields=["is_active"])
+
+        response = self.login(password="incorrect")
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.data["code"], "AUTH_INVALID_CREDENTIALS")
 
     def test_login_returns_standard_field_errors(self):
         response = self.client.post(
