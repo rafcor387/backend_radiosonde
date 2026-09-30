@@ -1,6 +1,40 @@
 from rest_framework import serializers
 
-from usuarios.models import PersonRole, User
+from usuarios.models import Person, PersonRole, User
+from usuarios.serializers.authentication import (
+    PersonRoleSerializer,
+    UserRoleSerializer,
+)
+
+
+class UserListPersonSerializer(serializers.ModelSerializer):
+    person_role = PersonRoleSerializer(read_only=True)
+
+    class Meta:
+        model = Person
+        fields = [
+            "id",
+            "name",
+            "paternal_surname",
+            "maternal_surname",
+            "email",
+            "person_role",
+        ]
+
+
+class UserListSerializer(serializers.ModelSerializer):
+    person = UserListPersonSerializer(read_only=True)
+    user_role = UserRoleSerializer(read_only=True)
+
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "username",
+            "person",
+            "user_role",
+            "is_active",
+        ]
 
 
 class BootstrapAdminSerializer(serializers.Serializer):

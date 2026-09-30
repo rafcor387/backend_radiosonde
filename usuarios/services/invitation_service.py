@@ -32,7 +32,7 @@ class InvitationService:
             "person_role",
             "invited_by",
             "invited_by__person",
-        ).all()
+        ).order_by("-created_at", "-id")
 
     @staticmethod
     def cancel(*, invitation_id):

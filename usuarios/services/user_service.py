@@ -15,6 +15,17 @@ class UserServiceError(ServiceError):
 
 class UserService:
     @staticmethod
+    def list_all():
+        return (
+            User.objects.filter(
+                deleted_at__isnull=True,
+                person__deleted_at__isnull=True,
+            )
+            .select_related("person__person_role", "user_role")
+            .order_by("id")
+        )
+
+    @staticmethod
     @transaction.atomic
     def create_bootstrap_admin(
         *,

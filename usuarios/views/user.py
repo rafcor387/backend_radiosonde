@@ -1,14 +1,32 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from usuarios.permissions import IsAdministrator
 from usuarios.serializers.user import (
     BootstrapAdminResponseSerializer,
     BootstrapAdminSerializer,
+    UserListSerializer,
 )
 from usuarios.services.user_service import UserService
+
+
+class UserListView(APIView):
+    permission_classes = [IsAuthenticated, IsAdministrator]
+
+    @extend_schema(
+        responses={200: UserListSerializer(many=True)},
+        summary="List users",
+        tags=["Users"],
+    )
+    def get(self, request):
+        users = UserService.list_all()
+        return Response(
+            UserListSerializer(users, many=True).data,
+            status=status.HTTP_200_OK,
+        )
 
 
 class BootstrapAdminView(APIView):

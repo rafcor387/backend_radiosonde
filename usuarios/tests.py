@@ -354,6 +354,137 @@ class AuthenticationControllerTests(APITestCase):
         self.assertEqual(expired.data["code"], "AUTH_TOKEN_EXPIRED")
 
 
+class UserListControllerTests(APITestCase):
+    password = "SecurePassword!934"
+
+    def setUp(self):
+        self.student_role = PersonRole.objects.get(code=PersonRole.Code.STUDENT)
+        self.teacher_role = PersonRole.objects.get(code=PersonRole.Code.TEACHER)
+        self.admin = self.create_user(
+            username="ADM123456",
+            email="admin@example.com",
+            person_role=self.teacher_role,
+            user_role=UserRole.objects.get(code=UserRole.Code.ADMINISTRATOR),
+            name="Admin",
+        )
+        self.normal_user = self.create_user(
+            username="USR123456",
+            email="user@example.com",
+            person_role=self.student_role,
+            user_role=UserRole.objects.get(code=UserRole.Code.USER),
+            name="Normal",
+        )
+
+    def create_user(
+        self,
+        *,
+        username,
+        email,
+        person_role,
+        user_role,
+        name,
+        is_active=True,
+    ):
+        person = Person.objects.create(
+            name=name,
+            paternal_surname="Perez",
+            maternal_surname="Mamani",
+            email=email,
+            person_role=person_role,
+        )
+        return User.objects.create_user(
+            username=username,
+            password=self.password,
+            person=person,
+            user_role=user_role,
+            is_active=is_active,
+        )
+
+    def authenticate(self, user):
+        token = AccessToken.for_user(user)
+        token["token_version"] = user.token_version
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+
+    def test_only_administrator_can_list_users(self):
+        unauthenticated = self.client.get(reverse("user-list"))
+        self.assertEqual(unauthenticated.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(unauthenticated.data["code"], "AUTH_REQUIRED")
+
+        self.authenticate(self.normal_user)
+        forbidden = self.client.get(reverse("user-list"))
+        self.assertEqual(forbidden.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(forbidden.data["code"], "PERMISSION_DENIED")
+
+    def test_administrator_lists_users_with_person_and_role_data(self):
+        self.authenticate(self.admin)
+
+        response = self.client.get(reverse("user-list"))
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 2)
+        listed_user = next(
+            item for item in response.data if item["id"] == self.normal_user.id
+        )
+        self.assertEqual(
+            set(listed_user),
+            {"id", "username", "person", "user_role", "is_active"},
+        )
+        self.assertEqual(listed_user["username"], "USR123456")
+        self.assertTrue(listed_user["is_active"])
+        self.assertEqual(
+            listed_user["person"],
+            {
+                "id": self.normal_user.person.id,
+                "name": "Normal",
+                "paternal_surname": "Perez",
+                "maternal_surname": "Mamani",
+                "email": "user@example.com",
+                "person_role": {
+                    "id": self.student_role.id,
+                    "code": "STUDENT",
+                    "name": "Estudiante",
+                },
+            },
+        )
+        self.assertEqual(
+            listed_user["user_role"],
+            {
+                "id": self.normal_user.user_role.id,
+                "code": "USER",
+                "name": "Usuario",
+            },
+        )
+
+    def test_list_includes_suspended_users_but_not_logically_deleted_users(self):
+        suspended = self.create_user(
+            username="SUS123456",
+            email="suspended@example.com",
+            person_role=self.student_role,
+            user_role=UserRole.objects.get(code=UserRole.Code.USER),
+            name="Suspended",
+            is_active=False,
+        )
+        deleted = self.create_user(
+            username="DEL123456",
+            email="deleted@example.com",
+            person_role=self.student_role,
+            user_role=UserRole.objects.get(code=UserRole.Code.USER),
+            name="Deleted",
+        )
+        deleted.delete()
+        self.authenticate(self.admin)
+
+        response = self.client.get(reverse("user-list"))
+
+        listed_ids = {item["id"] for item in response.data}
+        self.assertIn(suspended.id, listed_ids)
+        self.assertNotIn(deleted.id, listed_ids)
+        suspended_data = next(
+            item for item in response.data if item["id"] == suspended.id
+        )
+        self.assertFalse(suspended_data["is_active"])
+
+
 @override_settings(
     EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
     PASSWORD_RESET_CONFIRM_URL="http://frontend.test/password/reset",
