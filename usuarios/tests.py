@@ -1,5 +1,6 @@
 from datetime import timedelta
 from urllib.parse import parse_qs, urlparse
+from unittest.mock import patch
 
 from django.core import mail
 from django.core.cache import cache
@@ -16,6 +17,7 @@ from usuarios.models import Invitation, Person, PersonRole, User, UserRole
 from usuarios.services.password_reset_token_service import (
     PasswordResetTokenService,
 )
+from usuarios.services.invitation_token_service import InvitationTokenService
 
 
 class UserSchemaTests(TestCase):
@@ -50,6 +52,25 @@ class UserSchemaTests(TestCase):
             set(PersonRole.objects.values_list("code", flat=True)),
             {"STUDENT", "INTERN", "TEACHER", "ASSISTANT"},
         )
+        self.assertEqual(
+            dict(UserRole.objects.values_list("code", "name")),
+            {"ADMINISTRATOR": "Administrador", "USER": "Usuario"},
+        )
+        self.assertEqual(
+            dict(PersonRole.objects.values_list("code", "name")),
+            {
+                "STUDENT": "Estudiante",
+                "INTERN": "Pasante",
+                "TEACHER": "Docente",
+                "ASSISTANT": "Auxiliar",
+            },
+        )
+
+    def test_invitation_status_values_are_stored_in_spanish(self):
+        self.assertEqual(Invitation.Status.PENDING, "PENDIENTE")
+        self.assertEqual(Invitation.Status.CANCELLED, "CANCELADA")
+        self.assertEqual(Invitation.Status.ACCEPTED, "ACEPTADA")
+        self.assertEqual(Invitation.Status.EXPIRED, "EXPIRADA")
 
     def test_fixed_roles_cannot_be_deleted(self):
         with self.assertRaises(ProtectedError):
@@ -619,3 +640,457 @@ class PasswordControllerTests(APITestCase):
             expired.data["code"],
             "PASSWORD_RESET_TOKEN_EXPIRED",
         )
+
+
+@override_settings(
+    EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+    INVITATION_ACCEPT_URL="http://frontend.test/invitations/accept",
+    INVITATION_EXPIRATION_HOURS=48,
+)
+class InvitationCreateControllerTests(APITestCase):
+    password = "SecurePassword!934"
+
+    def setUp(self):
+        self.person_role = PersonRole.objects.get(code=PersonRole.Code.STUDENT)
+        self.admin = self.create_user(
+            username="ADM123456",
+            email="admin@example.com",
+            user_role_code=UserRole.Code.ADMINISTRATOR,
+        )
+        self.normal_user = self.create_user(
+            username="USR123456",
+            email="user@example.com",
+            user_role_code=UserRole.Code.USER,
+        )
+        self.payload = {
+            "email": "GUEST@Example.com",
+            "person_role_code": PersonRole.Code.STUDENT,
+        }
+        self.accept_payload = {
+            "name": "Carlos",
+            "paternal_surname": "Perez",
+            "maternal_surname": "Bravo",
+            "password": "NewSecurePassword!842",
+            "password_confirm": "NewSecurePassword!842",
+        }
+
+    def create_user(self, *, username, email, user_role_code):
+        person = Person.objects.create(
+            name="Test",
+            paternal_surname=username[:3],
+            maternal_surname="User",
+            email=email,
+            person_role=self.person_role,
+        )
+        return User.objects.create_user(
+            username=username,
+            password=self.password,
+            person=person,
+            user_role=UserRole.objects.get(code=user_role_code),
+        )
+
+    def authenticate(self, user):
+        response = self.client.post(
+            reverse("auth-login"),
+            {"username": user.username, "password": self.password},
+            format="json",
+        )
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f"Bearer {response.data['access']}"
+        )
+
+    def create_invitation_for_token(self, raw_token="valid-invitation-token"):
+        return Invitation.objects.create(
+            email="invited@example.com",
+            person_role=self.person_role,
+            invited_by=self.admin,
+            token_hash=InvitationTokenService.hash(raw_token),
+            expires_at=timezone.now() + timedelta(hours=24),
+        )
+
+    def test_only_administrator_can_create_invitation(self):
+        unauthenticated = self.client.post(
+            reverse("invitation-create"),
+            self.payload,
+            format="json",
+        )
+        self.assertEqual(
+            unauthenticated.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+        )
+
+        self.authenticate(self.normal_user)
+        forbidden = self.client.post(
+            reverse("invitation-create"),
+            self.payload,
+            format="json",
+        )
+        self.assertEqual(forbidden.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(forbidden.data["code"], "PERMISSION_DENIED")
+        self.assertEqual(Invitation.objects.count(), 0)
+
+    def test_administrator_creates_and_sends_invitation(self):
+        self.authenticate(self.admin)
+        before = timezone.now()
+
+        response = self.client.post(
+            reverse("invitation-create"),
+            self.payload,
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data["email"], "guest@example.com")
+        self.assertEqual(response.data["status"], Invitation.Status.PENDING)
+        self.assertEqual(
+            response.data["person_role"]["code"],
+            PersonRole.Code.STUDENT,
+        )
+        self.assertNotIn("token", response.data)
+        self.assertNotIn("token_hash", response.data)
+
+        invitation = Invitation.objects.get(pk=response.data["id"])
+        self.assertEqual(invitation.invited_by, self.admin)
+        self.assertGreaterEqual(
+            invitation.expires_at,
+            before + timedelta(hours=48),
+        )
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ["guest@example.com"])
+        self.assertIn(
+            "http://frontend.test/invitations/accept?token=",
+            mail.outbox[0].body,
+        )
+        raw_token = mail.outbox[0].body.split(
+            "Token para ingreso manual:\n",
+            1,
+        )[1].split()[0]
+        self.assertEqual(
+            invitation.token_hash,
+            InvitationTokenService.hash(raw_token),
+        )
+        self.assertNotEqual(invitation.token_hash, raw_token)
+
+    def test_pending_invitation_cannot_be_duplicated(self):
+        self.authenticate(self.admin)
+        first = self.client.post(
+            reverse("invitation-create"),
+            self.payload,
+            format="json",
+        )
+        duplicate = self.client.post(
+            reverse("invitation-create"),
+            {**self.payload, "email": "guest@EXAMPLE.COM"},
+            format="json",
+        )
+
+        self.assertEqual(first.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(duplicate.status_code, status.HTTP_409_CONFLICT)
+        self.assertEqual(
+            duplicate.data["code"],
+            "INVITATION_ALREADY_PENDING",
+        )
+        self.assertEqual(Invitation.objects.count(), 1)
+        self.assertEqual(len(mail.outbox), 1)
+
+    def test_registered_email_cannot_be_invited(self):
+        self.authenticate(self.admin)
+        response = self.client.post(
+            reverse("invitation-create"),
+            {
+                **self.payload,
+                "email": self.normal_user.person.email,
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+        self.assertEqual(
+            response.data["code"],
+            "INVITATION_EMAIL_ALREADY_REGISTERED",
+        )
+        self.assertEqual(Invitation.objects.count(), 0)
+
+    @patch(
+        "usuarios.services.invitation_service."
+        "InvitationEmailService.send_invitation",
+        side_effect=RuntimeError("SMTP unavailable"),
+    )
+    def test_email_failure_rolls_back_invitation(self, send_invitation):
+        self.authenticate(self.admin)
+        response = self.client.post(
+            reverse("invitation-create"),
+            self.payload,
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
+        self.assertEqual(
+            response.data["code"],
+            "INVITATION_EMAIL_DELIVERY_FAILED",
+        )
+        self.assertEqual(Invitation.objects.count(), 0)
+        send_invitation.assert_called_once()
+
+    def test_expired_pending_invitation_is_replaced(self):
+        old_invitation = Invitation.objects.create(
+            email="guest@example.com",
+            person_role=self.person_role,
+            invited_by=self.admin,
+            token_hash="a" * 64,
+            expires_at=timezone.now() + timedelta(hours=1),
+        )
+        service_now = timezone.now() + timedelta(hours=2)
+        self.authenticate(self.admin)
+
+        with patch(
+            "usuarios.services.invitation_service.timezone.now",
+            return_value=service_now,
+        ):
+            response = self.client.post(
+                reverse("invitation-create"),
+                self.payload,
+                format="json",
+            )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        old_invitation.refresh_from_db()
+        self.assertEqual(old_invitation.status, Invitation.Status.EXPIRED)
+        self.assertEqual(
+            Invitation.objects.filter(status=Invitation.Status.PENDING).count(),
+            1,
+        )
+
+    def test_validate_returns_pending_invitation_without_consuming_it(self):
+        raw_token = "valid-invitation-token"
+        invitation = self.create_invitation_for_token(raw_token)
+
+        first = self.client.get(
+            reverse("invitation-validate", kwargs={"token": raw_token})
+        )
+        second = self.client.get(
+            reverse("invitation-validate", kwargs={"token": raw_token})
+        )
+
+        self.assertEqual(first.status_code, status.HTTP_200_OK)
+        self.assertEqual(second.status_code, status.HTTP_200_OK)
+        self.assertTrue(first.data["valid"])
+        self.assertEqual(
+            first.data["invitation"]["email"],
+            "invited@example.com",
+        )
+        self.assertEqual(
+            first.data["invitation"]["person_role"]["code"],
+            PersonRole.Code.STUDENT,
+        )
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.status, Invitation.Status.PENDING)
+
+    def test_validate_rejects_unknown_token(self):
+        response = self.client.get(
+            reverse(
+                "invitation-validate",
+                kwargs={"token": "unknown-invitation-token"},
+            )
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.data["code"], "INVITATION_TOKEN_INVALID")
+
+    def test_validate_marks_expired_invitation(self):
+        raw_token = "expired-invitation-token"
+        invitation = self.create_invitation_for_token(raw_token)
+        service_now = invitation.expires_at + timedelta(seconds=1)
+
+        with patch(
+            "usuarios.services.invitation_service.timezone.now",
+            return_value=service_now,
+        ):
+            response = self.client.get(
+                reverse("invitation-validate", kwargs={"token": raw_token})
+            )
+
+        self.assertEqual(response.status_code, status.HTTP_410_GONE)
+        self.assertEqual(response.data["code"], "INVITATION_EXPIRED")
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.status, Invitation.Status.EXPIRED)
+
+    def test_validate_rejects_cancelled_invitation(self):
+        raw_token = "cancelled-invitation-token"
+        invitation = self.create_invitation_for_token(raw_token)
+        invitation.delete()
+
+        response = self.client.get(
+            reverse("invitation-validate", kwargs={"token": raw_token})
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_410_GONE)
+        self.assertEqual(response.data["code"], "INVITATION_CANCELLED")
+
+    def test_validate_rejects_accepted_invitation(self):
+        raw_token = "accepted-invitation-token"
+        invitation = self.create_invitation_for_token(raw_token)
+        invitation.status = Invitation.Status.ACCEPTED
+        invitation.accepted_at = timezone.now()
+        invitation.accepted_user = self.normal_user
+        invitation.save(
+            update_fields=[
+                "status",
+                "accepted_at",
+                "accepted_user",
+                "updated_at",
+            ]
+        )
+
+        response = self.client.get(
+            reverse("invitation-validate", kwargs={"token": raw_token})
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+        self.assertEqual(
+            response.data["code"],
+            "INVITATION_ALREADY_ACCEPTED",
+        )
+
+    def test_validate_then_accept_creates_person_and_normal_user(self):
+        raw_token = "accept-valid-invitation-token"
+        invitation = self.create_invitation_for_token(raw_token)
+        initial_person_count = Person.objects.count()
+
+        validated = self.client.get(
+            reverse("invitation-validate", kwargs={"token": raw_token})
+        )
+        accepted = self.client.post(
+            reverse("invitation-accept", kwargs={"token": raw_token}),
+            self.accept_payload,
+            format="json",
+        )
+
+        self.assertEqual(validated.status_code, status.HTTP_200_OK)
+        self.assertEqual(accepted.status_code, status.HTTP_201_CREATED)
+        self.assertRegex(accepted.data["username"], r"^CPB\d{6}$")
+        self.assertEqual(
+            accepted.data["person"]["email"],
+            invitation.email,
+        )
+        self.assertEqual(
+            accepted.data["person"]["person_role"]["code"],
+            PersonRole.Code.STUDENT,
+        )
+        self.assertEqual(accepted.data["user_role"]["code"], UserRole.Code.USER)
+        self.assertEqual(accepted.data["user_role"]["name"], "Usuario")
+        self.assertTrue(accepted.data["is_active"])
+        self.assertFalse(accepted.data["is_staff"])
+        self.assertFalse(accepted.data["is_superuser"])
+        self.assertEqual(Person.objects.count(), initial_person_count + 1)
+
+        created_user = User.objects.get(pk=accepted.data["id"])
+        self.assertTrue(created_user.check_password(self.accept_payload["password"]))
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.status, Invitation.Status.ACCEPTED)
+        self.assertEqual(invitation.accepted_user, created_user)
+        self.assertIsNotNone(invitation.accepted_at)
+
+    def test_accept_cannot_reuse_invitation(self):
+        raw_token = "single-use-invitation-token"
+        self.create_invitation_for_token(raw_token)
+
+        first = self.client.post(
+            reverse("invitation-accept", kwargs={"token": raw_token}),
+            self.accept_payload,
+            format="json",
+        )
+        second = self.client.post(
+            reverse("invitation-accept", kwargs={"token": raw_token}),
+            self.accept_payload,
+            format="json",
+        )
+
+        self.assertEqual(first.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(second.status_code, status.HTTP_409_CONFLICT)
+        self.assertEqual(
+            second.data["code"],
+            "INVITATION_ALREADY_ACCEPTED",
+        )
+        self.assertEqual(
+            Person.objects.filter(email="invited@example.com").count(),
+            1,
+        )
+
+    def test_accept_validates_password_fields_without_creating_records(self):
+        raw_token = "password-validation-invitation-token"
+        invitation = self.create_invitation_for_token(raw_token)
+
+        mismatch = self.client.post(
+            reverse("invitation-accept", kwargs={"token": raw_token}),
+            {**self.accept_payload, "password_confirm": "DifferentPassword!72"},
+            format="json",
+        )
+        weak = self.client.post(
+            reverse("invitation-accept", kwargs={"token": raw_token}),
+            {**self.accept_payload, "password": "123", "password_confirm": "123"},
+            format="json",
+        )
+
+        self.assertEqual(mismatch.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("password_confirm", mismatch.data["errors"])
+        self.assertEqual(weak.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("password", weak.data["errors"])
+        self.assertFalse(Person.objects.filter(email=invitation.email).exists())
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.status, Invitation.Status.PENDING)
+
+    def test_accept_revalidates_unknown_and_expired_tokens(self):
+        unknown = self.client.post(
+            reverse(
+                "invitation-accept",
+                kwargs={"token": "unknown-accept-token"},
+            ),
+            self.accept_payload,
+            format="json",
+        )
+
+        raw_token = "expired-accept-token"
+        invitation = self.create_invitation_for_token(raw_token)
+        service_now = invitation.expires_at + timedelta(seconds=1)
+        with patch(
+            "usuarios.services.invitation_service.timezone.now",
+            return_value=service_now,
+        ):
+            expired = self.client.post(
+                reverse("invitation-accept", kwargs={"token": raw_token}),
+                self.accept_payload,
+                format="json",
+            )
+
+        self.assertEqual(unknown.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(unknown.data["code"], "INVITATION_TOKEN_INVALID")
+        self.assertEqual(expired.status_code, status.HTTP_410_GONE)
+        self.assertEqual(expired.data["code"], "INVITATION_EXPIRED")
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.status, Invitation.Status.EXPIRED)
+
+    def test_accept_rejects_email_registered_after_invitation(self):
+        raw_token = "registered-email-invitation-token"
+        invitation = self.create_invitation_for_token(raw_token)
+        Person.objects.create(
+            name="Existing",
+            paternal_surname="Person",
+            maternal_surname="Account",
+            email=invitation.email,
+            person_role=self.person_role,
+        )
+
+        response = self.client.post(
+            reverse("invitation-accept", kwargs={"token": raw_token}),
+            self.accept_payload,
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+        self.assertEqual(
+            response.data["code"],
+            "INVITATION_EMAIL_ALREADY_REGISTERED",
+        )
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.status, Invitation.Status.PENDING)

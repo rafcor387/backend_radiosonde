@@ -52,6 +52,13 @@ PASSWORD_RESET_CONFIRM_URL = os.getenv(
     "PASSWORD_RESET_CONFIRM_URL",
     "http://localhost:3000/password/reset",
 )
+INVITATION_EXPIRATION_HOURS = int(
+    os.getenv("INVITATION_EXPIRATION_HOURS", "48")
+)
+INVITATION_ACCEPT_URL = os.getenv(
+    "INVITATION_ACCEPT_URL",
+    "http://localhost:3000/invitations/accept",
+)
 
 
 # Application definition

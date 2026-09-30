@@ -11,8 +11,8 @@ class FixedRoleQuerySet(models.QuerySet):
 
 class UserRole(models.Model):
     class Code(models.TextChoices):
-        ADMINISTRATOR = "ADMINISTRATOR", "Administrator"
-        USER = "USER", "User"
+        ADMINISTRATOR = "ADMINISTRATOR", "Administrador"
+        USER = "USER", "Usuario"
 
     code = models.CharField(max_length=30, choices=Code.choices, unique=True)
     name = models.CharField(max_length=50, unique=True)
@@ -42,10 +42,10 @@ class UserRole(models.Model):
 
 class PersonRole(models.Model):
     class Code(models.TextChoices):
-        STUDENT = "STUDENT", "Student"
-        INTERN = "INTERN", "Intern"
-        TEACHER = "TEACHER", "Teacher"
-        ASSISTANT = "ASSISTANT", "Assistant"
+        STUDENT = "STUDENT", "Estudiante"
+        INTERN = "INTERN", "Pasante"
+        TEACHER = "TEACHER", "Docente"
+        ASSISTANT = "ASSISTANT", "Auxiliar"
 
     code = models.CharField(max_length=30, choices=Code.choices, unique=True)
     name = models.CharField(max_length=50, unique=True)

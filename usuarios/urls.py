@@ -8,6 +8,11 @@ from usuarios.views.authentication import (
     PasswordConfirmView,
     PasswordForgotView,
 )
+from usuarios.views.invitation import (
+    InvitationAcceptView,
+    InvitationCreateView,
+    InvitationValidateView,
+)
 from usuarios.views.user import BootstrapAdminView
 
 
@@ -29,6 +34,21 @@ urlpatterns = [
         "auth/password/confirm/",
         PasswordConfirmView.as_view(),
         name="auth-password-confirm",
+    ),
+    path(
+        "invitations/",
+        InvitationCreateView.as_view(),
+        name="invitation-create",
+    ),
+    path(
+        "invitations/<str:token>/validate/",
+        InvitationValidateView.as_view(),
+        name="invitation-validate",
+    ),
+    path(
+        "invitations/<str:token>/accept/",
+        InvitationAcceptView.as_view(),
+        name="invitation-accept",
     ),
     path(
         "users/bootstrap-admin/",

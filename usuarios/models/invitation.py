@@ -9,12 +9,12 @@ from .role import PersonRole
 
 class InvitationQuerySet(models.QuerySet):
     def delete(self):
-        if self.exclude(status="PENDING").exists():
-            raise ValueError("Only pending invitations can be cancelled.")
+        if self.exclude(status="PENDIENTE").exists():
+            raise ValueError("Solo se pueden cancelar invitaciones pendientes.")
 
         now = timezone.now()
         count = self.update(
-            status="CANCELLED",
+            status="CANCELADA",
             cancelled_at=now,
             updated_at=now,
         )
@@ -23,10 +23,10 @@ class InvitationQuerySet(models.QuerySet):
 
 class Invitation(models.Model):
     class Status(models.TextChoices):
-        PENDING = "PENDING", "Pending"
-        CANCELLED = "CANCELLED", "Cancelled"
-        ACCEPTED = "ACCEPTED", "Accepted"
-        EXPIRED = "EXPIRED", "Expired"
+        PENDING = "PENDIENTE", "Pendiente"
+        CANCELLED = "CANCELADA", "Cancelada"
+        ACCEPTED = "ACEPTADA", "Aceptada"
+        EXPIRED = "EXPIRADA", "Expirada"
 
     email = models.EmailField()
     person_role = models.ForeignKey(
@@ -72,7 +72,7 @@ class Invitation(models.Model):
         constraints = [
             models.UniqueConstraint(
                 Lower("email"),
-                condition=Q(status="PENDING"),
+                condition=Q(status="PENDIENTE"),
                 name="one_pending_invitation_per_email",
             ),
             models.CheckConstraint(
@@ -85,19 +85,19 @@ class Invitation(models.Model):
             ),
             models.CheckConstraint(
                 condition=Q(
-                    status="ACCEPTED",
+                    status="ACEPTADA",
                     accepted_at__isnull=False,
                     accepted_user__isnull=False,
                     cancelled_at__isnull=True,
                 )
                 | Q(
-                    status="CANCELLED",
+                    status="CANCELADA",
                     accepted_at__isnull=True,
                     accepted_user__isnull=True,
                     cancelled_at__isnull=False,
                 )
                 | Q(
-                    status__in=["PENDING", "EXPIRED"],
+                    status__in=["PENDIENTE", "EXPIRADA"],
                     accepted_at__isnull=True,
                     accepted_user__isnull=True,
                     cancelled_at__isnull=True,

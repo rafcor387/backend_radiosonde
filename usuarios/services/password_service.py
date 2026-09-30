@@ -45,7 +45,7 @@ class PasswordService:
                 },
             )
 
-        PasswordService._validate_new_password(locked_user, new_password)
+        PasswordService.validate_new_password(locked_user, new_password)
         PasswordService._save_password(locked_user, new_password)
 
     @staticmethod
@@ -88,18 +88,18 @@ class PasswordService:
                 400,
             ) from exc
 
-        PasswordService._validate_new_password(user, new_password)
+        PasswordService.validate_new_password(user, new_password)
         PasswordService._save_password(user, new_password)
 
     @staticmethod
-    def _validate_new_password(user, new_password):
+    def validate_new_password(user, new_password, *, field_name="new_password"):
         if user.check_password(new_password):
             raise ServiceError(
                 ErrorCode.VALIDATION_ERROR,
                 "La nueva contraseña no es válida.",
                 400,
                 {
-                    "new_password": [
+                    field_name: [
                         {
                             "code": "password_unchanged",
                             "message": (
@@ -125,7 +125,7 @@ class PasswordService:
                 ErrorCode.VALIDATION_ERROR,
                 "La nueva contraseña no cumple los requisitos de seguridad.",
                 400,
-                {"new_password": errors},
+                {field_name: errors},
             ) from exc
 
     @staticmethod
