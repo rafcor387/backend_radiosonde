@@ -13,10 +13,16 @@ from .views import (
     RadiosondeStabilityView,
     RadiosondeThermodynamicsView,
     RadiosondeUploadView,
+    RadiosondeFolderUploadView,
     RadiosondeWindView,
 )
 
 urlpatterns = [
+    path(
+        'radiosondes/upload-folder/',
+        RadiosondeFolderUploadView.as_view(),
+        name='radiosonde-folder-upload',
+    ),
     path(
         'radiosondes/upload/',
         RadiosondeUploadView.as_view(),

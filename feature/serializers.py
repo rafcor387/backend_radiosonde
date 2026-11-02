@@ -3,6 +3,7 @@ from datetime import datetime, timezone as datetime_timezone
 from rest_framework import serializers
 
 from .models import RadiosondeProfile
+from .services.radiosonde_bulk_upload import MAX_BULK_BYTES, MAX_BULK_FILES
 
 
 class RadiosondeUploadSerializer(serializers.Serializer):
@@ -11,6 +12,23 @@ class RadiosondeUploadSerializer(serializers.Serializer):
         required=True,
         help_text="Sube aquí tu archivo .tsv con los datos del radiosondeo."
     )
+
+
+class RadiosondeFolderUploadSerializer(serializers.Serializer):
+    year = serializers.IntegerField(
+        min_value=1, max_value=9999,
+        help_text="Año de la carpeta; debe coincidir con Launch time de cada TSV.",
+    )
+    files = serializers.ListField(
+        child=serializers.FileField(allow_empty_file=True),
+        allow_empty=False, max_length=MAX_BULK_FILES,
+        help_text="TSV de la carpeta anual. Se procesa cada archivo de forma independiente.",
+    )
+
+    def validate_files(self, files):
+        if sum(file.size for file in files) > MAX_BULK_BYTES:
+            raise serializers.ValidationError("El lote supera el límite total de 50 MiB.")
+        return files
 
 
 class RadiosondeSearchQuerySerializer(serializers.Serializer):

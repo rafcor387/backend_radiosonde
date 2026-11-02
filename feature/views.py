@@ -12,6 +12,7 @@ from .serializers import (
     RadiosondeSearchResponseSerializer,
     RadiosondeSearchResultSerializer,
     RadiosondeUploadSerializer,
+    RadiosondeFolderUploadSerializer,
 )
 
 from .rs_core import process_uploaded_tsv
@@ -57,6 +58,7 @@ from .services.radiosonde_upload import (
     RadiosondeUploadStorageError,
     upload_radiosonde_tsv,
 )
+from .services.radiosonde_bulk_upload import upload_radiosonde_folder
 
 from io import BytesIO
 
@@ -92,6 +94,32 @@ class RadiosondeUploadView(APIView):
                 status=status.HTTP_422_UNPROCESSABLE_ENTITY,
             )
         return Response(result, status=status.HTTP_201_CREATED)
+
+
+class RadiosondeFolderUploadView(APIView):
+    """Carga un lote de la carpeta anual y devuelve un resultado por TSV."""
+
+    parser_classes = [MultiPartParser, FormParser]
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(
+        request=RadiosondeFolderUploadSerializer,
+        responses={200: OpenApiTypes.OBJECT},
+        description=(
+            "Envía year y varios archivos en el campo files (multipart/form-data). "
+            "Hasta 50 archivos y 50 MiB por lote; 10 MiB por TSV. "
+            "Guarda en radiosondes/año/nombre.tsv y registra sus metadatos. "
+            "Un archivo fallido no revierte los demás. El resumen indica "
+            "uploaded, skipped y failed; HTTP 200 no implica que todos se hayan cargado."
+        ),
+    )
+    def post(self, request, *args, **kwargs):
+        serializer = RadiosondeFolderUploadSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        result = upload_radiosonde_folder(
+            serializer.validated_data["year"], serializer.validated_data["files"],
+        )
+        return Response(result, status=status.HTTP_200_OK)
 
 
 class RadiosondeSearchView(APIView):

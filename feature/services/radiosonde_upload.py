@@ -4,6 +4,7 @@ import re
 
 from botocore.exceptions import BotoCoreError, ClientError
 from django.db import IntegrityError, transaction
+from django.db.models import Q
 
 from feature.models import RadiosondeProfile
 
@@ -33,7 +34,15 @@ class RadiosondeUploadStorageError(RadiosondeUploadError):
     """R2 no pudo completar una operación del alta."""
 
 
-def upload_radiosonde_tsv(uploaded_file) -> dict:
+class RadiosondeUploadDuplicateError(RadiosondeUploadConflictError):
+    """El mismo contenido ya está catalogado bajo otra clave."""
+
+    def __init__(self, record):
+        super().__init__(f"El contenido ya está registrado como {record.object_key}.")
+        self.record = record
+
+
+def upload_radiosonde_tsv(uploaded_file, *, year=None, check_duplicate_content=False) -> dict:
     """Valida un TSV, lo almacena en R2 y crea su registro de catálogo."""
     object_key = _object_key(uploaded_file)
     raw_bytes = uploaded_file.read(MAX_RADIOSONDE_BYTES + 1)
@@ -44,11 +53,20 @@ def upload_radiosonde_tsv(uploaded_file) -> dict:
 
     try:
         parsed = parse_radiosonde_bytes(raw_bytes)
-    except RadiosondeSourceError as exc:
+    except (RadiosondeSourceError, ValueError) as exc:
         raise RadiosondeUploadError(str(exc)) from exc
 
     _validate_metadata(parsed.station, parsed.launch_time)
     launch_time = parsed.launch_time
+    if year is not None:
+        if isinstance(year, bool) or not isinstance(year, int) or not 1 <= year <= 9999:
+            raise RadiosondeUploadError("El año de la carpeta no es válido.")
+        if launch_time.year != year:
+            raise RadiosondeUploadError(
+                f"El TSV declara un lanzamiento de {launch_time.year}, "
+                f"pero la carpeta corresponde a {year}."
+            )
+        object_key = f"{year}/{object_key}"
     synoptic_time = _infer_synoptic_time(launch_time)
     warnings = []
     if synoptic_time is None:
@@ -62,13 +80,17 @@ def upload_radiosonde_tsv(uploaded_file) -> dict:
             f"Ya existe un radiosondeo con object_key={object_key}."
         )
 
+    source_hash = hashlib.sha256(raw_bytes).hexdigest()
     client = get_r2_client()
+    if check_duplicate_content:
+        duplicate = _find_duplicate_profile(client, source_hash, launch_time)
+        if duplicate is not None:
+            raise RadiosondeUploadDuplicateError(duplicate)
     if _object_exists(client, object_key):
         raise RadiosondeUploadConflictError(
             f"El objeto {object_key} ya existe en R2 y no será sobrescrito."
         )
 
-    source_hash = hashlib.sha256(raw_bytes).hexdigest()
     uploaded = False
     record = None
     etag = None
@@ -126,6 +148,37 @@ def upload_radiosonde_tsv(uploaded_file) -> dict:
     result["created"] = True
     result["warnings"] = warnings + result["warnings"]
     return result
+
+
+def _find_duplicate_profile(client, source_hash, launch_time):
+    """Reutiliza el hash de R2; para registros antiguos compara los bytes."""
+    candidates = RadiosondeProfile.objects.filter(bucket=RADIOSONDE_BUCKET).filter(
+        Q(observed_at=launch_time)
+        | Q(observed_at__isnull=True, date=launch_time.date())
+    )
+    for record in candidates.iterator():
+        try:
+            head = client.head_object(Bucket=record.bucket, Key=record.object_key)
+            stored_hash = head.get("Metadata", {}).get("source-sha256")
+            if stored_hash is None:
+                response = client.get_object(Bucket=record.bucket, Key=record.object_key)
+                body = response["Body"]
+                try:
+                    content = body.read(MAX_RADIOSONDE_BYTES + 1)
+                finally:
+                    body.close()
+                if len(content) > MAX_RADIOSONDE_BYTES:
+                    raise RadiosondeUploadStorageError(
+                        f"El archivo existente {record.object_key} supera el límite de tamaño."
+                    )
+                stored_hash = hashlib.sha256(content).hexdigest()
+            if stored_hash == source_hash:
+                return record
+        except (ClientError, BotoCoreError) as exc:
+            raise RadiosondeUploadStorageError(
+                f"No se pudo comprobar contenido duplicado para {record.object_key}."
+            ) from exc
+    return None
 
 
 def _object_key(uploaded_file) -> str:

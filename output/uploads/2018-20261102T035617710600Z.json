@@ -1,0 +1,5075 @@
+{
+  "year": 2018,
+  "bucket": "radiosondes",
+  "total": 270,
+  "status": "completed",
+  "batches": [
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 20,
+      "skipped": 0,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "01022018EDT.tsv",
+          "object_key": "2018/01022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 1,
+            "date": "2018-02-01",
+            "time": "12:00Z",
+            "observed_at": "2018-02-01T11:58:49Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/01022018EDT.tsv",
+            "size_bytes": 362229,
+            "etag": "81e9fb772f1a42b5752efe3679a061f5",
+            "sha256": "70230c1ba9b0297b9d27139aba08dd91e7dd7968fb4008424a22dfd61931067d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "01032018EDT.tsv",
+          "object_key": "2018/01032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 2,
+            "date": "2018-03-01",
+            "time": "12:00Z",
+            "observed_at": "2018-03-01T11:56:04Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/01032018EDT.tsv",
+            "size_bytes": 389685,
+            "etag": "ef333493f6016f8e2b0afa293410f779",
+            "sha256": "5f90656820cbfdab941b9aa3878becd8508d851dc654837661aa179ea4d9b080"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "01062018EDT.tsv",
+          "object_key": "2018/01062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 3,
+            "date": "2018-06-01",
+            "time": "12:00Z",
+            "observed_at": "2018-06-01T12:02:47Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/01062018EDT.tsv",
+            "size_bytes": 365493,
+            "etag": "4ce8e09a893c62402ef0573fe1766d8f",
+            "sha256": "9a0ff46acfd4886157ce216c1cdded95a7d1bd04c9918f61576931fe8a3566d2"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "02012018EDT.tsv",
+          "object_key": "2018/02012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 4,
+            "date": "2018-01-02",
+            "time": "12:00Z",
+            "observed_at": "2018-01-02T11:59:24Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/02012018EDT.tsv",
+            "size_bytes": 410229,
+            "etag": "8d1d333c744974a6add571a7afea9a26",
+            "sha256": "136fd41a8f898705490acf97c17d17a0f09fa6f49d44e71291f7ab377ba2e92f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "02022018EDT.tsv",
+          "object_key": "2018/02022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 5,
+            "date": "2018-02-02",
+            "time": "12:00Z",
+            "observed_at": "2018-02-02T12:05:11Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/02022018EDT.tsv",
+            "size_bytes": 467061,
+            "etag": "6175d981c83442dff18c38639ed45f0a",
+            "sha256": "855aefdbb2a125ce571c2f85233a3c360eeb92f3a78eddab9d43f9aa790f5544"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "02032018EDT.tsv",
+          "object_key": "2018/02032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 6,
+            "date": "2018-03-02",
+            "time": "12:00Z",
+            "observed_at": "2018-03-02T12:00:16Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/02032018EDT.tsv",
+            "size_bytes": 399477,
+            "etag": "6a039618c1d6066390a2074b0b4a6c26",
+            "sha256": "ec230e595cd043a94382af35743a7bd554552d69bf7640cfbfb8a843a16b6a2f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "02042018EDT.tsv",
+          "object_key": "2018/02042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 7,
+            "date": "2018-04-02",
+            "time": "12:00Z",
+            "observed_at": "2018-04-02T12:08:21Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/02042018EDT.tsv",
+            "size_bytes": 363573,
+            "etag": "a7fea318945fda00fa59353c4924e871",
+            "sha256": "50189f94f7ed7efa4970c25b25c8d4dee1095bb1b2c4a785fbbe67d784c7280b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "02052018EDT.tsv",
+          "object_key": "2018/02052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 8,
+            "date": "2018-05-02",
+            "time": "12:00Z",
+            "observed_at": "2018-05-02T11:55:28Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/02052018EDT.tsv",
+            "size_bytes": 489717,
+            "etag": "0c355650da837c7ba12a724f5398ba91",
+            "sha256": "87555518d6ff9a77b019b77ec9c0c3ffeb1823a7f063c9a7768585e660b92d2c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "03012018EDT.tsv",
+          "object_key": "2018/03012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 9,
+            "date": "2018-01-03",
+            "time": "12:00Z",
+            "observed_at": "2018-01-03T12:00:15Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/03012018EDT.tsv",
+            "size_bytes": 504885,
+            "etag": "bc0841b989bb91ac0f0920e52809d4bd",
+            "sha256": "c9bfaf9471fd5f348220896193c732befba6e9631e20cab6071e250d84e1cf0d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "03042018EDT.tsv",
+          "object_key": "2018/03042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 10,
+            "date": "2018-04-03",
+            "time": "12:00Z",
+            "observed_at": "2018-04-03T12:00:19Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/03042018EDT.tsv",
+            "size_bytes": 375669,
+            "etag": "6cca8f27bcf4174a5e493f49de7ab667",
+            "sha256": "41edf29e1427c193046e7f5de034b07215f889be1b6336a97e5607bdad10f813"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "03052018EDT.tsv",
+          "object_key": "2018/03052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 11,
+            "date": "2018-05-03",
+            "time": "12:00Z",
+            "observed_at": "2018-05-03T11:55:29Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/03052018EDT.tsv",
+            "size_bytes": 408117,
+            "etag": "b0e520d75d3abaede3cb8dd6ed0c14e7",
+            "sha256": "884526103c7225abb01537312aaa06b849339ef5fd58ac3156226d2ff9869793"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "04012018EDT.tsv",
+          "object_key": "2018/04012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 12,
+            "date": "2018-01-04",
+            "time": "12:00Z",
+            "observed_at": "2018-01-04T12:00:26Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/04012018EDT.tsv",
+            "size_bytes": 369525,
+            "etag": "b7899b6ed188e8e9802b1018a9932d2f",
+            "sha256": "8d2c83a9a95a34c4fa1dea7ca86c1939f1194e8b26d532129652e8180f942e18"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "04042018EDT.tsv",
+          "object_key": "2018/04042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 13,
+            "date": "2018-04-04",
+            "time": "12:00Z",
+            "observed_at": "2018-04-04T11:58:06Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/04042018EDT.tsv",
+            "size_bytes": 504117,
+            "etag": "f1b1289edb6b79fa8c5756b1c9b835af",
+            "sha256": "55e0b46aeed3846a5eed591ac72e629aca2fd887299afa31093d76d3c0b4c3c2"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "04052018EDT.tsv",
+          "object_key": "2018/04052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 14,
+            "date": "2018-05-04",
+            "time": "12:00Z",
+            "observed_at": "2018-05-04T12:02:08Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/04052018EDT.tsv",
+            "size_bytes": 451893,
+            "etag": "e6a4353d99dd04cfc167e0f8295dba46",
+            "sha256": "d3c59263cc5c378692f02b21698fa2851acbd407df3d2bbf84ece97f76593fad"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "04062018EDT.tsv",
+          "object_key": "2018/04062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 15,
+            "date": "2018-06-04",
+            "time": "12:00Z",
+            "observed_at": "2018-06-04T12:07:07Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/04062018EDT.tsv",
+            "size_bytes": 382965,
+            "etag": "2296569d824001c96e01e6e9a85a841b",
+            "sha256": "0b5f4ed2af40c17b1cb039da1312a0909d9fca302de3fb6f08e23ccfe8fc12af"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "04102018EDT.tsv",
+          "object_key": "2018/04102018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 16,
+            "date": "2018-10-04",
+            "time": "12:00Z",
+            "observed_at": "2018-10-04T11:58:20Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/04102018EDT.tsv",
+            "size_bytes": 397749,
+            "etag": "4898640fd09852585d4e74c5235ac9fd",
+            "sha256": "2b72607971698a8aaa25369d00463e85da9407860252d848c88878905040d04c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "05012018EDT.tsv",
+          "object_key": "2018/05012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 17,
+            "date": "2018-01-05",
+            "time": "12:00Z",
+            "observed_at": "2018-01-05T12:37:23Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/05012018EDT.tsv",
+            "size_bytes": 145839,
+            "etag": "db7aa02f91119184dadbe68b6ee34590",
+            "sha256": "b90417b432c23f3d18ab8e627526119262df5d23b0f9db152c75c303b15bd8f6"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "05022018EDT.tsv",
+          "object_key": "2018/05022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 18,
+            "date": "2018-02-05",
+            "time": "12:00Z",
+            "observed_at": "2018-02-05T11:56:41Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/05022018EDT.tsv",
+            "size_bytes": 367605,
+            "etag": "8ba0402da947b117cc403765699e20bf",
+            "sha256": "3fb99640113ce69775dcc9c81d35ced76a9a69ce71811eb1c0a3c832bf84741d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "05032018EDT.tsv",
+          "object_key": "2018/05032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 19,
+            "date": "2018-03-05",
+            "time": "12:00Z",
+            "observed_at": "2018-03-05T11:58:55Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/05032018EDT.tsv",
+            "size_bytes": 371829,
+            "etag": "2f0f64a0f579b0c4119477fc4e0241ab",
+            "sha256": "2c12290f8343a559fb8f6201f4158813d23d947adb5f711ea97ca8ff2d4d0a05"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "05042018EDT.tsv",
+          "object_key": "2018/05042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 20,
+            "date": "2018-04-05",
+            "time": "12:00Z",
+            "observed_at": "2018-04-05T11:57:27Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/05042018EDT.tsv",
+            "size_bytes": 393525,
+            "etag": "29c3c19925d93083ad30f7e8c8340333",
+            "sha256": "6de6b3316d198d7c1ac06ca104d90add6dfc78fcb23984405424ca0d9e2d0493"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 20,
+      "skipped": 0,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "05062018EDT.tsv",
+          "object_key": "2018/05062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 21,
+            "date": "2018-06-05",
+            "time": "12:00Z",
+            "observed_at": "2018-06-05T11:58:58Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/05062018EDT.tsv",
+            "size_bytes": 421941,
+            "etag": "757523364d64ef5c321dc0879c61f39c",
+            "sha256": "8844722f98989b93ad270adbd471a5980737a6d615be1e0f900ca09e64f69c03"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "06022018EDT.tsv",
+          "object_key": "2018/06022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 22,
+            "date": "2018-02-06",
+            "time": "12:00Z",
+            "observed_at": "2018-02-06T11:56:36Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/06022018EDT.tsv",
+            "size_bytes": 380085,
+            "etag": "6fd56fa5993d7131047b7f1bebb7fab7",
+            "sha256": "fe6b3d52e6fa0d7aa8b7b50cac6a5b627c7fcdd2d7f75b938b8eafd9738e910c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "06032018EDT.tsv",
+          "object_key": "2018/06032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 23,
+            "date": "2018-03-06",
+            "time": "12:00Z",
+            "observed_at": "2018-03-06T12:01:56Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/06032018EDT.tsv",
+            "size_bytes": 391989,
+            "etag": "f2142adda712efdcc0939cd67435eb4d",
+            "sha256": "dec86fba0a88266d3348c733e614620e2cd4012ad803939d21b59c98da386c5f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "06042018EDT.tsv",
+          "object_key": "2018/06042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 24,
+            "date": "2018-04-06",
+            "time": "12:00Z",
+            "observed_at": "2018-04-06T11:55:01Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/06042018EDT.tsv",
+            "size_bytes": 335157,
+            "etag": "4622ea32a107af598e7a6e7ad1f49bb9",
+            "sha256": "1ba9e03659037c7b61735720d3ee9c6512b93314c2110571e2debfc4b0a0b832"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "06062018.tsv",
+          "object_key": "2018/06062018.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 25,
+            "date": "2018-06-06",
+            "time": "12:00Z",
+            "observed_at": "2018-06-06T11:59:55Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/06062018.tsv",
+            "size_bytes": 517941,
+            "etag": "b37d9d1be7db127c4f034a743ed3cbf6",
+            "sha256": "1fc16df2bc5b587c41d7d53cd4c6b025bfd112d2ae0b6ec3cbf04199427caf7e"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "07022018EDT.tsv",
+          "object_key": "2018/07022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 26,
+            "date": "2018-02-07",
+            "time": "12:00Z",
+            "observed_at": "2018-02-07T11:58:04Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/07022018EDT.tsv",
+            "size_bytes": 498549,
+            "etag": "03d92a0d49ae9dd96e13f1204cf23da5",
+            "sha256": "303646b3aaa2ac550a7d0f963ac79bddc6c44d386dd475a4c7143bf45b9dcc23"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "07032018EDT.tsv",
+          "object_key": "2018/07032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 27,
+            "date": "2018-03-07",
+            "time": "12:00Z",
+            "observed_at": "2018-03-07T11:55:47Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/07032018EDT.tsv",
+            "size_bytes": 496053,
+            "etag": "eba59ed2b8fb4bbb0ea44b450c322b23",
+            "sha256": "6f5346868cfd11c28fe246651c449eb937508ec05f744a3cf4345afd550873ad"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "07052018EDT.tsv",
+          "object_key": "2018/07052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 28,
+            "date": "2018-05-07",
+            "time": "12:00Z",
+            "observed_at": "2018-05-07T12:02:38Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/07052018EDT.tsv",
+            "size_bytes": 374709,
+            "etag": "df864710c8f095ebcd4c532fcd9abd0f",
+            "sha256": "46f066b7def66bcc4eb63284ea21e08b5195e45ff6997ccc15da21890ec4fe8b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "07062018EDT.tsv",
+          "object_key": "2018/07062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 29,
+            "date": "2018-06-07",
+            "time": "12:00Z",
+            "observed_at": "2018-06-07T11:57:32Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/07062018EDT.tsv",
+            "size_bytes": 393909,
+            "etag": "97caafb5134220b1352e50330e3e35ff",
+            "sha256": "4405c8ebccea8a4959c68da828028c5f80513d435dddefa8f4fb14c2b71b9ecd"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "08012018EDT.tsv",
+          "object_key": "2018/08012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 30,
+            "date": "2018-01-08",
+            "time": "12:00Z",
+            "observed_at": "2018-01-08T12:04:54Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/08012018EDT.tsv",
+            "size_bytes": 454965,
+            "etag": "c7e22bf2d81390cf036ea1d2816811c4",
+            "sha256": "1f90d63617dcbb3fa3f1fae1ea5d7e7663c59bd5aceffd2b13765f836ad43423"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "08022018EDT.tsv",
+          "object_key": "2018/08022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 31,
+            "date": "2018-02-08",
+            "time": "12:00Z",
+            "observed_at": "2018-02-08T11:55:50Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/08022018EDT.tsv",
+            "size_bytes": 362229,
+            "etag": "cd7905a2734507731fd5dad2540d5871",
+            "sha256": "8fe22714566f9481d0295e3e4ee6f93e85298e2c5ca2e18bff441d66de51ea21"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "08032018EDT.tsv",
+          "object_key": "2018/08032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 32,
+            "date": "2018-03-08",
+            "time": "12:00Z",
+            "observed_at": "2018-03-08T11:59:50Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/08032018EDT.tsv",
+            "size_bytes": 381429,
+            "etag": "57f1b61e1b86bc9a914ce3685fa530a6",
+            "sha256": "f86be01a146e85a73e5092fed943c6743d5cc484f440620207cae6cadf4337d9"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "08052018EDT.tsv",
+          "object_key": "2018/08052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 33,
+            "date": "2018-05-08",
+            "time": "12:00Z",
+            "observed_at": "2018-05-08T12:01:07Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/08052018EDT.tsv",
+            "size_bytes": 396789,
+            "etag": "d0a2f698cebe044e3d79eb4fb2f0bf2d",
+            "sha256": "6012fcd2b8b40cff2eab86e01612c4f7f5832d3ea1c692970e298dc7df570954"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "08062018EDT.tsv",
+          "object_key": "2018/08062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 34,
+            "date": "2018-06-08",
+            "time": "12:00Z",
+            "observed_at": "2018-06-08T11:54:39Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/08062018EDT.tsv",
+            "size_bytes": 448821,
+            "etag": "1b6769360e7ae4eb537ffede756dbc71",
+            "sha256": "e1829c33479b25b48b1773d12a995d34de236f7d2dbadcfcd094b32ab2c8b222"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "08102018EDT.tsv",
+          "object_key": "2018/08102018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 35,
+            "date": "2018-10-08",
+            "time": "12:00Z",
+            "observed_at": "2018-10-08T11:55:12Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/08102018EDT.tsv",
+            "size_bytes": 380661,
+            "etag": "1c0c1494a0b06a239cf4cf2a2e44721a",
+            "sha256": "54d6730590bcad6a9627fe502cf3d7a5710625c579e5d941cc457c1dcf5687b0"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "08112018(2)EDT.tsv",
+          "object_key": "2018/08112018(2)EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 36,
+            "date": "2018-11-08",
+            "time": "12:00Z",
+            "observed_at": "2018-11-08T11:58:03Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/08112018(2)EDT.tsv",
+            "size_bytes": 417141,
+            "etag": "bc0d33a16c8fbdb6a8249cfde221a5b2",
+            "sha256": "2d47cd090b63aa18180b3a059123497ebb3f6e28f3b179171fff320a9cf48331"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "09012018EDT.tsv",
+          "object_key": "2018/09012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 37,
+            "date": "2018-01-09",
+            "time": "12:00Z",
+            "observed_at": "2018-01-09T11:57:16Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/09012018EDT.tsv",
+            "size_bytes": 379317,
+            "etag": "b7cde6922ad82110a590ed38082b7181",
+            "sha256": "80d69af529fda948f59cf6a37aa7a2f7262db5b1755e2150743f0407bf7ebcbe"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "09022018EDT.tsv",
+          "object_key": "2018/09022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 38,
+            "date": "2018-02-09",
+            "time": "12:00Z",
+            "observed_at": "2018-02-09T12:03:32Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/09022018EDT.tsv",
+            "size_bytes": 363765,
+            "etag": "24858bc95f9185c0744b2c76e2742154",
+            "sha256": "b7232a7cca6ae347f9a807c962c6cc1b22f276e8d896fc639c06694de40f460c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "09032018EDT.tsv",
+          "object_key": "2018/09032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 39,
+            "date": "2018-03-09",
+            "time": "12:00Z",
+            "observed_at": "2018-03-09T12:00:03Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/09032018EDT.tsv",
+            "size_bytes": 389877,
+            "etag": "1de7a9865a486b339a9645f46dea24a6",
+            "sha256": "658d0ec2821691406059da55138ba65774bf908f68cb438c5c0fee0d1dae95f4"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "09042018EDT.tsv",
+          "object_key": "2018/09042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 40,
+            "date": "2018-04-09",
+            "time": "12:00Z",
+            "observed_at": "2018-04-09T11:58:08Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/09042018EDT.tsv",
+            "size_bytes": 377781,
+            "etag": "471d019ae018cd89e4e5051c9f28f8b1",
+            "sha256": "881e4ffaf4ed53d8d44348e9f5927a67a2a4ef714035a69b44b1bea0c4e46c6e"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 20,
+      "skipped": 0,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "09052018EDT.tsv",
+          "object_key": "2018/09052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 41,
+            "date": "2018-05-09",
+            "time": "12:00Z",
+            "observed_at": "2018-05-09T12:01:30Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/09052018EDT.tsv",
+            "size_bytes": 375093,
+            "etag": "9cc98350333ff03ece6f16408ea0a5fa",
+            "sha256": "39c397e707da4144c9bd4bfcdc17093de208283f0b14d3c76daa29e39a2678d2"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "09082018DIAEDT.tsv",
+          "object_key": "2018/09082018DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 42,
+            "date": "2018-08-09",
+            "time": "12:00Z",
+            "observed_at": "2018-08-09T12:03:33Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/09082018DIAEDT.tsv",
+            "size_bytes": 406584,
+            "etag": "3a6d933e61e51ef399362cd10df50e0f",
+            "sha256": "88cee8be9f9467b20515dd385d92210255a0dccf841f88ccb8737c55d5a9209b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "10012018EDT.tsv",
+          "object_key": "2018/10012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 43,
+            "date": "2018-01-10",
+            "time": "12:00Z",
+            "observed_at": "2018-01-10T11:57:51Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/10012018EDT.tsv",
+            "size_bytes": 435765,
+            "etag": "225f055b254d1fd7e78b987e42f0ad41",
+            "sha256": "b561c0a598b9b7087f945a770180e462da0564f3bad9b71e0d52b41baa514935"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "10042018EDT.tsv",
+          "object_key": "2018/10042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 44,
+            "date": "2018-04-10",
+            "time": "12:00Z",
+            "observed_at": "2018-04-10T11:57:28Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/10042018EDT.tsv",
+            "size_bytes": 378549,
+            "etag": "5eee781b36e5b681fd3376cccd2ae124",
+            "sha256": "527923273bd13a6e97b4dca53c50340863a6cdd37d2bb650afecd9f97bf855db"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "10052018EDT.tsv",
+          "object_key": "2018/10052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 45,
+            "date": "2018-05-10",
+            "time": "12:00Z",
+            "observed_at": "2018-05-10T12:00:19Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/10052018EDT.tsv",
+            "size_bytes": 408309,
+            "etag": "76e0c14865e32df76d41bf9ef4d9a74a",
+            "sha256": "fb5eef8e8bc9fe9941d98fcffa33841672aba1ac65878fc2162fdb1c0640820e"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "11012018EDT.tsv",
+          "object_key": "2018/11012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 46,
+            "date": "2018-01-11",
+            "time": "12:00Z",
+            "observed_at": "2018-01-11T11:58:36Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/11012018EDT.tsv",
+            "size_bytes": 376437,
+            "etag": "600ce3eac9325831906db52ba286cd43",
+            "sha256": "cea2b5fd79c178d4d50b62bd0250338b616ecf1cad4982601f03558044c265c5"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "11042018EDT.tsv",
+          "object_key": "2018/11042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 47,
+            "date": "2018-04-11",
+            "time": "12:00Z",
+            "observed_at": "2018-04-11T11:54:40Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/11042018EDT.tsv",
+            "size_bytes": 474357,
+            "etag": "95af0ea516af1974996dfe29aed4a925",
+            "sha256": "cdd29c8c50334f50ada63cb18bd8c3332ff522eca126999dfc1691cb8699fca8"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "11052018EDT.tsv",
+          "object_key": "2018/11052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 48,
+            "date": "2018-05-11",
+            "time": "12:00Z",
+            "observed_at": "2018-05-11T12:01:36Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/11052018EDT.tsv",
+            "size_bytes": 383925,
+            "etag": "ef795fa42b3178505063f2a2ca3830cf",
+            "sha256": "09ff920cfc01199d2560303f9966a03dc336bf9dbbf1baa51245ae6e7e7d71c0"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "11062018EDT.tsv",
+          "object_key": "2018/11062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 49,
+            "date": "2018-06-11",
+            "time": "12:00Z",
+            "observed_at": "2018-06-11T12:01:18Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/11062018EDT.tsv",
+            "size_bytes": 349941,
+            "etag": "45395e5f4783cc4a7c02e8941fe59536",
+            "sha256": "3a41a5de0b0e07a9534dd5ec51a938c9355b650a381c956fd44392fb258cc79b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "12012018EDT.tsv",
+          "object_key": "2018/12012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 50,
+            "date": "2018-01-12",
+            "time": "12:00Z",
+            "observed_at": "2018-01-12T11:59:29Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/12012018EDT.tsv",
+            "size_bytes": 346101,
+            "etag": "42dbdd276180bdfef75aea460c83b692",
+            "sha256": "ee19a0a9953092dbcf0faa6090bfc8911e00b60a0d8330d883a0c595b2dca994"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "12032018EDT.tsv",
+          "object_key": "2018/12032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 51,
+            "date": "2018-03-12",
+            "time": "12:00Z",
+            "observed_at": "2018-03-12T12:00:45Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/12032018EDT.tsv",
+            "size_bytes": 397941,
+            "etag": "118b631606eb4e079c0fa9a1fec2ddee",
+            "sha256": "d2edc9315a2b54c95f431a2a1a354e70eda80e589e1f70421003245dd1ac21aa"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "12042018EDT.tsv",
+          "object_key": "2018/12042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 52,
+            "date": "2018-04-12",
+            "time": "12:00Z",
+            "observed_at": "2018-04-12T12:00:19Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/12042018EDT.tsv",
+            "size_bytes": 364725,
+            "etag": "37fad76886a3aa729a918c1981be148f",
+            "sha256": "777ed042c49fbc3d6fc7503ddd397c9fa477ee6db206a5ba638a0babb008c0ea"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "12062018EDT.tsv",
+          "object_key": "2018/12062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 53,
+            "date": "2018-06-12",
+            "time": "12:00Z",
+            "observed_at": "2018-06-12T12:00:33Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/12062018EDT.tsv",
+            "size_bytes": 397749,
+            "etag": "1cd6d0f563048f320ab24358a4def26c",
+            "sha256": "4766ad2c348d5ed85ecc6c1331d8690034fc7ba32c6a89cd63cea100f7ca6241"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "13032018EDT.tsv",
+          "object_key": "2018/13032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 54,
+            "date": "2018-03-13",
+            "time": "12:00Z",
+            "observed_at": "2018-03-13T11:57:33Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/13032018EDT.tsv",
+            "size_bytes": 380277,
+            "etag": "fe862b35962e9a95461a58a3757f9333",
+            "sha256": "4c89a06230942640c0c44321bdefb0436e113b1b26931bf5f08528122f11d73c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "13042018EDT.tsv",
+          "object_key": "2018/13042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 55,
+            "date": "2018-04-13",
+            "time": "12:00Z",
+            "observed_at": "2018-04-13T12:00:05Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/13042018EDT.tsv",
+            "size_bytes": 384309,
+            "etag": "525a7f0bc636b30f461ceda2425f45a8",
+            "sha256": "1950b44ad6de90e43e24e9f2bbe8dc29f0f5db95d56c240217c102ccbff46e9c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "13062018EDT.tsv",
+          "object_key": "2018/13062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 56,
+            "date": "2018-06-13",
+            "time": "12:00Z",
+            "observed_at": "2018-06-13T12:02:20Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/13062018EDT.tsv",
+            "size_bytes": 443445,
+            "etag": "8efd983ea4964c9f3cf998587563ba56",
+            "sha256": "19526b1567ba3dcc510f4b32085dd87d14966f9d829dd081b93f046b4a8dd550"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "14022018EDT.tsv",
+          "object_key": "2018/14022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 57,
+            "date": "2018-02-14",
+            "time": "12:00Z",
+            "observed_at": "2018-02-14T11:58:50Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/14022018EDT.tsv",
+            "size_bytes": 359925,
+            "etag": "f80c11c607189cc63a1179db0f8f0df5",
+            "sha256": "9e6653e7207fcb959a0b40b1a30fc523cc6547a8e039e78edbea9bc782903736"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "14032018EDT.tsv",
+          "object_key": "2018/14032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 58,
+            "date": "2018-03-14",
+            "time": "12:00Z",
+            "observed_at": "2018-03-14T12:01:12Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/14032018EDT.tsv",
+            "size_bytes": 371437,
+            "etag": "4f8423dbc369a229fe432d9164bc4eec",
+            "sha256": "2a350240f479d6acd5e110ec1f969f86834f516bed840c6d94930fb09d35e57e"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "14052018EDT.tsv",
+          "object_key": "2018/14052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 59,
+            "date": "2018-05-14",
+            "time": "12:00Z",
+            "observed_at": "2018-05-14T11:59:50Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/14052018EDT.tsv",
+            "size_bytes": 418677,
+            "etag": "aae8437d8bb4299abfb4229f46b6f02e",
+            "sha256": "9defffce72432e25696281bbc0a9b6e0d38a755be399e5cac83ba15a955e49ea"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "14062018EDT.tsv",
+          "object_key": "2018/14062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 60,
+            "date": "2018-06-14",
+            "time": "12:00Z",
+            "observed_at": "2018-06-14T11:56:28Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/14062018EDT.tsv",
+            "size_bytes": 411573,
+            "etag": "87b9e953f172c29c609dcb381782e3bc",
+            "sha256": "28b47352f81ec4dba71a6e0939e81242f2d4701da70e149ec4bf76770413da31"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 20,
+      "skipped": 0,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "15012018EDT.tsv",
+          "object_key": "2018/15012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 61,
+            "date": "2018-01-15",
+            "time": "12:00Z",
+            "observed_at": "2018-01-15T11:58:33Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/15012018EDT.tsv",
+            "size_bytes": 420597,
+            "etag": "03ceaf91e1a5283d2b491551406531e6",
+            "sha256": "b22bf44ded5b6aaa7e2e1530acaacf22be2196c47962a990d1a218b8998a949f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "15022018EDT.tsv",
+          "object_key": "2018/15022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 62,
+            "date": "2018-02-15",
+            "time": "12:00Z",
+            "observed_at": "2018-02-15T11:59:21Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/15022018EDT.tsv",
+            "size_bytes": 487605,
+            "etag": "e4af6c77d44fab6cad6c94b929d9f30e",
+            "sha256": "860f7f33c35feb81c554e135ba77e6b258074aaafdce39d25105a28374135b10"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "15032018EDT.tsv",
+          "object_key": "2018/15032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 63,
+            "date": "2018-03-15",
+            "time": "12:00Z",
+            "observed_at": "2018-03-15T12:02:17Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/15032018EDT.tsv",
+            "size_bytes": 368565,
+            "etag": "cf42e876ad800368c572d0dfba6146da",
+            "sha256": "61dde233a9a07919be902e34fd3e744cca744498211b14e8f9a9b852231901a3"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "15052018EDT.tsv",
+          "object_key": "2018/15052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 64,
+            "date": "2018-05-15",
+            "time": "12:00Z",
+            "observed_at": "2018-05-15T12:01:42Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/15052018EDT.tsv",
+            "size_bytes": 375285,
+            "etag": "0ccc75e5ad0a43bdc0d18416d4b4fbe2",
+            "sha256": "6af6e5129b2cdde624abc2b2987f6de10ff13b479da5878a6b2e0584a819cf4b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "15062018EDT.tsv",
+          "object_key": "2018/15062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 65,
+            "date": "2018-06-15",
+            "time": "12:00Z",
+            "observed_at": "2018-06-15T12:04:58Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/15062018EDT.tsv",
+            "size_bytes": 372213,
+            "etag": "97516a8f866dd9f541c9fef5635b8ade",
+            "sha256": "73285e3436b30cee0678814b343cd2ffd3bf719aa2ca882481a127de198c680f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "15082018DIAEDT.tsv",
+          "object_key": "2018/15082018DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 66,
+            "date": "2018-08-15",
+            "time": "12:00Z",
+            "observed_at": "2018-08-15T12:14:04Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/15082018DIAEDT.tsv",
+            "size_bytes": 463989,
+            "etag": "8efd60fb8b37e3be9857a4495b53e4bf",
+            "sha256": "3c7ac6173ca337ec70f6acce7f22ac8cfc28c8b35aaebc2977be7c125157513b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "16012018EDT.tsv",
+          "object_key": "2018/16012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 67,
+            "date": "2018-01-16",
+            "time": "12:00Z",
+            "observed_at": "2018-01-16T11:58:06Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/16012018EDT.tsv",
+            "size_bytes": 359541,
+            "etag": "f698844d59a1b30490bc25f86f139040",
+            "sha256": "dd9c6ad4d7f95ade09336e2caefdfcb604f5e9bc17b4554798ddbd2f12933422"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "16022018EDT.tsv",
+          "object_key": "2018/16022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 68,
+            "date": "2018-02-16",
+            "time": "12:00Z",
+            "observed_at": "2018-02-16T11:52:58Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/16022018EDT.tsv",
+            "size_bytes": 397749,
+            "etag": "ddccb2dee144ab13f3d1de9b0d5335fd",
+            "sha256": "dde203ccaa93a4cca0ca13a19891aaf3516ed5eed0e3d6cae8485a2d37d002e3"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "16032018EDT.tsv",
+          "object_key": "2018/16032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 69,
+            "date": "2018-03-16",
+            "time": "12:00Z",
+            "observed_at": "2018-03-16T12:01:53Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/16032018EDT.tsv",
+            "size_bytes": 436917,
+            "etag": "d8b77f677149f315c6238e5f7bc7622a",
+            "sha256": "871a089269271e542d3d58e175cf56d5051af24a074b7ca5cb7ab2b4f1c33b01"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "16042018EDT.tsv",
+          "object_key": "2018/16042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 70,
+            "date": "2018-04-16",
+            "time": "12:00Z",
+            "observed_at": "2018-04-16T11:58:37Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/16042018EDT.tsv",
+            "size_bytes": 371445,
+            "etag": "67af5f2417487ae5528b59bce1344c4f",
+            "sha256": "f6b60977333c953b253ec226757d84945184c976080f4108b5b54896ca576487"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "16052018EDT.tsv",
+          "object_key": "2018/16052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 71,
+            "date": "2018-05-16",
+            "time": "12:00Z",
+            "observed_at": "2018-05-16T12:01:10Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/16052018EDT.tsv",
+            "size_bytes": 484149,
+            "etag": "217e527ee04863c4ea84739c3f6fb2c3",
+            "sha256": "2cc3f3e28c9b5fc07ec7ae04a50ec7cf2d8565179868d2cb41b20e5ad6c9ef26"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "17012018EDT.tsv",
+          "object_key": "2018/17012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 72,
+            "date": "2018-01-17",
+            "time": "12:00Z",
+            "observed_at": "2018-01-17T11:56:29Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/17012018EDT.tsv",
+            "size_bytes": 363573,
+            "etag": "346b266ce64faa29cd549eaa0eb6de26",
+            "sha256": "16910bf480c612f9415fc055eb0951acda9c5dc547df00f0eeb92818349e7ac3"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "17042018EDT.tsv",
+          "object_key": "2018/17042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 73,
+            "date": "2018-04-17",
+            "time": "12:00Z",
+            "observed_at": "2018-04-17T12:01:30Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/17042018EDT.tsv",
+            "size_bytes": 373557,
+            "etag": "6787ab8178bd66592d2f5138a265c156",
+            "sha256": "74353e919c01f46b3dcd8602897a6539acbda811be005ddb273c8a806deacaa1"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "17052018EDT.tsv",
+          "object_key": "2018/17052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 74,
+            "date": "2018-05-17",
+            "time": "12:00Z",
+            "observed_at": "2018-05-17T11:59:50Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/17052018EDT.tsv",
+            "size_bytes": 384693,
+            "etag": "9f83b177d32303636bfc5575dfb1d291",
+            "sha256": "5991fd668ed786f7bff78d4ddd7e56d7d5ac53a68664f46d6cb5e77a9e12ccc4"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "18012018EDT.tsv",
+          "object_key": "2018/18012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 75,
+            "date": "2018-01-18",
+            "time": "12:00Z",
+            "observed_at": "2018-01-18T11:57:50Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/18012018EDT.tsv",
+            "size_bytes": 360693,
+            "etag": "9e07b1e1191fd2ceb211ce1912d6d76b",
+            "sha256": "8e9a4e4c620e4de09b84bd476f7be40455a2371d9e0ac97f787d2c3b10217cb0"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "18042018EDT.tsv",
+          "object_key": "2018/18042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 76,
+            "date": "2018-04-18",
+            "time": "12:00Z",
+            "observed_at": "2018-04-18T11:58:40Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/18042018EDT.tsv",
+            "size_bytes": 495477,
+            "etag": "fc22c65bcef0919374e91a94c89850ed",
+            "sha256": "998286512b15e946aeda835913ef75c75f7927fee68bc7a2b23e4cedeb59b8a5"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "18052018EDT.tsv",
+          "object_key": "2018/18052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 77,
+            "date": "2018-05-18",
+            "time": "12:00Z",
+            "observed_at": "2018-05-18T11:53:12Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/18052018EDT.tsv",
+            "size_bytes": 391413,
+            "etag": "711c9f10158cef20aeb6c22c91f6b2cd",
+            "sha256": "ff38d8104d8684c8455f0cb44ba3c1ee5c628077d113cca101f55c690f1e6ac4"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "18062018EDT.tsv",
+          "object_key": "2018/18062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 78,
+            "date": "2018-06-18",
+            "time": "12:00Z",
+            "observed_at": "2018-06-18T12:03:52Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/18062018EDT.tsv",
+            "size_bytes": 401589,
+            "etag": "63fa79a7cb69f22adb5148056a9bd29d",
+            "sha256": "87b4830d1b9fac7fc59964b05f0fce54b144c384f0332901d18c46ba5bb9316f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "19012018EDT.tsv",
+          "object_key": "2018/19012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 79,
+            "date": "2018-01-19",
+            "time": "12:00Z",
+            "observed_at": "2018-01-19T11:56:15Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/19012018EDT.tsv",
+            "size_bytes": 362229,
+            "etag": "762fa589e32492dab33365d39431b070",
+            "sha256": "fb7f04c409e14fb932b62be3012ecf70bf61c2672f0c7f44f88f21034d045246"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "19022018EDT.tsv",
+          "object_key": "2018/19022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 80,
+            "date": "2018-02-19",
+            "time": "12:00Z",
+            "observed_at": "2018-02-19T12:03:11Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/19022018EDT.tsv",
+            "size_bytes": 373173,
+            "etag": "5fd206bb9a65541d9be5effa79e7559e",
+            "sha256": "3459b76e5ba895532ae1b10c4f3a2f9f1e275ab7761a0abef506c00e1d91733f"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 7,
+      "skipped": 13,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "19032018EDT.tsv",
+          "object_key": "2018/19032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 81,
+            "date": "2018-03-19",
+            "time": "12:00Z",
+            "observed_at": "2018-03-19T12:20:01Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/19032018EDT.tsv",
+            "size_bytes": 391221,
+            "etag": "24c9054dfbf1f9a11730dcf800f70011",
+            "sha256": "4ee9a70724f64423bdf5bf17bf46a7b3768676a117e3ba662a5af54418dd07ed"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "19042018EDT.tsv",
+          "object_key": "2018/19042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 82,
+            "date": "2018-04-19",
+            "time": "12:00Z",
+            "observed_at": "2018-04-19T12:09:29Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/19042018EDT.tsv",
+            "size_bytes": 388725,
+            "etag": "bbc7d916f2a064d0d9e2b80e6e7f7c72",
+            "sha256": "1cedd067ec9464a73547cedc6222a7600c34e75f9c48ae845c40900992dcf06c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "19062018EDT.tsv",
+          "object_key": "2018/19062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 83,
+            "date": "2018-06-19",
+            "time": "12:00Z",
+            "observed_at": "2018-06-19T12:01:43Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/19062018EDT.tsv",
+            "size_bytes": 355893,
+            "etag": "b53d61876c84b36119c824c0436e0e21",
+            "sha256": "d862fe4840acb167888f1a131b517a910ae8d145301cc9815abca0916e6bb363"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20022018EDT.tsv",
+          "object_key": "2018/20022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 84,
+            "date": "2018-02-20",
+            "time": "12:00Z",
+            "observed_at": "2018-02-20T11:56:55Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20022018EDT.tsv",
+            "size_bytes": 387381,
+            "etag": "ca403223c619e8b16314f3da83af3372",
+            "sha256": "fb5162a0d040faac537abf9a804b8c968566cd8d8c51b974bce531c405fe3378"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20032018EDT.tsv",
+          "object_key": "2018/20032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 85,
+            "date": "2018-03-20",
+            "time": "12:00Z",
+            "observed_at": "2018-03-20T11:58:58Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20032018EDT.tsv",
+            "size_bytes": 432117,
+            "etag": "5a1db2147822867b2b55d8ca6e4f17a1",
+            "sha256": "4ff3337256283e136ba75bdda05f24a6eecdc6d4f569b049e54a60d0a95e256c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20042018EDT.tsv",
+          "object_key": "2018/20042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 86,
+            "date": "2018-04-20",
+            "time": "12:00Z",
+            "observed_at": "2018-04-20T11:58:23Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20042018EDT.tsv",
+            "size_bytes": 402933,
+            "etag": "f51533f61e571bea37edba59fafd5835",
+            "sha256": "00d155e0b48c80cc7dc82e30c4976f80a783607cf1a6631374482cfa926f32d2"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20062018EDT.tsv",
+          "object_key": "2018/20062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 87,
+            "date": "2018-06-20",
+            "time": "12:00Z",
+            "observed_at": "2018-06-20T12:04:00Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20062018EDT.tsv",
+            "size_bytes": 409077,
+            "etag": "812cc8291031e3a554cd13576dd87742",
+            "sha256": "256446b1347a8a8bc1ef8e1a7e831b33b905f19206f52bb825ad3927e9bc0a49"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180108EDT.tsv",
+          "object_key": "2018/20180108EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/08012018EDT.tsv.",
+          "existing_profile_id": 30,
+          "existing_object_key": "2018/08012018EDT.tsv"
+        },
+        {
+          "filename": "20180208EDT.tsv",
+          "object_key": "2018/20180208EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/08022018EDT.tsv.",
+          "existing_profile_id": 31,
+          "existing_object_key": "2018/08022018EDT.tsv"
+        },
+        {
+          "filename": "20180308EDT.tsv",
+          "object_key": "2018/20180308EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/08032018EDT.tsv.",
+          "existing_profile_id": 32,
+          "existing_object_key": "2018/08032018EDT.tsv"
+        },
+        {
+          "filename": "20180508EDT.tsv",
+          "object_key": "2018/20180508EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/08052018EDT.tsv.",
+          "existing_profile_id": 33,
+          "existing_object_key": "2018/08052018EDT.tsv"
+        },
+        {
+          "filename": "20180601EDT.tsv",
+          "object_key": "2018/20180601EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/01062018EDT.tsv.",
+          "existing_profile_id": 3,
+          "existing_object_key": "2018/01062018EDT.tsv"
+        },
+        {
+          "filename": "20180604EDT.tsv",
+          "object_key": "2018/20180604EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/04062018EDT.tsv.",
+          "existing_profile_id": 15,
+          "existing_object_key": "2018/04062018EDT.tsv"
+        },
+        {
+          "filename": "20180605EDT.tsv",
+          "object_key": "2018/20180605EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/05062018EDT.tsv.",
+          "existing_profile_id": 21,
+          "existing_object_key": "2018/05062018EDT.tsv"
+        },
+        {
+          "filename": "20180607EDT.tsv",
+          "object_key": "2018/20180607EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/07062018EDT.tsv.",
+          "existing_profile_id": 29,
+          "existing_object_key": "2018/07062018EDT.tsv"
+        },
+        {
+          "filename": "20180608EDT.tsv",
+          "object_key": "2018/20180608EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/08062018EDT.tsv.",
+          "existing_profile_id": 34,
+          "existing_object_key": "2018/08062018EDT.tsv"
+        },
+        {
+          "filename": "20180611EDT.tsv",
+          "object_key": "2018/20180611EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/11062018EDT.tsv.",
+          "existing_profile_id": 49,
+          "existing_object_key": "2018/11062018EDT.tsv"
+        },
+        {
+          "filename": "20180613EDT.tsv",
+          "object_key": "2018/20180613EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/13062018EDT.tsv.",
+          "existing_profile_id": 56,
+          "existing_object_key": "2018/13062018EDT.tsv"
+        },
+        {
+          "filename": "20180618EDT.tsv",
+          "object_key": "2018/20180618EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/18062018EDT.tsv.",
+          "existing_profile_id": 78,
+          "existing_object_key": "2018/18062018EDT.tsv"
+        },
+        {
+          "filename": "20180620EDT.tsv",
+          "object_key": "2018/20180620EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/20062018EDT.tsv.",
+          "existing_profile_id": 87,
+          "existing_object_key": "2018/20062018EDT.tsv"
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 20,
+      "skipped": 0,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "20180622EDT.tsv",
+          "object_key": "2018/20180622EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 88,
+            "date": "2018-06-22",
+            "time": "12:00Z",
+            "observed_at": "2018-06-22T12:04:41Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180622EDT.tsv",
+            "size_bytes": 397557,
+            "etag": "6e383fc4404e6657617107b3defe107b",
+            "sha256": "069b656d6ed129637f8e2a765e58adfc8a7cf9686d84016169c10d2219a2985d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180625EDT.tsv",
+          "object_key": "2018/20180625EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 89,
+            "date": "2018-06-25",
+            "time": "12:00Z",
+            "observed_at": "2018-06-25T12:06:09Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180625EDT.tsv",
+            "size_bytes": 392373,
+            "etag": "fb4f916f93483744246d4a1eac645a0d",
+            "sha256": "7ef641668fc9c0c333ee328df8fb08807c9049cd69fea51aa9e184f62f2c2436"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180626EDT.tsv",
+          "object_key": "2018/20180626EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 90,
+            "date": "2018-06-26",
+            "time": "12:00Z",
+            "observed_at": "2018-06-26T12:05:08Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180626EDT.tsv",
+            "size_bytes": 353397,
+            "etag": "2be9a60f3a82f264a933e1fb6b3fccca",
+            "sha256": "2259d6098a255cf2791664a07f19b816a59d8ed4283b61876122a1b109528efc"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180628EDT.tsv",
+          "object_key": "2018/20180628EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 91,
+            "date": "2018-06-28",
+            "time": "12:00Z",
+            "observed_at": "2018-06-28T12:01:22Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180628EDT.tsv",
+            "size_bytes": 390645,
+            "etag": "e602b677558f61ee73630f9d27f1caef",
+            "sha256": "8b892d8158c6510c8afe4b954f283fc8eb061ba8e1809e7ccc52dbde78cbc3fc"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180702EDT.tsv",
+          "object_key": "2018/20180702EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 92,
+            "date": "2018-07-02",
+            "time": "12:00Z",
+            "observed_at": "2018-07-02T12:00:18Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180702EDT.tsv",
+            "size_bytes": 299437,
+            "etag": "096292a825bb9206cc310df7161a6edf",
+            "sha256": "2e954fd2feaa593f9f867ba9580ce52f4888d502e66cf63d5975c6d34448f45a"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180703EDT.tsv",
+          "object_key": "2018/20180703EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 93,
+            "date": "2018-07-03",
+            "time": "12:00Z",
+            "observed_at": "2018-07-03T12:00:39Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180703EDT.tsv",
+            "size_bytes": 394293,
+            "etag": "cad352d902c0bb9b18196024edfcbe1c",
+            "sha256": "3ed92da4d0dd7860625b0783795008530160a3ba42530d494fd44aeb200b9ad0"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180704EDT.tsv",
+          "object_key": "2018/20180704EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 94,
+            "date": "2018-07-04",
+            "time": "12:00Z",
+            "observed_at": "2018-07-04T12:04:43Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180704EDT.tsv",
+            "size_bytes": 476469,
+            "etag": "889d34a67c063383d597a92f03bd9284",
+            "sha256": "e8d7a375c0daf92d0b203a65b982324cebb27c9f6286c6b8af8df3667b251a62"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180705EDT.tsv",
+          "object_key": "2018/20180705EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 95,
+            "date": "2018-07-05",
+            "time": "12:00Z",
+            "observed_at": "2018-07-05T12:06:05Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180705EDT.tsv",
+            "size_bytes": 409461,
+            "etag": "fc41b583a5429c2af7609957ceb8829a",
+            "sha256": "29493379adfc6a44f91fa7f41e2af10d31d6f483f064370fd6aeb0b40bb9cdc2"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180706EDT.tsv",
+          "object_key": "2018/20180706EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 96,
+            "date": "2018-07-06",
+            "time": "12:00Z",
+            "observed_at": "2018-07-06T11:58:25Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180706EDT.tsv",
+            "size_bytes": 380853,
+            "etag": "effefeb057a085c6495e6c588e799c22",
+            "sha256": "55c82fdc275ead87bdbbab831ea627d59a0363a0ab159528016f9b8a708d89c9"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180709EDT.tsv",
+          "object_key": "2018/20180709EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 97,
+            "date": "2018-07-09",
+            "time": "12:00Z",
+            "observed_at": "2018-07-09T12:04:00Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180709EDT.tsv",
+            "size_bytes": 386421,
+            "etag": "818fd472568779a7e8b0124e46a95de1",
+            "sha256": "c72d2170a5d9a2dd3424e142d42106542adbca95333b94aa248a362fd7ac5916"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180710EDT.tsv",
+          "object_key": "2018/20180710EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 98,
+            "date": "2018-07-10",
+            "time": "12:00Z",
+            "observed_at": "2018-07-10T11:58:05Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180710EDT.tsv",
+            "size_bytes": 366837,
+            "etag": "d40ab3675d5a3b9ba9d1402a2e7fc133",
+            "sha256": "fb597b9f947b4716c8c6831dc97defa38a7b25c8cd72977338e56cecbbc94de3"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180711EDT.tsv",
+          "object_key": "2018/20180711EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 99,
+            "date": "2018-07-11",
+            "time": "12:00Z",
+            "observed_at": "2018-07-11T12:00:41Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180711EDT.tsv",
+            "size_bytes": 423861,
+            "etag": "b55dca5486f494698899f7875832599c",
+            "sha256": "a7b7b4ca6203c27033460e37ea8ba50a727b8b9aa351ed92553c5d414805cc8c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180712EDT.tsv",
+          "object_key": "2018/20180712EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 100,
+            "date": "2018-07-12",
+            "time": "12:00Z",
+            "observed_at": "2018-07-12T12:00:22Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180712EDT.tsv",
+            "size_bytes": 377205,
+            "etag": "abe5488bf5c339442544849b7bff0acd",
+            "sha256": "1553818f2ce21a0ca4be3a735369721639b28051631af7319ab99381f51fceee"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180713EDT.tsv",
+          "object_key": "2018/20180713EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 101,
+            "date": "2018-07-13",
+            "time": "12:00Z",
+            "observed_at": "2018-07-13T12:00:02Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180713EDT.tsv",
+            "size_bytes": 369333,
+            "etag": "bef8c15d05c1a54cb96ff9fd299e257f",
+            "sha256": "9ff9f56f5272a1d22ebe82b5fbb55027f9f11d418f65b4d999ba74c923f67460"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180717EDT.tsv",
+          "object_key": "2018/20180717EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 102,
+            "date": "2018-07-17",
+            "time": "12:00Z",
+            "observed_at": "2018-07-17T12:08:14Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180717EDT.tsv",
+            "size_bytes": 399861,
+            "etag": "725c75e0b1eb71dc7c173af6a4758ff9",
+            "sha256": "9196565c6f6a3eb5db9e3a67d867080b934b26c9bcd5eac32f83d0f73f10043a"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180718EDT.tsv",
+          "object_key": "2018/20180718EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 103,
+            "date": "2018-07-18",
+            "time": "12:00Z",
+            "observed_at": "2018-07-18T12:17:19Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180718EDT.tsv",
+            "size_bytes": 443829,
+            "etag": "4a814c479f220df22f9215f3b61a26ee",
+            "sha256": "9a891c59f2701367022805df71a86aaeed4b0d4b0d9401f6a8b123357251cce8"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180719EDT.tsv",
+          "object_key": "2018/20180719EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 104,
+            "date": "2018-07-19",
+            "time": "12:00Z",
+            "observed_at": "2018-07-19T12:07:14Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180719EDT.tsv",
+            "size_bytes": 388725,
+            "etag": "7afdb4f48d116bdd64aa863976365438",
+            "sha256": "e46032c2ab006690462f02c41113cb39772813afea653247c2a2affe1193e54c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180720EDT.tsv",
+          "object_key": "2018/20180720EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 105,
+            "date": "2018-07-20",
+            "time": "12:00Z",
+            "observed_at": "2018-07-20T12:01:23Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180720EDT.tsv",
+            "size_bytes": 375093,
+            "etag": "a22e0b7f81f82b90f5dc67907d923514",
+            "sha256": "19f1cf697329f2c19f25d339127faf691e339738cb588e3b5305834b337f7e5b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180723EDT.tsv",
+          "object_key": "2018/20180723EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 106,
+            "date": "2018-07-23",
+            "time": "12:00Z",
+            "observed_at": "2018-07-23T12:03:20Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180723EDT.tsv",
+            "size_bytes": 395829,
+            "etag": "85fea79c9fb5bd313a5363de877dba68",
+            "sha256": "7a98b8db82c3d11b7f2b5cd51a55e4b7bf658599503f9c012ac90a56acd3cb6f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180724EDT.tsv",
+          "object_key": "2018/20180724EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 107,
+            "date": "2018-07-24",
+            "time": "12:00Z",
+            "observed_at": "2018-07-24T12:00:32Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180724EDT.tsv",
+            "size_bytes": 403701,
+            "etag": "c7da3fe686666d63a3e96868fcf36564",
+            "sha256": "067bb42e393c1f708d2f2d7e8f8dbda164e6e3df2b67253700958e9005f71d77"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 18,
+      "skipped": 2,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "20180725EDT.tsv",
+          "object_key": "2018/20180725EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 108,
+            "date": "2018-07-25",
+            "time": "12:00Z",
+            "observed_at": "2018-07-25T12:03:59Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180725EDT.tsv",
+            "size_bytes": 468981,
+            "etag": "9188c93f0a30e312d7655fc2086094d6",
+            "sha256": "03e12b0856f24e74dcf98d68b62796c80cf840ee3ccee3076c2e34521b657d5e"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180726EDT.tsv",
+          "object_key": "2018/20180726EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 109,
+            "date": "2018-07-26",
+            "time": "12:00Z",
+            "observed_at": "2018-07-26T12:03:43Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180726EDT.tsv",
+            "size_bytes": 395061,
+            "etag": "4660c31c75a826bf59ff8a46fc1a9b0c",
+            "sha256": "9eb0aa15a65cab23fd93d3e21e08939baceeefb2446ffe1876cd2aeaea0e5e27"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180730EDT.tsv",
+          "object_key": "2018/20180730EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 110,
+            "date": "2018-07-30",
+            "time": "12:00Z",
+            "observed_at": "2018-07-30T12:08:41Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180730EDT.tsv",
+            "size_bytes": 343029,
+            "etag": "1c9f5d89e61abc08f9e7fc7ac8c20897",
+            "sha256": "edef659a89a672564462cbdeaec529e4cba3e99f4f136247fc53a5a2deb27543"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180731EDT.tsv",
+          "object_key": "2018/20180731EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 111,
+            "date": "2018-07-31",
+            "time": "12:00Z",
+            "observed_at": "2018-07-31T11:59:38Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180731EDT.tsv",
+            "size_bytes": 383157,
+            "etag": "df8d7383a0815b6e3fe602b7a13914fe",
+            "sha256": "ce7d01527244fae6363f43bccff9e65d6263697bb5ff07b8c05953612bc210c4"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180801DIAEDT.tsv",
+          "object_key": "2018/20180801DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 112,
+            "date": "2018-08-01",
+            "time": "12:00Z",
+            "observed_at": "2018-08-01T12:03:16Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180801DIAEDT.tsv",
+            "size_bytes": 471477,
+            "etag": "01718cbe1ce0e9f4f0478f9117efbf13",
+            "sha256": "964e9d49599bdced29f25e94cc53d3bfc9d0ca777bdbee52d8fd6776afbf2290"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180802DIAEDT.tsv",
+          "object_key": "2018/20180802DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 113,
+            "date": "2018-08-02",
+            "time": null,
+            "observed_at": "2018-08-02T07:56:05Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180802DIAEDT.tsv",
+            "size_bytes": 418293,
+            "etag": "8f88e52f3380ceb433f9c6ea020323a1",
+            "sha256": "80857d2ab48babc54a3bffd9c0143de89c748f0fd9d8f0fdceb34bc248a93f08"
+          },
+          "warnings": [
+            "La hora de lanzamiento no está a menos de 60 minutos de 00:00Z o 12:00Z; time se guardó como null."
+          ]
+        },
+        {
+          "filename": "20180803DIAEDT.tsv",
+          "object_key": "2018/20180803DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 114,
+            "date": "2018-08-03",
+            "time": null,
+            "observed_at": "2018-08-03T08:03:02Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180803DIAEDT.tsv",
+            "size_bytes": 366456,
+            "etag": "7551c820f0b9bab3e657b0ea6a606477",
+            "sha256": "b26ba12cb45104866a03892de660b9cb10f189f8c8b60c869b5a2a10ac2ce853"
+          },
+          "warnings": [
+            "La hora de lanzamiento no está a menos de 60 minutos de 00:00Z o 12:00Z; time se guardó como null."
+          ]
+        },
+        {
+          "filename": "20180807DIAEDT.tsv",
+          "object_key": "2018/20180807DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 115,
+            "date": "2018-08-07",
+            "time": null,
+            "observed_at": "2018-08-07T08:00:17Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180807DIAEDT.tsv",
+            "size_bytes": 406584,
+            "etag": "b1f0d3baaabc15eb175618fff89be998",
+            "sha256": "a300ce53a685a1641cd1d940d147b284cd60376fa3c075aace5df91ddb803a23"
+          },
+          "warnings": [
+            "La hora de lanzamiento no está a menos de 60 minutos de 00:00Z o 12:00Z; time se guardó como null."
+          ]
+        },
+        {
+          "filename": "20180808DIAEDT.tsv",
+          "object_key": "2018/20180808DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 116,
+            "date": "2018-08-08",
+            "time": "12:00Z",
+            "observed_at": "2018-08-08T11:59:59Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180808DIAEDT.tsv",
+            "size_bytes": 409656,
+            "etag": "4d134cb0eea9b2f55576d6a46368cb93",
+            "sha256": "c8697c816fe3510787d2b6b1df0266fdc31530c517255ff4e853ecb698c91710"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180809DIAEDT.tsv",
+          "object_key": "2018/20180809DIAEDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/09082018DIAEDT.tsv.",
+          "existing_profile_id": 42,
+          "existing_object_key": "2018/09082018DIAEDT.tsv"
+        },
+        {
+          "filename": "20180810DIAEDT.tsv",
+          "object_key": "2018/20180810DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 117,
+            "date": "2018-08-10",
+            "time": "12:00Z",
+            "observed_at": "2018-08-10T12:02:29Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180810DIAEDT.tsv",
+            "size_bytes": 383929,
+            "etag": "75b05f54626738f0352669dc5cb1ef56",
+            "sha256": "80aad90d209330680263cfc378f6995530047381d56039a62ea781b7c1c678c5"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180813DIAEDT.tsv",
+          "object_key": "2018/20180813DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 118,
+            "date": "2018-08-13",
+            "time": "12:00Z",
+            "observed_at": "2018-08-13T11:59:12Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180813DIAEDT.tsv",
+            "size_bytes": 455928,
+            "etag": "32af4c69529b45120d37775f8b94fbf9",
+            "sha256": "67531bc2e564908d894ba4b7e0350f45942b5f240b48a6248726f2a38dee0811"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180814DIAEDT.tsv",
+          "object_key": "2018/20180814DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 119,
+            "date": "2018-08-14",
+            "time": "12:00Z",
+            "observed_at": "2018-08-14T11:58:57Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180814DIAEDT.tsv",
+            "size_bytes": 361464,
+            "etag": "bedda1fd727720fa62754608418c09f8",
+            "sha256": "506a5adba454667791cb45424f30b74374263ef880cd3f4a84b85ed8a97c9b22"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180815DIAEDT.tsv",
+          "object_key": "2018/20180815DIAEDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/15082018DIAEDT.tsv.",
+          "existing_profile_id": 66,
+          "existing_object_key": "2018/15082018DIAEDT.tsv"
+        },
+        {
+          "filename": "20180816DIAEDT.tsv",
+          "object_key": "2018/20180816DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 120,
+            "date": "2018-08-16",
+            "time": "12:00Z",
+            "observed_at": "2018-08-16T12:04:52Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180816DIAEDT.tsv",
+            "size_bytes": 379701,
+            "etag": "f29bd7680e3c9a30aa1cfd79ca52731c",
+            "sha256": "1c51179f9e42eb36e86f62903cefc2f900df5cb4a21681f39611b658b82a2acd"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180817DIAEDT.tsv",
+          "object_key": "2018/20180817DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 121,
+            "date": "2018-08-17",
+            "time": "12:00Z",
+            "observed_at": "2018-08-17T12:02:52Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180817DIAEDT.tsv",
+            "size_bytes": 392373,
+            "etag": "8b93906bfb9e87b0dc64f2e2486f51ce",
+            "sha256": "21b48fffd48c42af50b664a97449b334f14ca591fe1e719f18b3904c7d868f1d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180820DIAEDT.tsv",
+          "object_key": "2018/20180820DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 122,
+            "date": "2018-08-20",
+            "time": "12:00Z",
+            "observed_at": "2018-08-20T12:00:34Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180820DIAEDT.tsv",
+            "size_bytes": 371832,
+            "etag": "3e83ae8946e7cfcdad8496f088ac8c82",
+            "sha256": "bfd3506ca8327af2f1c1a0faaa1f581ca6aa0b07a9b0a91f85a112809a3f1d74"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180821DIAEDT.tsv",
+          "object_key": "2018/20180821DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 123,
+            "date": "2018-08-21",
+            "time": "12:00Z",
+            "observed_at": "2018-08-21T11:53:48Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180821DIAEDT.tsv",
+            "size_bytes": 346293,
+            "etag": "76550422d6056109c677821305052070",
+            "sha256": "19de0da6c274af95099cfa8577fd533dc743d9915cff6b1c054a5a8657221386"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180822DIAEDT.tsv",
+          "object_key": "2018/20180822DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 124,
+            "date": "2018-08-22",
+            "time": "12:00Z",
+            "observed_at": "2018-08-22T12:01:31Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180822DIAEDT.tsv",
+            "size_bytes": 517560,
+            "etag": "fcdd1c1a939a094feb9aee95eb9d34d6",
+            "sha256": "032a1a0783544f4a22ab3a5675230bf2b1b0b760f51893830e858bc7068092a0"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180823DIAEDT.tsv",
+          "object_key": "2018/20180823DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 125,
+            "date": "2018-08-23",
+            "time": "12:00Z",
+            "observed_at": "2018-08-23T12:01:08Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180823DIAEDT.tsv",
+            "size_bytes": 393141,
+            "etag": "3c2835d5ff4f70ff38983337c6ff09d5",
+            "sha256": "973ed48ad796498737d7060d0b3604928b233fbc71c4a1050585bc96b631093d"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 20,
+      "skipped": 0,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "20180824DIAEDT.tsv",
+          "object_key": "2018/20180824DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 126,
+            "date": "2018-08-24",
+            "time": "12:00Z",
+            "observed_at": "2018-08-24T12:05:56Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180824DIAEDT.tsv",
+            "size_bytes": 403896,
+            "etag": "320a3cd2f5311ae40c31f206d82958ec",
+            "sha256": "e93a47a008f63b7561fc361562913014932ff1516f65883f8cdcda2e1831cd42"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180827DIAEDT.tsv",
+          "object_key": "2018/20180827DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 127,
+            "date": "2018-08-27",
+            "time": "12:00Z",
+            "observed_at": "2018-08-27T12:02:04Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180827DIAEDT.tsv",
+            "size_bytes": 380472,
+            "etag": "92b391b31bd1c11641b6199e65059abc",
+            "sha256": "5fdbf664680a34a4331fa9817f1fcbd9f80289c03129bf58cff837ea74231a92"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180828DIAEDT.tsv",
+          "object_key": "2018/20180828DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 128,
+            "date": "2018-08-28",
+            "time": "12:00Z",
+            "observed_at": "2018-08-28T12:48:48Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180828DIAEDT.tsv",
+            "size_bytes": 392565,
+            "etag": "fcdface012aec20d3c163f5da9bd13d9",
+            "sha256": "9341e76122e4515ecee163be24b3bbd02c7db19a949d1e3012628946930eebfd"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180829DIAEDT.tsv",
+          "object_key": "2018/20180829DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 129,
+            "date": "2018-08-29",
+            "time": "12:00Z",
+            "observed_at": "2018-08-29T11:58:46Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180829DIAEDT.tsv",
+            "size_bytes": 476085,
+            "etag": "fd1772eb762eec77993972dccc3dee27",
+            "sha256": "5eda876758cb35f7b0978a569664ff28557a0b5d61e9d5a7e50cd77f0ff6c5f6"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180830DIAEDT.tsv",
+          "object_key": "2018/20180830DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 130,
+            "date": "2018-08-30",
+            "time": "12:00Z",
+            "observed_at": "2018-08-30T12:04:47Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180830DIAEDT.tsv",
+            "size_bytes": 412152,
+            "etag": "4ea95e20d5e00638e7f1f42072c1cb2f",
+            "sha256": "a8cb3a8a0f71b6d0d49fc47a770bdd3d09fe1d8de4e1a4f095f8fb179de4cc60"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180831DIAEDT.tsv",
+          "object_key": "2018/20180831DIAEDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 131,
+            "date": "2018-08-31",
+            "time": "12:00Z",
+            "observed_at": "2018-08-31T12:01:49Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180831DIAEDT.tsv",
+            "size_bytes": 412344,
+            "etag": "1e68ea0eb23b3ccea6d80203972476fe",
+            "sha256": "9431bc6bc9be6c73bfda89e9d957d195cd4e85dac24070098feb136ecbc91f41"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180903EDT.tsv",
+          "object_key": "2018/20180903EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 132,
+            "date": "2018-09-03",
+            "time": "12:00Z",
+            "observed_at": "2018-09-03T12:01:38Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180903EDT.tsv",
+            "size_bytes": 350709,
+            "etag": "4e0456aaf54d7899fd26f1ecb40fb33a",
+            "sha256": "8ace4dd8fa4c1e4dc26a46ed76ffbde04450756c2f9195c055a7fd257bb44996"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180904EDT.tsv",
+          "object_key": "2018/20180904EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 133,
+            "date": "2018-09-04",
+            "time": "12:00Z",
+            "observed_at": "2018-09-04T12:00:02Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180904EDT.tsv",
+            "size_bytes": 403509,
+            "etag": "972671fc9e1142d6f9c2ee3439f94695",
+            "sha256": "0c76fa425ddae2887c9bdf53c947254cced1987ce296823cf11ecfcc7bc46f43"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180905EDT.tsv",
+          "object_key": "2018/20180905EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 134,
+            "date": "2018-09-05",
+            "time": "12:00Z",
+            "observed_at": "2018-09-05T12:01:08Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180905EDT.tsv",
+            "size_bytes": 467061,
+            "etag": "4d6b1451f2f297020f8d88900c11ff92",
+            "sha256": "d6fe285f9c4a15645fe7325ca3c550b81817f78396db1265ac50fbca2195f304"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180906EDT.tsv",
+          "object_key": "2018/20180906EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 135,
+            "date": "2018-09-06",
+            "time": "12:00Z",
+            "observed_at": "2018-09-06T11:54:43Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180906EDT.tsv",
+            "size_bytes": 351669,
+            "etag": "3eaee9122cc4e51611b9d7e114105409",
+            "sha256": "bd6e60322b15143f652a1ed600dff076c837a4f4afd339c6e33fac2236875d74"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180910EDT.tsv",
+          "object_key": "2018/20180910EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 136,
+            "date": "2018-09-10",
+            "time": "12:00Z",
+            "observed_at": "2018-09-10T11:59:09Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180910EDT.tsv",
+            "size_bytes": 382581,
+            "etag": "d6d06521869db9120284133650a78990",
+            "sha256": "c9be6d6b1cff3ffe793c2abc4439ff12c24901e7f3d41c1167bcc48ff60921e2"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180911EDT.tsv",
+          "object_key": "2018/20180911EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 137,
+            "date": "2018-09-11",
+            "time": "12:00Z",
+            "observed_at": "2018-09-11T11:58:32Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180911EDT.tsv",
+            "size_bytes": 375285,
+            "etag": "8356a881db42f0b95febf86a431e8a80",
+            "sha256": "75a92582ed533e733e5c72043305c94b7b745a74df0a5849858dcc39906d938d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180912EDT.tsv",
+          "object_key": "2018/20180912EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 138,
+            "date": "2018-09-12",
+            "time": "12:00Z",
+            "observed_at": "2018-09-12T11:56:28Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180912EDT.tsv",
+            "size_bytes": 493557,
+            "etag": "1c772976cbef5c56f7674f01f6449eaf",
+            "sha256": "f49326eea68c5198b3669dc40a526d6a5ff626d04d302f698c8fe46ae0851be5"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180913EDT.tsv",
+          "object_key": "2018/20180913EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 139,
+            "date": "2018-09-13",
+            "time": "12:00Z",
+            "observed_at": "2018-09-13T12:00:01Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180913EDT.tsv",
+            "size_bytes": 343221,
+            "etag": "1afb0099fb369ff0f8ce88fa9cfde530",
+            "sha256": "40b5390a562429215c274627a8842a46a902750ca74d14bd4e26ece3202c2abb"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180914EDT.tsv",
+          "object_key": "2018/20180914EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 140,
+            "date": "2018-09-14",
+            "time": "12:00Z",
+            "observed_at": "2018-09-14T11:57:16Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180914EDT.tsv",
+            "size_bytes": 373749,
+            "etag": "8096bfffe147c3e1dddd2608e88bec11",
+            "sha256": "6144617cceab9f8a90593f2c5db00432b70970d850e8adbfa70b4edd3c2bd9b9"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180917EDT.tsv",
+          "object_key": "2018/20180917EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 141,
+            "date": "2018-09-17",
+            "time": "12:00Z",
+            "observed_at": "2018-09-17T12:02:10Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180917EDT.tsv",
+            "size_bytes": 355509,
+            "etag": "038455da201eed8862bb7e4c1eac667d",
+            "sha256": "4b20037fd77eb70d46c7db5d521adc927d47392d01c52f8c03ed4a04ede855cf"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180918EDT.tsv",
+          "object_key": "2018/20180918EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 142,
+            "date": "2018-09-18",
+            "time": "12:00Z",
+            "observed_at": "2018-09-18T11:55:02Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180918EDT.tsv",
+            "size_bytes": 380661,
+            "etag": "7dcf9cf47279280181f383a350145b19",
+            "sha256": "78cb88f2a9803dfa356f9ddf1b25831bec90fbb9f3a460abda2979329c6bf1d3"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180919EDT.tsv",
+          "object_key": "2018/20180919EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 143,
+            "date": "2018-09-19",
+            "time": "12:00Z",
+            "observed_at": "2018-09-19T11:59:10Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180919EDT.tsv",
+            "size_bytes": 512373,
+            "etag": "7cf82a1e67acc4d6d75fdc6bfc3cee11",
+            "sha256": "c3ec730b1df118705b8352e473a6cf10816bd509af990dcbb9be94418f783028"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180920EDT.tsv",
+          "object_key": "2018/20180920EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 144,
+            "date": "2018-09-20",
+            "time": "12:00Z",
+            "observed_at": "2018-09-20T11:56:35Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180920EDT.tsv",
+            "size_bytes": 405813,
+            "etag": "06d0f47d3ecb30e66b9dd57ab5b32e30",
+            "sha256": "d15684f1a310ce952067639e129a2b749dd73a3a75baf4bf481a1d647f5e2a71"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180921EDT.tsv",
+          "object_key": "2018/20180921EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 145,
+            "date": "2018-09-21",
+            "time": "12:00Z",
+            "observed_at": "2018-09-21T11:56:52Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180921EDT.tsv",
+            "size_bytes": 377205,
+            "etag": "9968d592d80b479ebb073545190234ae",
+            "sha256": "c17f09a5d03eae782a5bb9dcb6aa3aca08171c72ba79a3294e03256c273214e3"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 18,
+      "skipped": 2,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "20180924EDT.tsv",
+          "object_key": "2018/20180924EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 146,
+            "date": "2018-09-24",
+            "time": "12:00Z",
+            "observed_at": "2018-09-24T11:58:08Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180924EDT.tsv",
+            "size_bytes": 380277,
+            "etag": "b00c4e1defb807235b2a0e4f9f7e6489",
+            "sha256": "53ff3b80554f63bbba629a6c56c8c8fd593d8ae6ec536f4a5c75c79f0b6b50e1"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180925EDT.tsv",
+          "object_key": "2018/20180925EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 147,
+            "date": "2018-09-25",
+            "time": "12:00Z",
+            "observed_at": "2018-09-25T11:59:16Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180925EDT.tsv",
+            "size_bytes": 362421,
+            "etag": "e48cf8882ac86de8bfe1383d98115390",
+            "sha256": "ff319eec896df1f79aa2ad0df11f05ac31c65ab3807467398e976f174c805dbf"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180926EDT.tsv",
+          "object_key": "2018/20180926EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 148,
+            "date": "2018-09-26",
+            "time": "12:00Z",
+            "observed_at": "2018-09-26T11:57:19Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180926EDT.tsv",
+            "size_bytes": 477621,
+            "etag": "84ce57906533f26a3a147f3a18214b79",
+            "sha256": "7d032df8342cb4335ec4135942c282a0841c717a8dc055a2dee60372a00109b2"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180927EDT.tsv",
+          "object_key": "2018/20180927EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 149,
+            "date": "2018-09-27",
+            "time": "12:00Z",
+            "observed_at": "2018-09-27T12:02:10Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180927EDT.tsv",
+            "size_bytes": 370677,
+            "etag": "d7c16f666fe0204f1a2424c2881c671c",
+            "sha256": "6c368421bd5451e0fab3cb2c1923733c151024876385c6343a075bec45e23591"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20180928EDT.tsv",
+          "object_key": "2018/20180928EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 150,
+            "date": "2018-09-28",
+            "time": "12:00Z",
+            "observed_at": "2018-09-28T11:58:26Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20180928EDT.tsv",
+            "size_bytes": 392757,
+            "etag": "2098d726b81c5fdfbed5235e3d746cbb",
+            "sha256": "c36932c71827bb674b90e05f2fa715f79dbbd48a844346f7619c273f8f7837bb"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181001EDT.tsv",
+          "object_key": "2018/20181001EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 151,
+            "date": "2018-10-01",
+            "time": "12:00Z",
+            "observed_at": "2018-10-01T12:03:31Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181001EDT.tsv",
+            "size_bytes": 390645,
+            "etag": "a37985945056af629861d74eab6b3ef7",
+            "sha256": "2aa34b568705052cfc58aed13297008cf04a18955a2561130605b7b89fa0128d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181002EDT.tsv",
+          "object_key": "2018/20181002EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 152,
+            "date": "2018-10-02",
+            "time": "12:00Z",
+            "observed_at": "2018-10-02T11:54:15Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181002EDT.tsv",
+            "size_bytes": 377589,
+            "etag": "4501babfad68dc9bfde7dccd734c9809",
+            "sha256": "fbd327d3292384383876e70db62d9a276c31facc543710de08661f5dfe138078"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181003EDT.tsv",
+          "object_key": "2018/20181003EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 153,
+            "date": "2018-10-03",
+            "time": "12:00Z",
+            "observed_at": "2018-10-03T11:59:24Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181003EDT.tsv",
+            "size_bytes": 500661,
+            "etag": "c740649f37b60a68f4c490faa38b629a",
+            "sha256": "f62e32b16793ccf2788b507cd8e4159b864de3cd775b7290e256ac978d1ead1b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181004EDT.tsv",
+          "object_key": "2018/20181004EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/04102018EDT.tsv.",
+          "existing_profile_id": 16,
+          "existing_object_key": "2018/04102018EDT.tsv"
+        },
+        {
+          "filename": "20181005EDT.tsv",
+          "object_key": "2018/20181005EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 154,
+            "date": "2018-10-05",
+            "time": "12:00Z",
+            "observed_at": "2018-10-05T11:58:40Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181005EDT.tsv",
+            "size_bytes": 388533,
+            "etag": "c4aa2953b84a45b27c15e2a4169f7a63",
+            "sha256": "1a7608a9a3d93aaed52f2cb21517517f5c530d1d4ba60ef0e62805bf32a36396"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181008EDT.tsv",
+          "object_key": "2018/20181008EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/08102018EDT.tsv.",
+          "existing_profile_id": 35,
+          "existing_object_key": "2018/08102018EDT.tsv"
+        },
+        {
+          "filename": "20181009EDT.tsv",
+          "object_key": "2018/20181009EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 155,
+            "date": "2018-10-09",
+            "time": "12:00Z",
+            "observed_at": "2018-10-09T12:00:14Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181009EDT.tsv",
+            "size_bytes": 353781,
+            "etag": "fa9f08646f714bd44a73b14109fd7f4d",
+            "sha256": "625ce6558b1d5f44e65ff4a9b34411312afb796de877d509c23826b973134621"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181010EDT.tsv",
+          "object_key": "2018/20181010EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 156,
+            "date": "2018-10-10",
+            "time": "12:00Z",
+            "observed_at": "2018-10-10T12:01:25Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181010EDT.tsv",
+            "size_bytes": 505845,
+            "etag": "e17be633583d9a93c73e4b12cc4651b7",
+            "sha256": "71c5342e87dda913d312180dfbc6bca5e6f9722c83b33559d67268714d51adb8"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181011EDT.tsv",
+          "object_key": "2018/20181011EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 157,
+            "date": "2018-10-11",
+            "time": "12:00Z",
+            "observed_at": "2018-10-11T12:03:34Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181011EDT.tsv",
+            "size_bytes": 59445,
+            "etag": "1579cd3065c77ca48beb0f0fdaf66c74",
+            "sha256": "579d2b8e1b66a7740bfe7da1b038e4c334913700cb6aadd1eab54c5014c682ab"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181012EDT.tsv",
+          "object_key": "2018/20181012EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 158,
+            "date": "2018-10-12",
+            "time": "12:00Z",
+            "observed_at": "2018-10-12T12:01:15Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181012EDT.tsv",
+            "size_bytes": 375861,
+            "etag": "00fc4fa346be65b747169abdfd0c8310",
+            "sha256": "42d6c98ea794c29cb6ac21327edaaa36a6cd620b30a8b06207f67f5ad23da27e"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181015EDT.tsv",
+          "object_key": "2018/20181015EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 159,
+            "date": "2018-10-15",
+            "time": "12:00Z",
+            "observed_at": "2018-10-15T12:00:23Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181015EDT.tsv",
+            "size_bytes": 391413,
+            "etag": "33aba7b89dd6d10a7af35027654f1fcb",
+            "sha256": "fc22a25b52ab759dc198dcc50d76ff2c6a00228cec9618c6e2b2c7da69bc5434"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181016EDT.tsv",
+          "object_key": "2018/20181016EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 160,
+            "date": "2018-10-16",
+            "time": "12:00Z",
+            "observed_at": "2018-10-16T11:58:58Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181016EDT.tsv",
+            "size_bytes": 384501,
+            "etag": "bae606dab207415643004d11e25764f2",
+            "sha256": "ad937069d06751583fc4e9341feb262593b8daf9256cfa0b2e994683b0a43842"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181017EDT.tsv",
+          "object_key": "2018/20181017EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 161,
+            "date": "2018-10-17",
+            "time": "12:00Z",
+            "observed_at": "2018-10-17T11:55:18Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181017EDT.tsv",
+            "size_bytes": 411573,
+            "etag": "637fd5de4fca21d339e30a343517c710",
+            "sha256": "2230ac05b77afe4b3a2e3be165de91a77a65f71ce15fadec7204e48be8286405"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181018EDT.tsv",
+          "object_key": "2018/20181018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 162,
+            "date": "2018-10-18",
+            "time": "12:00Z",
+            "observed_at": "2018-10-18T11:59:22Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181018EDT.tsv",
+            "size_bytes": 387957,
+            "etag": "53ced2e368a622e1886d854ccedc1944",
+            "sha256": "e246b7f0589b2991163ed15801cd1ff055b62a820b196a409e65a482b74040c1"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181019EDT.tsv",
+          "object_key": "2018/20181019EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 163,
+            "date": "2018-10-19",
+            "time": "12:00Z",
+            "observed_at": "2018-10-19T12:05:27Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181019EDT.tsv",
+            "size_bytes": 351669,
+            "etag": "3aa0eb8960516a5740fb663ee28d0009",
+            "sha256": "0656b8045bbfeb69bf3df87e31184acbcaaa56b7ee8d79f0cf59bb781eadeb8a"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 18,
+      "skipped": 2,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "20181022EDT.tsv",
+          "object_key": "2018/20181022EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 164,
+            "date": "2018-10-22",
+            "time": "12:00Z",
+            "observed_at": "2018-10-22T11:59:37Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181022EDT.tsv",
+            "size_bytes": 355701,
+            "etag": "a678a44cdff304492a08f881b8d72e18",
+            "sha256": "e22c03f342f1a7ced8345cbfec6f141ab22c87635e70c520eb01beb786e50ff4"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181023EDT.tsv",
+          "object_key": "2018/20181023EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 165,
+            "date": "2018-10-23",
+            "time": "12:00Z",
+            "observed_at": "2018-10-23T11:58:09Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181023EDT.tsv",
+            "size_bytes": 352629,
+            "etag": "cbf9efb0cbe63a856f50732db7b1fd20",
+            "sha256": "a8fbc5b87330fd52f6d2f6fed8822d2830346d7b1c0be4dc3df0f1fdc8ca2c9f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181024EDT.tsv",
+          "object_key": "2018/20181024EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 166,
+            "date": "2018-10-24",
+            "time": "12:00Z",
+            "observed_at": "2018-10-24T11:56:27Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181024EDT.tsv",
+            "size_bytes": 358389,
+            "etag": "e0ce3ced2da8bc3371c82eacd5a8df95",
+            "sha256": "89d828dcda0e61a2a014ea6c5a9e92abae68f1cecbcb9a3e2617c6c98fece251"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181025EDT.tsv",
+          "object_key": "2018/20181025EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/20180928EDT.tsv.",
+          "existing_profile_id": 150,
+          "existing_object_key": "2018/20180928EDT.tsv"
+        },
+        {
+          "filename": "20181026EDT.tsv",
+          "object_key": "2018/20181026EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 167,
+            "date": "2018-10-26",
+            "time": "12:00Z",
+            "observed_at": "2018-10-26T12:06:08Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181026EDT.tsv",
+            "size_bytes": 363381,
+            "etag": "5d4c950ea6eced8aed435db3a3425879",
+            "sha256": "e2a7fecabacc7534d0bd271cf64ddc2c17ae361d460268fd1c6de684ed54a05c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181029EDT.tsv",
+          "object_key": "2018/20181029EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 168,
+            "date": "2018-10-29",
+            "time": "12:00Z",
+            "observed_at": "2018-10-29T12:00:07Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181029EDT.tsv",
+            "size_bytes": 385077,
+            "etag": "5379904a18708918dfeec96007e78138",
+            "sha256": "60ee45ff04d688b7bc101833f633e1facab8e6a01989a0cf544d972e30a16692"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181030EDT.tsv",
+          "object_key": "2018/20181030EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 169,
+            "date": "2018-10-30",
+            "time": "12:00Z",
+            "observed_at": "2018-10-30T11:55:35Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181030EDT.tsv",
+            "size_bytes": 349365,
+            "etag": "9cf9143ff501c44f50905428c4fb3c8f",
+            "sha256": "25f4ab56afe1ea44ebd33c7221b069cacf67af1162de738e2b2cb7d75a545b95"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181031EDT.tsv",
+          "object_key": "2018/20181031EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 170,
+            "date": "2018-10-31",
+            "time": "12:00Z",
+            "observed_at": "2018-10-31T12:03:33Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181031EDT.tsv",
+            "size_bytes": 479349,
+            "etag": "7534fdf8d628a0c128ee01e093a69ef5",
+            "sha256": "ae22558f11bfd71ff5aa0f829bfb21a8bf08a2736b46ebbad9e051c6d3d6f5d1"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181101EDT.tsv",
+          "object_key": "2018/20181101EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 171,
+            "date": "2018-11-01",
+            "time": "12:00Z",
+            "observed_at": "2018-11-01T12:02:31Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181101EDT.tsv",
+            "size_bytes": 373365,
+            "etag": "fcf998fff5c4c011aa8efde0200cd78e",
+            "sha256": "b33d5a61b0aad34a8a8a8eca70483a94bf0f3e85ee399cdaf0f3ff96ec84d767"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181105EDT.tsv",
+          "object_key": "2018/20181105EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 172,
+            "date": "2018-11-05",
+            "time": "12:00Z",
+            "observed_at": "2018-11-05T11:54:29Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181105EDT.tsv",
+            "size_bytes": 382389,
+            "etag": "e8bb1f2ae6a9864e5fd9a965760d18ba",
+            "sha256": "adf610faa205696276a53f6a37bb3e04205bb7aca35adc3267a3ab6e928b31d5"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181106EDT.tsv",
+          "object_key": "2018/20181106EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 173,
+            "date": "2018-11-06",
+            "time": "12:00Z",
+            "observed_at": "2018-11-06T12:04:58Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181106EDT.tsv",
+            "size_bytes": 393909,
+            "etag": "08d98f06fef5bc5e26a4c3ac51fbafa9",
+            "sha256": "499aa26dc002e355d98bdae2f55372fdf1e85e0eba31b4da1baa780a01d6529f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181107EDT.tsv",
+          "object_key": "2018/20181107EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 174,
+            "date": "2018-11-07",
+            "time": "12:00Z",
+            "observed_at": "2018-11-07T12:05:17Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181107EDT.tsv",
+            "size_bytes": 475317,
+            "etag": "5b7d603a5b97606d4ad3de9df1262871",
+            "sha256": "b00a013fab44bc007806fd0d10a2fee02152cb656248774050cae710f7736af9"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181108EDT.tsv",
+          "object_key": "2018/20181108EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/08112018(2)EDT.tsv.",
+          "existing_profile_id": 36,
+          "existing_object_key": "2018/08112018(2)EDT.tsv"
+        },
+        {
+          "filename": "20181109EDT.tsv",
+          "object_key": "2018/20181109EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 175,
+            "date": "2018-11-09",
+            "time": "12:00Z",
+            "observed_at": "2018-11-09T11:44:13Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181109EDT.tsv",
+            "size_bytes": 431925,
+            "etag": "dd7c0c3221e3b147a97334c36e21231c",
+            "sha256": "b81c4d42ad5fb38836f19b997544a0cba438c68f4a3810e487b9305f79935f91"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181112EDT.tsv",
+          "object_key": "2018/20181112EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 176,
+            "date": "2018-11-12",
+            "time": "12:00Z",
+            "observed_at": "2018-11-12T11:58:55Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181112EDT.tsv",
+            "size_bytes": 397173,
+            "etag": "9e6986a43ef31edb2784b0a7a2bbd063",
+            "sha256": "e2408bb9096c6ecf59915a15aa27b95ee7ae1019e3ff6f084a70f6cb038bae58"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181113EDT.tsv",
+          "object_key": "2018/20181113EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 177,
+            "date": "2018-11-13",
+            "time": "12:00Z",
+            "observed_at": "2018-11-13T11:53:03Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181113EDT.tsv",
+            "size_bytes": 439989,
+            "etag": "2ea4829a88e171c35b0c22b0ee364aab",
+            "sha256": "b5d5766ba93b8af54a8957b9d7e2afd4b6ad53c8e703a5ac1254c94e2e507968"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181114EDT.tsv",
+          "object_key": "2018/20181114EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 178,
+            "date": "2018-11-14",
+            "time": "12:00Z",
+            "observed_at": "2018-11-14T12:05:24Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181114EDT.tsv",
+            "size_bytes": 454389,
+            "etag": "be63dda04d3e6acb89db7f5ccc15ae3d",
+            "sha256": "68a0d25fd50579f8f69ea8ee5e40a3bd04fecb0b4b77bbdcfd975fc186cb80a2"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181115EDT.tsv",
+          "object_key": "2018/20181115EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 179,
+            "date": "2018-11-15",
+            "time": "12:00Z",
+            "observed_at": "2018-11-15T11:59:19Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181115EDT.tsv",
+            "size_bytes": 409269,
+            "etag": "1ce816da8c3c47e2be8a170c23a0f78b",
+            "sha256": "615e81956a0423ba44a5752af2bb34f87af60a14fb25b0e76944e41ffceebeaa"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181116EDT.tsv",
+          "object_key": "2018/20181116EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 180,
+            "date": "2018-11-16",
+            "time": "12:00Z",
+            "observed_at": "2018-11-16T12:06:57Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181116EDT.tsv",
+            "size_bytes": 338229,
+            "etag": "14dcbe7ec48eaf58269a90b34fff1786",
+            "sha256": "bf9c30b24e4e2c0410d0ff3b97e6d3c9f455c26d13dd2a7634dcba1d6452f132"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181119EDT.tsv",
+          "object_key": "2018/20181119EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 181,
+            "date": "2018-11-19",
+            "time": "12:00Z",
+            "observed_at": "2018-11-19T12:12:30Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181119EDT.tsv",
+            "size_bytes": 371061,
+            "etag": "ddc5157b1d9ad9955e6daa3c48556f62",
+            "sha256": "20fec33fe57cb748702bf227494dc12e58e22223129fcaafa470c057411327b0"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 20,
+      "skipped": 0,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "20181120EDT.tsv",
+          "object_key": "2018/20181120EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 182,
+            "date": "2018-11-20",
+            "time": "12:00Z",
+            "observed_at": "2018-11-20T11:59:57Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181120EDT.tsv",
+            "size_bytes": 369333,
+            "etag": "5565e9072b03977135696163577d9c0b",
+            "sha256": "8d63830cc149065cf7e5ebadadade7e35eeddee44c844fd2bf606d9fd84a52c2"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181121EDT.tsv",
+          "object_key": "2018/20181121EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 183,
+            "date": "2018-11-21",
+            "time": "12:00Z",
+            "observed_at": "2018-11-21T12:04:45Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181121EDT.tsv",
+            "size_bytes": 387189,
+            "etag": "4f81056dd6d97256558acbc79ed858df",
+            "sha256": "d60218f099de3323ac5c53f1152d08daa21b66530dbdbd8b818d7d29837af109"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181122EDT.tsv",
+          "object_key": "2018/20181122EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 184,
+            "date": "2018-11-22",
+            "time": "12:00Z",
+            "observed_at": "2018-11-22T11:49:45Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181122EDT.tsv",
+            "size_bytes": 406773,
+            "etag": "e97fe65b3afef847dd4c856c339fd3f1",
+            "sha256": "60f6de2722eb9898bbb5b3c9be05683e4977c9cec0412c78b6e835da289be093"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181123EDT.tsv",
+          "object_key": "2018/20181123EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 185,
+            "date": "2018-11-23",
+            "time": "12:00Z",
+            "observed_at": "2018-11-23T11:41:19Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181123EDT.tsv",
+            "size_bytes": 416373,
+            "etag": "f6b68960b74b7dc103460711c43395c3",
+            "sha256": "e9a0ec3fb4f0e493f0ef22ff63496d6b36736f4cbba2463f0e851ec521425634"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181126EDT.tsv",
+          "object_key": "2018/20181126EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 186,
+            "date": "2018-11-26",
+            "time": "12:00Z",
+            "observed_at": "2018-11-26T12:06:20Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181126EDT.tsv",
+            "size_bytes": 366645,
+            "etag": "799707da12ce914525640f077ff72c64",
+            "sha256": "503bb22b295272c548044974383f6e553442cbb5d852f68622fb41e22e5d8c07"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181127EDT.tsv",
+          "object_key": "2018/20181127EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 187,
+            "date": "2018-11-27",
+            "time": "12:00Z",
+            "observed_at": "2018-11-27T11:41:25Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181127EDT.tsv",
+            "size_bytes": 367413,
+            "etag": "b34ae01641de9f7db8778b2fb5915102",
+            "sha256": "09d83d6923e891677f27eddffbbb84b918c600cc843b69e9d1e798d2cc0c3d14"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181128EDT.tsv",
+          "object_key": "2018/20181128EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 188,
+            "date": "2018-11-28",
+            "time": "12:00Z",
+            "observed_at": "2018-11-28T11:52:13Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181128EDT.tsv",
+            "size_bytes": 517365,
+            "etag": "e04d48f31f3a12da2cfcb9b86d2762f3",
+            "sha256": "b0a7a5ef84c2be4ffe6821a7982b98d9eb2aa3aa0712d241fdf3095a094b103f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181129EDT.tsv",
+          "object_key": "2018/20181129EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 189,
+            "date": "2018-11-29",
+            "time": "12:00Z",
+            "observed_at": "2018-11-29T12:33:49Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181129EDT.tsv",
+            "size_bytes": 352245,
+            "etag": "1882ace978d0163d6c99eccd48464dbd",
+            "sha256": "48e8ecbabe65c737f5c305639692b31629f39e21a12a0701a41cbedb8b3a7c00"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181130EDT.tsv",
+          "object_key": "2018/20181130EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 190,
+            "date": "2018-11-30",
+            "time": "12:00Z",
+            "observed_at": "2018-11-30T11:58:08Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181130EDT.tsv",
+            "size_bytes": 324021,
+            "etag": "fbc6acbbd02ae3859236af6a24ffd2e6",
+            "sha256": "a5109b7cd705a990b4e7ec23ac2996bcf78db070c8e2ee9ae40b4f6b7ceb7e46"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181203EDT.tsv",
+          "object_key": "2018/20181203EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 191,
+            "date": "2018-12-03",
+            "time": "12:00Z",
+            "observed_at": "2018-12-03T12:02:45Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181203EDT.tsv",
+            "size_bytes": 390645,
+            "etag": "4c8395db6c4f361dce98c8e6450561a8",
+            "sha256": "52378b7351a6f5866556e2ea345d887f21b91d8ae3e660ceae5cd43842cde5b0"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181204EDT.tsv",
+          "object_key": "2018/20181204EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 192,
+            "date": "2018-12-04",
+            "time": "12:00Z",
+            "observed_at": "2018-12-04T12:05:11Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181204EDT.tsv",
+            "size_bytes": 336117,
+            "etag": "91ea27cf839a0740f5e05040ff132eb4",
+            "sha256": "72b5ad1205e60ccf9ba5d02ee479cb53f76ab93e948910a023960dae99b92492"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181205EDT.tsv",
+          "object_key": "2018/20181205EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 193,
+            "date": "2018-12-05",
+            "time": "12:00Z",
+            "observed_at": "2018-12-05T11:58:55Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181205EDT.tsv",
+            "size_bytes": 464373,
+            "etag": "6ce5c6d691a4e162222dd8738095d298",
+            "sha256": "e31ca0163b41671ff2f50ff66655edaa6a81712781bb355a7e9b3490e096736d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181206EDT.tsv",
+          "object_key": "2018/20181206EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 194,
+            "date": "2018-12-06",
+            "time": "12:00Z",
+            "observed_at": "2018-12-06T12:01:57Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181206EDT.tsv",
+            "size_bytes": 361269,
+            "etag": "971b74ff8da3fae1418592bcbd2beb4e",
+            "sha256": "afdb8c906ccd0ab9d45bb1b44591f197524c546b1ec29b022dd992a6f8563239"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181207EDT.tsv",
+          "object_key": "2018/20181207EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 195,
+            "date": "2018-12-07",
+            "time": "12:00Z",
+            "observed_at": "2018-12-07T12:00:03Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181207EDT.tsv",
+            "size_bytes": 324021,
+            "etag": "76b67a6359aea07ec458ddaec564b7a0",
+            "sha256": "0e9dbb11e8cef9a65cc9b115e238cbb633cbdf6851d8312aefb6dfd493cf5de5"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181210EDT.tsv",
+          "object_key": "2018/20181210EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 196,
+            "date": "2018-12-10",
+            "time": "12:00Z",
+            "observed_at": "2018-12-10T11:54:36Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181210EDT.tsv",
+            "size_bytes": 357429,
+            "etag": "2c77a7ef92ff515097163b5a98ebf388",
+            "sha256": "1ede4a4a3ea5142b87593355de79f1a0317cba0ccd1265787556d41175e157e0"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181211EDT.tsv",
+          "object_key": "2018/20181211EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 197,
+            "date": "2018-12-11",
+            "time": "12:00Z",
+            "observed_at": "2018-12-11T11:56:50Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181211EDT.tsv",
+            "size_bytes": 340533,
+            "etag": "d3a50b6d36aac0691f820161a036aceb",
+            "sha256": "999c30ab353ec0b3d2c75d003692b2d1b58ea99338a61eb768d7a5ed44aca572"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181212EDT.tsv",
+          "object_key": "2018/20181212EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 198,
+            "date": "2018-12-12",
+            "time": "12:00Z",
+            "observed_at": "2018-12-12T11:55:54Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181212EDT.tsv",
+            "size_bytes": 522933,
+            "etag": "5328192ced112b7f9ef822a1b0946974",
+            "sha256": "f6b16d09b5b621817d788ba5ee8ca96ed1cb6f2f001ccaf38202f5025b85d0f9"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181213EDT.tsv",
+          "object_key": "2018/20181213EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 199,
+            "date": "2018-12-13",
+            "time": "12:00Z",
+            "observed_at": "2018-12-13T12:01:55Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181213EDT.tsv",
+            "size_bytes": 382581,
+            "etag": "abad38f604cc2ba3b79619215cbf6daf",
+            "sha256": "d5d446338776a892bacc7cf9548eb07aae6d2ece51d1644243ad4892b0388684"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181214EDT.tsv",
+          "object_key": "2018/20181214EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 200,
+            "date": "2018-12-14",
+            "time": "12:00Z",
+            "observed_at": "2018-12-14T12:02:34Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181214EDT.tsv",
+            "size_bytes": 410805,
+            "etag": "ecef9d52499c1c4969d336bc1a666bd3",
+            "sha256": "c10669dbc0f2253edee7993e5f028560722435f601015f0c2d5bab5689c558ee"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181217EDT.tsv",
+          "object_key": "2018/20181217EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 201,
+            "date": "2018-12-17",
+            "time": "12:00Z",
+            "observed_at": "2018-12-17T12:09:30Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181217EDT.tsv",
+            "size_bytes": 383733,
+            "etag": "f70037a5592c5358fea9f95d6da19ba4",
+            "sha256": "fbb111a8019e3b6fa47de7ca9cf86a598f10779c9d8f6bfb7dac9c0a6e99d1c8"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 19,
+      "skipped": 1,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "20181218EDT.tsv",
+          "object_key": "2018/20181218EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 202,
+            "date": "2018-12-18",
+            "time": "12:00Z",
+            "observed_at": "2018-12-18T11:59:27Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181218EDT.tsv",
+            "size_bytes": 404085,
+            "etag": "453efbacd42a4e2747b27e280bd21e5d",
+            "sha256": "99d800044e5164674492118ee7bc2cbb572993e592c487e354fb5947f2455ee3"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181219EDT.tsv",
+          "object_key": "2018/20181219EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 203,
+            "date": "2018-12-19",
+            "time": "12:00Z",
+            "observed_at": "2018-12-19T11:59:22Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181219EDT.tsv",
+            "size_bytes": 560565,
+            "etag": "331e1af2bad160dbe638dc72a515648e",
+            "sha256": "f1f1fe62bde4d8a7dca6edff50ddd8aa11febb606cfb8c02d0a0e11e854721d7"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181220EDT.tsv",
+          "object_key": "2018/20181220EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 204,
+            "date": "2018-12-20",
+            "time": "12:00Z",
+            "observed_at": "2018-12-20T12:06:58Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181220EDT.tsv",
+            "size_bytes": 397365,
+            "etag": "3e0a2e7f244840b2c831876ab1027341",
+            "sha256": "1030aa7250fdbd43f3d36df9b70fb1a579bf02ff53699c0dcfb2fecc5db6cc51"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181221EDT.tsv",
+          "object_key": "2018/20181221EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 205,
+            "date": "2018-12-21",
+            "time": "12:00Z",
+            "observed_at": "2018-12-21T11:59:39Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181221EDT.tsv",
+            "size_bytes": 385845,
+            "etag": "f6eb3dae4d8fc197c71511bcf2c766de",
+            "sha256": "005ceba2095dae69352a31f860e13247b43338a780cd95e2cf0a3144d194bdaa"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181224EDT.tsv",
+          "object_key": "2018/20181224EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 206,
+            "date": "2018-12-24",
+            "time": "12:00Z",
+            "observed_at": "2018-12-24T12:01:33Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181224EDT.tsv",
+            "size_bytes": 393141,
+            "etag": "9feaadc29ad1dca97a55d87bcc57de49",
+            "sha256": "6d451fcd0afba28c2344df5f2ea0234bcadd26bfd815b4a01c55458c40b2428f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181226EDT.tsv",
+          "object_key": "2018/20181226EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 207,
+            "date": "2018-12-26",
+            "time": "12:00Z",
+            "observed_at": "2018-12-26T12:00:00Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181226EDT.tsv",
+            "size_bytes": 388533,
+            "etag": "25b6758fe5aab90a63522a520cdf46a5",
+            "sha256": "c850a65ec503681248c9c951eb285b8bb746501f6f89b0539f80734e573633ea"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181227EDT.tsv",
+          "object_key": "2018/20181227EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 208,
+            "date": "2018-12-27",
+            "time": "12:00Z",
+            "observed_at": "2018-12-27T12:04:45Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181227EDT.tsv",
+            "size_bytes": 401781,
+            "etag": "f617a9e5b1ee2134bdf5e31838625d25",
+            "sha256": "60a3b217926a58fb170cb7788fcb7fb8511a9d8b43ca629090c35db0eaa24811"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181228EDT.tsv",
+          "object_key": "2018/20181228EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 209,
+            "date": "2018-12-28",
+            "time": "12:00Z",
+            "observed_at": "2018-12-28T12:05:07Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181228EDT.tsv",
+            "size_bytes": 398517,
+            "etag": "b61f534fc107b544032d487224fc58a2",
+            "sha256": "7bc2cf64d799cfcb7049dab9b7185171cf5fd755abfac2a4f8767e229590f9c4"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20181231EDT.tsv",
+          "object_key": "2018/20181231EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 210,
+            "date": "2018-12-31",
+            "time": "12:00Z",
+            "observed_at": "2018-12-31T11:54:10Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/20181231EDT.tsv",
+            "size_bytes": 369909,
+            "etag": "6f8ec9ef8d159cc48e7ddcbcfa42e4d9",
+            "sha256": "6649140e5761d7d2da13099bed66de57dffd376afe7064ebaeadcd7119a5da1c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "21022018EDT.tsv",
+          "object_key": "2018/21022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 211,
+            "date": "2018-02-21",
+            "time": "12:00Z",
+            "observed_at": "2018-02-21T11:56:36Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/21022018EDT.tsv",
+            "size_bytes": 456309,
+            "etag": "4e3142b8b7b5744c69eebe5ff3ce1e8c",
+            "sha256": "3e792de65b395fbfa24a813e9e06f8c660c342b34368a63c6faba11482d82d80"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "21032018EDT.tsv",
+          "object_key": "2018/21032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 212,
+            "date": "2018-03-21",
+            "time": "12:00Z",
+            "observed_at": "2018-03-21T11:57:24Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/21032018EDT.tsv",
+            "size_bytes": 542517,
+            "etag": "d6a23f07a7da6f1de30ced33f0fd4b21",
+            "sha256": "ee01144ba1ed1acec254f0dfbfb6571f6a16b68a6d81badb987c04efc5214754"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "21052018EDT.tsv",
+          "object_key": "2018/21052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 213,
+            "date": "2018-05-21",
+            "time": "12:00Z",
+            "observed_at": "2018-05-21T12:00:28Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/21052018EDT.tsv",
+            "size_bytes": 428085,
+            "etag": "c1feb75a4ab452acfe901b40274d1dac",
+            "sha256": "46219a1e293f4a8a3402a0ec5bb4c636df47cb1b76e2821c08105e1783dacf92"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "22022018EDT.tsv",
+          "object_key": "2018/22022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 214,
+            "date": "2018-02-22",
+            "time": "12:00Z",
+            "observed_at": "2018-02-22T11:57:50Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/22022018EDT.tsv",
+            "size_bytes": 450165,
+            "etag": "7f31b977cc737f808be1362d79e90a86",
+            "sha256": "29479531bb08882a5216725cdc91b7749db84bfaa169cbfbe9b113c5f9f16b72"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "22032018EDT.tsv",
+          "object_key": "2018/22032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 215,
+            "date": "2018-03-22",
+            "time": "12:00Z",
+            "observed_at": "2018-03-22T12:16:56Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/22032018EDT.tsv",
+            "size_bytes": 371829,
+            "etag": "b3eb7c65e67cd1eb7d1334b6479bb002",
+            "sha256": "c6cec5a6033bd635c8513cb1b92a36daf07ff92ce6c1ed722a6c2572e32b57a6"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "22052018EDT.tsv",
+          "object_key": "2018/22052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 216,
+            "date": "2018-05-22",
+            "time": "12:00Z",
+            "observed_at": "2018-05-22T11:59:59Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/22052018EDT.tsv",
+            "size_bytes": 393717,
+            "etag": "a948741c9f22dc271faa851b8258e3f2",
+            "sha256": "98d81f6c9248d1380e500bb4ae70edb78e7ab6e9dfd844d6d414e9150c982325"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "22062018EDT.tsv",
+          "object_key": "2018/22062018EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/20180622EDT.tsv.",
+          "existing_profile_id": 88,
+          "existing_object_key": "2018/20180622EDT.tsv"
+        },
+        {
+          "filename": "23012018EDT.tsv",
+          "object_key": "2018/23012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 217,
+            "date": "2018-01-23",
+            "time": "12:00Z",
+            "observed_at": "2018-01-23T11:57:07Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/23012018EDT.tsv",
+            "size_bytes": 360885,
+            "etag": "ad98366901121e11be98a7a483456170",
+            "sha256": "264c8e8d56b8249e46343337a2b225a7b22b59a80d655c754f98ea44e5d4a520"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "23022018EDT.tsv",
+          "object_key": "2018/23022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 218,
+            "date": "2018-02-23",
+            "time": "12:00Z",
+            "observed_at": "2018-02-23T11:59:19Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/23022018EDT.tsv",
+            "size_bytes": 368181,
+            "etag": "3f592a70a034f678d130de04f8251d67",
+            "sha256": "8eac1e8e2405a9fcd30e653a7432473b10158c77de97477acc26336c4016cff1"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "23032018EDT.tsv",
+          "object_key": "2018/23032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 219,
+            "date": "2018-03-23",
+            "time": "12:00Z",
+            "observed_at": "2018-03-23T11:57:27Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/23032018EDT.tsv",
+            "size_bytes": 369909,
+            "etag": "aad55a742b6fb2bde417e7b6fd9d37c1",
+            "sha256": "9391d6345d4d0c6e418fd836a7019d1f5edcfb49c8ff25aad4fc1416336bd9c0"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "23042018EDT.tsv",
+          "object_key": "2018/23042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 220,
+            "date": "2018-04-23",
+            "time": "12:00Z",
+            "observed_at": "2018-04-23T11:57:28Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/23042018EDT.tsv",
+            "size_bytes": 375477,
+            "etag": "4e2a73e6b20f69401e5c9d34b13368b3",
+            "sha256": "7e9f47f5ce8e73405a05b54b363602a690f1b11c00d1637d382f2775e7bb6e61"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 17,
+      "skipped": 3,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "23052018EDT.tsv",
+          "object_key": "2018/23052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 221,
+            "date": "2018-05-23",
+            "time": "12:00Z",
+            "observed_at": "2018-05-23T12:00:05Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/23052018EDT.tsv",
+            "size_bytes": 488757,
+            "etag": "4562f52dc3392faff305a28cd7318a32",
+            "sha256": "7c1b9e7405dc84e67e59835573deaa3ce70fb765e939507b8d3bd18a7a5d9e9d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "24012018EDT.tsv",
+          "object_key": "2018/24012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 222,
+            "date": "2018-01-24",
+            "time": "12:00Z",
+            "observed_at": "2018-01-24T11:58:33Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/24012018EDT.tsv",
+            "size_bytes": 464757,
+            "etag": "4a984d200fa254a42502a769a59847b7",
+            "sha256": "7d861825de0287bbf8899e2ac975a53cafd846b0079eb62d9c4675f5877aa8fa"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "24042018EDT.tsv",
+          "object_key": "2018/24042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 223,
+            "date": "2018-04-24",
+            "time": "12:00Z",
+            "observed_at": "2018-04-24T11:57:23Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/24042018EDT.tsv",
+            "size_bytes": 405621,
+            "etag": "b13daff61a9443696bd9383e59f61ac3",
+            "sha256": "bc33a317a80d2f0a62f60c3c3af701a1a5189ef1ef10656c5a3f42c9051eaf39"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "24052018EDT.tsv",
+          "object_key": "2018/24052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 224,
+            "date": "2018-05-24",
+            "time": "12:00Z",
+            "observed_at": "2018-05-24T12:00:07Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/24052018EDT.tsv",
+            "size_bytes": 460149,
+            "etag": "e78c1f9ca30530cd149550656c3c2baa",
+            "sha256": "f651aaf115ac15391ab6a55c5c1ee56070d1a0a201cde91a4cf6c9aec4c1e0b5"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "24062018EDT.tsv",
+          "object_key": "2018/24062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 225,
+            "date": "2018-06-24",
+            "time": "12:00Z",
+            "observed_at": "2018-06-24T12:09:34Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/24062018EDT.tsv",
+            "size_bytes": 395829,
+            "etag": "04c26757ad88eba144cdf9d3da590980",
+            "sha256": "43a7794a6e6110381afbcdbb6c57fc23fb26e42cd38ce957ffc0e6fbe22dc3d6"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "25012018EDT.tsv",
+          "object_key": "2018/25012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 226,
+            "date": "2018-01-25",
+            "time": "12:00Z",
+            "observed_at": "2018-01-25T11:56:14Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/25012018EDT.tsv",
+            "size_bytes": 368373,
+            "etag": "ed452b875161f3faf2f61f1266a825bd",
+            "sha256": "00d2357a03a1e76cc2296a34d0f86a1d42c8496496b3b7bb8f3605a02ee8eb84"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "25042018EDT.tsv",
+          "object_key": "2018/25042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 227,
+            "date": "2018-04-25",
+            "time": "12:00Z",
+            "observed_at": "2018-04-25T12:00:27Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/25042018EDT.tsv",
+            "size_bytes": 500469,
+            "etag": "5ba67862eb546805859a672c57c0a79e",
+            "sha256": "68bfea039b7bd65c9580563c106a8f1c3244337f8a5ceadb6eb28a3737ceabdf"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "25052018EDT.tsv",
+          "object_key": "2018/25052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 228,
+            "date": "2018-05-25",
+            "time": "12:00Z",
+            "observed_at": "2018-05-25T11:58:26Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/25052018EDT.tsv",
+            "size_bytes": 370293,
+            "etag": "9eaf8936239ed6ae7940840114452d93",
+            "sha256": "fa585520dcffa2059d046e7fe59eabd0269c9fdcdb3270b7b8a108f8d8a1ed4e"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "25062018EDT.tsv",
+          "object_key": "2018/25062018EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/20180625EDT.tsv.",
+          "existing_profile_id": 89,
+          "existing_object_key": "2018/20180625EDT.tsv"
+        },
+        {
+          "filename": "26012018EDT.tsv",
+          "object_key": "2018/26012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 229,
+            "date": "2018-01-26",
+            "time": "12:00Z",
+            "observed_at": "2018-01-26T11:58:16Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/26012018EDT.tsv",
+            "size_bytes": 363765,
+            "etag": "e1d5893c99de67148a74440d9f950835",
+            "sha256": "b0759e2f7a455b51065a6b1573f970f571bba18e57e130ac475442687abbd95b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "26022018EDT.tsv",
+          "object_key": "2018/26022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 230,
+            "date": "2018-02-26",
+            "time": "12:00Z",
+            "observed_at": "2018-02-26T11:58:46Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/26022018EDT.tsv",
+            "size_bytes": 412917,
+            "etag": "77eee94fa22ec13d31dd7e46398ee0e1",
+            "sha256": "89426b62edaa139a5fd52c76cd11a0ef3ffe1d4ac621b46bae3af70c43ada262"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "26032018EDT.tsv",
+          "object_key": "2018/26032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 231,
+            "date": "2018-03-26",
+            "time": "12:00Z",
+            "observed_at": "2018-03-26T12:00:52Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/26032018EDT.tsv",
+            "size_bytes": 363573,
+            "etag": "9d3a6f79715a0258740138f426ead606",
+            "sha256": "71433948e13a98c2cf748f4105d7210fef88eea825e2ff91c1cba8d33b69a80b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "26042018EDT.tsv",
+          "object_key": "2018/26042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 232,
+            "date": "2018-04-26",
+            "time": "12:00Z",
+            "observed_at": "2018-04-26T12:01:40Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/26042018EDT.tsv",
+            "size_bytes": 404469,
+            "etag": "39bc5703afe6127debd2a038dfac7fde",
+            "sha256": "6fc24efb394cdfd9515022b8eb09c7b888835e4103fd0845d8dba89dbc6e5434"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "26062018EDT.tsv",
+          "object_key": "2018/26062018EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/20180626EDT.tsv.",
+          "existing_profile_id": 90,
+          "existing_object_key": "2018/20180626EDT.tsv"
+        },
+        {
+          "filename": "27022018EDT.tsv",
+          "object_key": "2018/27022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 233,
+            "date": "2018-02-27",
+            "time": "12:00Z",
+            "observed_at": "2018-02-27T11:58:22Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/27022018EDT.tsv",
+            "size_bytes": 377781,
+            "etag": "b71210aa743cb5fcbe6612babaec8c0d",
+            "sha256": "48a1874cce35d0a2f509af25ae9771e58bd0b64b2f5b2b0be428900e21d9d48c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "27032018EDT.tsv",
+          "object_key": "2018/27032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 234,
+            "date": "2018-03-27",
+            "time": "12:00Z",
+            "observed_at": "2018-03-27T12:11:50Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/27032018EDT.tsv",
+            "size_bytes": 408309,
+            "etag": "b465caf49f08b72a4208d7594ab82262",
+            "sha256": "f445eb41b190e7e7cf218fdf958aed81a9daa634421b581e2e7faebbc539ff7b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "27042018EDT.tsv",
+          "object_key": "2018/27042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 235,
+            "date": "2018-04-27",
+            "time": "12:00Z",
+            "observed_at": "2018-04-27T11:59:00Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/27042018EDT.tsv",
+            "size_bytes": 406389,
+            "etag": "9f8c669969cf619683fff69313fc96b5",
+            "sha256": "cde29c516c375e755e7c58b1a98185caf705729300f611fe9cf3b18dcdf5f34a"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "27062018EDT.tsv",
+          "object_key": "2018/27062018EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/20180625EDT.tsv.",
+          "existing_profile_id": 89,
+          "existing_object_key": "2018/20180625EDT.tsv"
+        },
+        {
+          "filename": "28022018EDT.tsv",
+          "object_key": "2018/28022018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 236,
+            "date": "2018-02-28",
+            "time": "12:00Z",
+            "observed_at": "2018-02-28T11:57:14Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/28022018EDT.tsv",
+            "size_bytes": 503733,
+            "etag": "efa5d47e3ba32082799d9026cc53d16c",
+            "sha256": "f51210db8abf3eddc78515337417270b7f7c096d8e2b8144c121359b925fa00b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "28032018EDT.tsv",
+          "object_key": "2018/28032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 237,
+            "date": "2018-03-28",
+            "time": "12:00Z",
+            "observed_at": "2018-03-28T12:04:16Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/28032018EDT.tsv",
+            "size_bytes": 507189,
+            "etag": "1841a82aab1a56530b2cb30280d2cfba",
+            "sha256": "bc830f6e4dc10786d1087ded3bac0ebff372c5ee046b8ee4d50f5e0085427928"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "bucket": "radiosondes",
+      "prefix": "2018/",
+      "status": "completed",
+      "total": 10,
+      "uploaded": 9,
+      "skipped": 1,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "28052018EDT.tsv",
+          "object_key": "2018/28052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 238,
+            "date": "2018-05-28",
+            "time": "12:00Z",
+            "observed_at": "2018-05-28T12:00:26Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/28052018EDT.tsv",
+            "size_bytes": 381621,
+            "etag": "3056601c4fea2dfae78a5868f8992ab5",
+            "sha256": "f42a87bb52933ebdac6c835d7183be52d1784c32824936a555e5c39229d69bcb"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "28062018EDT.tsv",
+          "object_key": "2018/28062018EDT.tsv",
+          "status": "skipped",
+          "reason": "duplicate_content",
+          "detail": "El contenido ya está registrado como 2018/20180628EDT.tsv.",
+          "existing_profile_id": 91,
+          "existing_object_key": "2018/20180628EDT.tsv"
+        },
+        {
+          "filename": "29012018EDT.tsv",
+          "object_key": "2018/29012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 239,
+            "date": "2018-01-29",
+            "time": "12:00Z",
+            "observed_at": "2018-01-29T11:59:05Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/29012018EDT.tsv",
+            "size_bytes": 378357,
+            "etag": "e214b5ef6aaefbc7a65dfa7b90cf1de0",
+            "sha256": "6bf39e0b33bea86ccdb04dd3f7e8fd650363fc946f7ca9ce7d2c39ba58e7db39"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "29032018EDT.tsv",
+          "object_key": "2018/29032018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 240,
+            "date": "2018-03-29",
+            "time": "12:00Z",
+            "observed_at": "2018-03-29T12:02:11Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/29032018EDT.tsv",
+            "size_bytes": 379701,
+            "etag": "eef9283f7b232e7f90db73125bc9d306",
+            "sha256": "da88ffa3862bec9175e2ad64c58df1afc9a3d6b633638b5c0348ad1570a7e7eb"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "29052018EDT.tsv",
+          "object_key": "2018/29052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 241,
+            "date": "2018-05-29",
+            "time": "12:00Z",
+            "observed_at": "2018-05-29T12:02:57Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/29052018EDT.tsv",
+            "size_bytes": 333045,
+            "etag": "395da1b5c19c098885719b8fbdbc7863",
+            "sha256": "318d3782aa09d2d0fdb9f454e029212944ffe93ebeca156e6c498f64c58490ea"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "29062018EDT.tsv",
+          "object_key": "2018/29062018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 242,
+            "date": "2018-06-29",
+            "time": "12:00Z",
+            "observed_at": "2018-06-29T12:05:01Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/29062018EDT.tsv",
+            "size_bytes": 405429,
+            "etag": "e90a42a2875e2fe35af6ba7c0dcb1a6e",
+            "sha256": "8b67f9c3f3391e94012af1c7d32b070245ef66caffc48d382722ca2cb80d69f0"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "30012018EDT.tsv",
+          "object_key": "2018/30012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 243,
+            "date": "2018-01-30",
+            "time": "12:00Z",
+            "observed_at": "2018-01-30T11:56:19Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/30012018EDT.tsv",
+            "size_bytes": 387573,
+            "etag": "80a4880625fc4915412ec0027be38276",
+            "sha256": "3fe4bfa695cd7f91bf7b457fc2ae64dacc448f27b04f503fc28fa2c219752cc3"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "30042018EDT.tsv",
+          "object_key": "2018/30042018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 244,
+            "date": "2018-04-30",
+            "time": "12:00Z",
+            "observed_at": "2018-04-30T12:00:07Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/30042018EDT.tsv",
+            "size_bytes": 400245,
+            "etag": "3a297bf894f0209ba922509c5444af93",
+            "sha256": "15ae3473ef8c69fbc0222c9759cf3350d71fa5151108b9f7a0a40e9b8587fc39"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "30052018EDT.tsv",
+          "object_key": "2018/30052018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 245,
+            "date": "2018-05-30",
+            "time": "12:00Z",
+            "observed_at": "2018-05-30T11:59:00Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/30052018EDT.tsv",
+            "size_bytes": 500469,
+            "etag": "12ff58742dea61110dcd758dca63454d",
+            "sha256": "f85a8b60a523b12ecb48f785255e5d0889258faeea4a6c9df3d7e82819b1f4de"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "31012018EDT.tsv",
+          "object_key": "2018/31012018EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 246,
+            "date": "2018-01-31",
+            "time": "12:00Z",
+            "observed_at": "2018-01-31T11:56:45Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2018/31012018EDT.tsv",
+            "size_bytes": 552309,
+            "etag": "8d2ff46d1ac25d28b4f1c54af192c495",
+            "sha256": "627bba43fb74dd58a2c17ec9bf4d2287ee844eeb424cd2f037485701df885d51"
+          },
+          "warnings": []
+        }
+      ]
+    }
+  ],
+  "uploaded": 246,
+  "skipped": 24,
+  "failed": 0
+}

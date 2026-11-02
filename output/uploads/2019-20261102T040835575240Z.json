@@ -1,0 +1,2751 @@
+{
+  "year": 2019,
+  "bucket": "radiosondes",
+  "total": 208,
+  "status": "completed_with_errors",
+  "batches": [
+    {
+      "year": 2019,
+      "bucket": "radiosondes",
+      "prefix": "2019/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 20,
+      "skipped": 0,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "20190102EDT.tsv",
+          "object_key": "2019/20190102EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 247,
+            "date": "2019-01-02",
+            "time": "12:00Z",
+            "observed_at": "2019-01-02T12:04:26Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190102EDT.tsv",
+            "size_bytes": 521205,
+            "etag": "71b241fcdafc0b22e6f9a5e61e1b0ba2",
+            "sha256": "2b63be3d2ea01009af3c7b8ed71de7c08fa2dad84e28df70ef28343f127f2343"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190103EDT.tsv",
+          "object_key": "2019/20190103EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 248,
+            "date": "2019-01-03",
+            "time": "12:00Z",
+            "observed_at": "2019-01-03T12:03:24Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190103EDT.tsv",
+            "size_bytes": 362997,
+            "etag": "fb2240259bf7538894add0d1e5bd8974",
+            "sha256": "660804ec339602b74e3899310f4d50260aa5294c054defbc5095bc3c3d402c85"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190104EDT.tsv",
+          "object_key": "2019/20190104EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 249,
+            "date": "2019-01-04",
+            "time": "12:00Z",
+            "observed_at": "2019-01-04T11:56:37Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190104EDT.tsv",
+            "size_bytes": 425781,
+            "etag": "be82328ee5542eb069e69a434c2fba30",
+            "sha256": "f50da5d9bd028647bfc623f122f346b0cbb7afe4ba460a40d26e4024b1a4b292"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190107EDT.tsv",
+          "object_key": "2019/20190107EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 250,
+            "date": "2019-01-07",
+            "time": "12:00Z",
+            "observed_at": "2019-01-07T12:05:11Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190107EDT.tsv",
+            "size_bytes": 413685,
+            "etag": "c4e2af7d9bab6bbb0213f3fd95ae26ec",
+            "sha256": "28e5669959a8a6d2c7ac246efb53264c77a6d14f6714119ae3a15809bafbaaab"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190108EDT.tsv",
+          "object_key": "2019/20190108EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 251,
+            "date": "2019-01-08",
+            "time": "12:00Z",
+            "observed_at": "2019-01-08T11:57:40Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190108EDT.tsv",
+            "size_bytes": 396597,
+            "etag": "43a5ffc03c8406684daec3ca9af144de",
+            "sha256": "c60151b440e18c5986854cd225c040ed3b4afa344ea45d3cdf22c577ba2b17a3"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190109EDT.tsv",
+          "object_key": "2019/20190109EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 252,
+            "date": "2019-01-09",
+            "time": "12:00Z",
+            "observed_at": "2019-01-09T11:57:20Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190109EDT.tsv",
+            "size_bytes": 511221,
+            "etag": "82dc0255442f66f053d20e5164b2f712",
+            "sha256": "c719eca3dd03b9d5e33d0e645f3386c35d5589c210559ddcfefd56e16609f2d5"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190110EDT.tsv",
+          "object_key": "2019/20190110EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 253,
+            "date": "2019-01-10",
+            "time": "12:00Z",
+            "observed_at": "2019-01-10T11:56:34Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190110EDT.tsv",
+            "size_bytes": 393717,
+            "etag": "4ea362c3bfe77859c2ec7b82eeff6444",
+            "sha256": "360f7585b7c37f4bb4104d9b89cf808e8367dc31a4e45295e6ceb5cc53abd591"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190111EDT.tsv",
+          "object_key": "2019/20190111EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 254,
+            "date": "2019-01-11",
+            "time": "12:00Z",
+            "observed_at": "2019-01-11T12:06:30Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190111EDT.tsv",
+            "size_bytes": 390645,
+            "etag": "bd370d11d2f2896ca50121fb9b5141ac",
+            "sha256": "2bc9e06c2a77795e135d03414d7aa08755470007ab6b1c0002d2479acd8abf94"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190114EDT.tsv",
+          "object_key": "2019/20190114EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 255,
+            "date": "2019-01-14",
+            "time": "12:00Z",
+            "observed_at": "2019-01-14T12:01:44Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190114EDT.tsv",
+            "size_bytes": 374709,
+            "etag": "8d9c77aeee0f4b3e87a7a4feaf41ec15",
+            "sha256": "9390b125a2a856272fd5816b781f74fa963eebf39b70a02f9b614597b5af3017"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190115EDT.tsv",
+          "object_key": "2019/20190115EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 256,
+            "date": "2019-01-15",
+            "time": "12:00Z",
+            "observed_at": "2019-01-15T11:59:37Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190115EDT.tsv",
+            "size_bytes": 410805,
+            "etag": "bf4a17b8e01338d011719f6ccc248ac6",
+            "sha256": "20abdaf931aebe397ff0b23d1e681e815c350555296dc1d3f35fb1f778cef948"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190116EDT.tsv",
+          "object_key": "2019/20190116EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 257,
+            "date": "2019-01-16",
+            "time": "12:00Z",
+            "observed_at": "2019-01-16T11:57:34Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190116EDT.tsv",
+            "size_bytes": 500085,
+            "etag": "0a92bdc2ddbcf49fa425280b5c05c082",
+            "sha256": "b7cdb95d242eb5a1ab7e3e8134bb261c035446ee57c4e4406800014a911488da"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190117EDT.tsv",
+          "object_key": "2019/20190117EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 258,
+            "date": "2019-01-17",
+            "time": "12:00Z",
+            "observed_at": "2019-01-17T12:01:17Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190117EDT.tsv",
+            "size_bytes": 423669,
+            "etag": "51eee1dbfc209f0cb19109a55d9dd631",
+            "sha256": "7d0f50da54a4b25278854a251eb87fe1fce494da7fd5a31757ae9a4a14e176eb"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190118EDT.tsv",
+          "object_key": "2019/20190118EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 259,
+            "date": "2019-01-18",
+            "time": "12:00Z",
+            "observed_at": "2019-01-18T12:11:21Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190118EDT.tsv",
+            "size_bytes": 395445,
+            "etag": "2094bf5ad9ca019fc9ef82c690814aef",
+            "sha256": "b491fd4f059c04f0ae863946acff96def5cd748edba1e3d88d60cd64fd16f9b2"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190121EDT.tsv",
+          "object_key": "2019/20190121EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 260,
+            "date": "2019-01-21",
+            "time": "12:00Z",
+            "observed_at": "2019-01-21T11:58:50Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190121EDT.tsv",
+            "size_bytes": 412725,
+            "etag": "4635a58652cec5f368f94169c79f002a",
+            "sha256": "f9a7a9d6cf8b279648fbfff1c54dd637a9021946220e901e1e153603518ae149"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190123EDT.tsv",
+          "object_key": "2019/20190123EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 261,
+            "date": "2019-01-23",
+            "time": "12:00Z",
+            "observed_at": "2019-01-23T12:04:50Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190123EDT.tsv",
+            "size_bytes": 400437,
+            "etag": "2c598a3a6f40ffa7792b283de7abefe4",
+            "sha256": "a4f9d0d0095f8d8e4618870495aeff60bc8d32be970bb3995a174ff89d14305a"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190124EDT.tsv",
+          "object_key": "2019/20190124EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 262,
+            "date": "2019-01-24",
+            "time": "12:00Z",
+            "observed_at": "2019-01-24T11:57:44Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190124EDT.tsv",
+            "size_bytes": 404853,
+            "etag": "9a15560b70e8f805b833736871a96665",
+            "sha256": "d7d0cf1d9175c5a68b3512f61891b5410488ade392653c52166a020754a96ff5"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190125EDT.tsv",
+          "object_key": "2019/20190125EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 263,
+            "date": "2019-01-25",
+            "time": "12:00Z",
+            "observed_at": "2019-01-25T11:56:14Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190125EDT.tsv",
+            "size_bytes": 372981,
+            "etag": "c09a0362a83f44d687967469fcf3841d",
+            "sha256": "1865704f9bdcfd29736dcc87070fc2feefcc23b4fd62438bc92d793a992b248d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190128EDT.tsv",
+          "object_key": "2019/20190128EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 264,
+            "date": "2019-01-28",
+            "time": "12:00Z",
+            "observed_at": "2019-01-28T12:02:09Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190128EDT.tsv",
+            "size_bytes": 372789,
+            "etag": "00372d1d8bc41b76e89ed78e8e5ea556",
+            "sha256": "7a961bbefec33ab8cdd297c9284f2f3b9b596b49a806deaa0b3d2c9b9db4cdf9"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190129EDT.tsv",
+          "object_key": "2019/20190129EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 265,
+            "date": "2019-01-29",
+            "time": "12:00Z",
+            "observed_at": "2019-01-29T12:01:28Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190129EDT.tsv",
+            "size_bytes": 425013,
+            "etag": "ad239543f7a9861a0f0d61d749db9a50",
+            "sha256": "db8c9db1003ab308fed243db7451381a44defb18f0ce3841443c1330cbf325be"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190130EDT.tsv",
+          "object_key": "2019/20190130EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 266,
+            "date": "2019-01-30",
+            "time": "12:00Z",
+            "observed_at": "2019-01-30T11:54:21Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190130EDT.tsv",
+            "size_bytes": 492213,
+            "etag": "ab4b391161056a8ed5eacb002c9e8265",
+            "sha256": "8f3b1a26fbf1153e2808b4c82be09b781efb5128443814d22b0fb71169812a49"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "bucket": "radiosondes",
+      "prefix": "2019/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 20,
+      "skipped": 0,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "20190131EDT.tsv",
+          "object_key": "2019/20190131EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 267,
+            "date": "2019-01-31",
+            "time": "12:00Z",
+            "observed_at": "2019-01-31T12:06:31Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190131EDT.tsv",
+            "size_bytes": 382197,
+            "etag": "cc7c1de52e3ff86b55bbe80d0802bded",
+            "sha256": "2a11d30adc42357368438746dc7a0a31e6d906592b01e6cba54ef72147d7cbc9"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190201EDT.tsv",
+          "object_key": "2019/20190201EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 268,
+            "date": "2019-02-01",
+            "time": "12:00Z",
+            "observed_at": "2019-02-01T11:57:27Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190201EDT.tsv",
+            "size_bytes": 361653,
+            "etag": "932921ebf56005095a1b1fbe6eaee9e3",
+            "sha256": "1383c39448384f137d8db1fa01f57a0d8dc81ea0cca0b931aa59aab0a03f3bc8"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190204EDT.tsv",
+          "object_key": "2019/20190204EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 269,
+            "date": "2019-02-04",
+            "time": "12:00Z",
+            "observed_at": "2019-02-04T12:01:59Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190204EDT.tsv",
+            "size_bytes": 376821,
+            "etag": "8577003dcc4abda982b53250fe866d03",
+            "sha256": "0ad2d75d72389956babb3c278fb8bbd665243cbad0024a506fc6dc5f3f18acb2"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190205EDT.tsv",
+          "object_key": "2019/20190205EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 270,
+            "date": "2019-02-05",
+            "time": "12:00Z",
+            "observed_at": "2019-02-05T12:06:23Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190205EDT.tsv",
+            "size_bytes": 360309,
+            "etag": "e7b5085645a8c148eff421b9e9581918",
+            "sha256": "e694458b344c23717c0ea9ff3d8836756036c0d45154108dd98ca7e268312a74"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190206EDT.tsv",
+          "object_key": "2019/20190206EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 271,
+            "date": "2019-02-06",
+            "time": "12:00Z",
+            "observed_at": "2019-02-06T11:55:01Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190206EDT.tsv",
+            "size_bytes": 481461,
+            "etag": "159831cb7430e720d9033060fd7c4b01",
+            "sha256": "c804d54c15c1f06378ffed298129260a5a5a7cc7a186fef18625a78c067117db"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190208EDT.tsv",
+          "object_key": "2019/20190208EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 272,
+            "date": "2019-02-08",
+            "time": "12:00Z",
+            "observed_at": "2019-02-08T11:55:39Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190208EDT.tsv",
+            "size_bytes": 423669,
+            "etag": "53f95590a6db2b94cb530ec8420e02e8",
+            "sha256": "3339634c7a0f2e5523789e913c7dfbed03d4f8518a94a6f1a4eea7f1a61d3658"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190211EDT.tsv",
+          "object_key": "2019/20190211EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 273,
+            "date": "2019-02-11",
+            "time": "12:00Z",
+            "observed_at": "2019-02-11T11:56:29Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190211EDT.tsv",
+            "size_bytes": 349738,
+            "etag": "5aa3720bb6d05159d5e17761c7731479",
+            "sha256": "48bb0e1679b08866b0c811967c7b21a734c10c4278c2658cf04e41f23f874867"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190212EDT.tsv",
+          "object_key": "2019/20190212EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 274,
+            "date": "2019-02-12",
+            "time": "12:00Z",
+            "observed_at": "2019-02-12T12:07:30Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190212EDT.tsv",
+            "size_bytes": 408501,
+            "etag": "f53a0418270a7ccb86ff076acc2dbf49",
+            "sha256": "668bb82daf3fc44b36bfa16cdb68d695ef50617d49dbf054566f00a8aabc1589"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190213EDT.tsv",
+          "object_key": "2019/20190213EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 275,
+            "date": "2019-02-13",
+            "time": "12:00Z",
+            "observed_at": "2019-02-13T12:19:43Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190213EDT.tsv",
+            "size_bytes": 530997,
+            "etag": "6669241a95d179e2202bc674eb5f84ef",
+            "sha256": "8793686d8319fdbd1019cd05f567f88f75093d7a4c0299036d72dbf5e5328f5a"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190214EDT.tsv",
+          "object_key": "2019/20190214EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 276,
+            "date": "2019-02-14",
+            "time": "12:00Z",
+            "observed_at": "2019-02-14T12:01:46Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190214EDT.tsv",
+            "size_bytes": 390261,
+            "etag": "e7feed8f94f79e3f1b1bf5e35422c320",
+            "sha256": "28b5f5bd1782868889e3c154ce06074feb20ce85d0285d5eb21572d02b787880"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190215EDT.tsv",
+          "object_key": "2019/20190215EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 277,
+            "date": "2019-02-15",
+            "time": "12:00Z",
+            "observed_at": "2019-02-15T12:00:47Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190215EDT.tsv",
+            "size_bytes": 392949,
+            "etag": "aea9de3e4d55a053058dc00834be9b21",
+            "sha256": "eec6e9035a675fbb85a8b9f6344b1a177f1c28a7d42cad80051d3a1873f9ff91"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190218EDT.tsv",
+          "object_key": "2019/20190218EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 278,
+            "date": "2019-02-18",
+            "time": "12:00Z",
+            "observed_at": "2019-02-18T12:16:00Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190218EDT.tsv",
+            "size_bytes": 394101,
+            "etag": "7db419c69222b25c62dec05978dcb101",
+            "sha256": "1aea9a6d82dc0ca0986c4a3beef639a8adc8070ce1f8c058d23bda27c9db1c9f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190219EDT.tsv",
+          "object_key": "2019/20190219EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 279,
+            "date": "2019-02-19",
+            "time": "12:00Z",
+            "observed_at": "2019-02-19T11:54:45Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190219EDT.tsv",
+            "size_bytes": 382005,
+            "etag": "00aaa35c79950566d2d4e5cf155aebed",
+            "sha256": "ff9ab499c59ba67b7519a08c506822441270477e36da6f805930b85d13a0e7c8"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190220EDT.tsv",
+          "object_key": "2019/20190220EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 280,
+            "date": "2019-02-20",
+            "time": "12:00Z",
+            "observed_at": "2019-02-20T12:01:21Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190220EDT.tsv",
+            "size_bytes": 408501,
+            "etag": "8b120b90a26e8c86d9ed52cf2d6e8ebe",
+            "sha256": "d7f44fa964b3c0de706c38a9577f28e4aa5234544773a7eccc2bae5ea6c451b8"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190221EDT.tsv",
+          "object_key": "2019/20190221EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 281,
+            "date": "2019-02-21",
+            "time": "12:00Z",
+            "observed_at": "2019-02-21T11:54:22Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190221EDT.tsv",
+            "size_bytes": 354549,
+            "etag": "d901dfec553503e60deee3408cc21429",
+            "sha256": "9564eb1ce02321beb8467bb85296a53f1a9209d470c54a52b083392cdab0c935"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190222EDT.tsv",
+          "object_key": "2019/20190222EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 282,
+            "date": "2019-02-22",
+            "time": "12:00Z",
+            "observed_at": "2019-02-22T12:00:10Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190222EDT.tsv",
+            "size_bytes": 384501,
+            "etag": "071d60bb16b0fb1098f95072a9ccabfb",
+            "sha256": "c3893513235e7d476e20e3ec8d1f698b821997d3b33f8cd9045ad62dfffb956e"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190225EDT.tsv",
+          "object_key": "2019/20190225EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 283,
+            "date": "2019-02-25",
+            "time": "12:00Z",
+            "observed_at": "2019-02-25T12:09:21Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190225EDT.tsv",
+            "size_bytes": 367605,
+            "etag": "54b15b3f631164992307146d671d45d4",
+            "sha256": "5b5336d3fad83af7841127150dbef6cf3c526eb5cfa3a9d9d8aba96d96b012c1"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190226EDT.tsv",
+          "object_key": "2019/20190226EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 284,
+            "date": "2019-02-26",
+            "time": "12:00Z",
+            "observed_at": "2019-02-26T12:08:46Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190226EDT.tsv",
+            "size_bytes": 371445,
+            "etag": "5195f710d419bee4b890d1a0aa8b85b5",
+            "sha256": "3a7cd85bf2c700482ba75834de03bb900139c45eddfc07c694b05d3b1ca3d6e3"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190227EDT.tsv",
+          "object_key": "2019/20190227EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 285,
+            "date": "2019-02-27",
+            "time": "12:00Z",
+            "observed_at": "2019-02-27T12:03:39Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190227EDT.tsv",
+            "size_bytes": 494901,
+            "etag": "1b5297836af1e381dac09d2b2bb242dc",
+            "sha256": "488fdef250d11877231dcd6dbacfa6577289fb2c085abf983890657821b4e3e7"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190228EDT.tsv",
+          "object_key": "2019/20190228EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 286,
+            "date": "2019-02-28",
+            "time": "12:00Z",
+            "observed_at": "2019-02-28T12:01:48Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190228EDT.tsv",
+            "size_bytes": 376821,
+            "etag": "c126e3b3b98084af3652695c4585dede",
+            "sha256": "4fb9e1ead95d469a4b31e76d5e2e89c33b49eb124cf5c25b24c2ea927f9ee1d7"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "bucket": "radiosondes",
+      "prefix": "2019/",
+      "status": "completed",
+      "total": 20,
+      "uploaded": 20,
+      "skipped": 0,
+      "failed": 0,
+      "results": [
+        {
+          "filename": "20190301EDT.tsv",
+          "object_key": "2019/20190301EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 287,
+            "date": "2019-03-01",
+            "time": "12:00Z",
+            "observed_at": "2019-03-01T12:01:58Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190301EDT.tsv",
+            "size_bytes": 371445,
+            "etag": "68e1eea18054621df8d5f315b9460976",
+            "sha256": "8a24fb4a6da08b824df5b6c2ede951cdbb1c986705e0a7ad7908a50ef36b0872"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190306EDT.tsv",
+          "object_key": "2019/20190306EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 288,
+            "date": "2019-03-06",
+            "time": "12:00Z",
+            "observed_at": "2019-03-06T12:08:48Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190306EDT.tsv",
+            "size_bytes": 495669,
+            "etag": "6bb6d7bf5936149ab99195347f7de8e2",
+            "sha256": "6623c2d1defa02c540ce5b2e7bf795873ec46fa5f00eb299d1bfd135a712d407"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190307EDT.tsv",
+          "object_key": "2019/20190307EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 289,
+            "date": "2019-03-07",
+            "time": "12:00Z",
+            "observed_at": "2019-03-07T11:55:19Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190307EDT.tsv",
+            "size_bytes": 373941,
+            "etag": "a9e140e8d7480e18dfd8fbda39a9f9d6",
+            "sha256": "baee69ad9b64c0f7e60199dddf7c6ba1694d09fa1c6dbb7b365619c36a667986"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190308EDT.tsv",
+          "object_key": "2019/20190308EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 290,
+            "date": "2019-03-08",
+            "time": "12:00Z",
+            "observed_at": "2019-03-08T11:57:13Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190308EDT.tsv",
+            "size_bytes": 407157,
+            "etag": "cb2fae0127d4711eab6a39d4a664334b",
+            "sha256": "025a2685b2f441d40ce9bf63944cb3242f384886a9c5320ea87d7990b340f7e3"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190311EDT.tsv",
+          "object_key": "2019/20190311EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 291,
+            "date": "2019-03-11",
+            "time": "12:00Z",
+            "observed_at": "2019-03-11T12:07:10Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190311EDT.tsv",
+            "size_bytes": 398325,
+            "etag": "2144574ec24dec66e78b28403f241dcd",
+            "sha256": "4d275412bab3e8d26625840983becef9176dbab5390202e437fa5c599769bf11"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190312EDT.tsv",
+          "object_key": "2019/20190312EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 292,
+            "date": "2019-03-12",
+            "time": "12:00Z",
+            "observed_at": "2019-03-12T12:05:15Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190312EDT.tsv",
+            "size_bytes": 393333,
+            "etag": "e6feb94af6358e10bab57d34c9c04017",
+            "sha256": "b2fefcb9aea13cdde4e64b10819565677af681902b4c645c85ade117b5bc76e9"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190313EDT.tsv",
+          "object_key": "2019/20190313EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 293,
+            "date": "2019-03-13",
+            "time": "12:00Z",
+            "observed_at": "2019-03-13T12:02:49Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190313EDT.tsv",
+            "size_bytes": 375669,
+            "etag": "386a365dba4180366b01382b04df6e70",
+            "sha256": "37fa2c4914063f39108dfaaaed8158939d23d4e8f72cb9bf9cdc361fea85294f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190314EDT.tsv",
+          "object_key": "2019/20190314EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 294,
+            "date": "2019-03-14",
+            "time": "12:00Z",
+            "observed_at": "2019-03-14T11:59:32Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190314EDT.tsv",
+            "size_bytes": 517365,
+            "etag": "91f05b09ec8f4b82ba34254b73dc005d",
+            "sha256": "7b337dd3fb1e9fdcef588ac6f7111f03609471814860c9b95a9cf1b57cf85953"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190315EDT.tsv",
+          "object_key": "2019/20190315EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 295,
+            "date": "2019-03-15",
+            "time": "12:00Z",
+            "observed_at": "2019-03-15T12:08:43Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190315EDT.tsv",
+            "size_bytes": 390453,
+            "etag": "b60594d997dffcc75e9bba182ca19bbd",
+            "sha256": "30115396653673dedf80524dbe4e356acf1c8ade37339cf25873200ece1fef5d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190318EDT.tsv",
+          "object_key": "2019/20190318EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 296,
+            "date": "2019-03-18",
+            "time": "12:00Z",
+            "observed_at": "2019-03-18T11:57:26Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190318EDT.tsv",
+            "size_bytes": 416373,
+            "etag": "b2f8cfb5b10826accce6d482ad05b7d7",
+            "sha256": "af511ab98c92baf32c5d9c60306376c4499ad807545a548801c5a7275a3da54e"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190319EDT.tsv",
+          "object_key": "2019/20190319EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 297,
+            "date": "2019-03-19",
+            "time": "12:00Z",
+            "observed_at": "2019-03-19T11:57:55Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190319EDT.tsv",
+            "size_bytes": 400629,
+            "etag": "b418f9f2726cb6916aa23852994fe94f",
+            "sha256": "7d2af0ee05caec0335e3a2e64e04f2d5b2f3ac361d65533f83d7e5d72d07ac59"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190320EDT.tsv",
+          "object_key": "2019/20190320EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 298,
+            "date": "2019-03-20",
+            "time": "12:00Z",
+            "observed_at": "2019-03-20T12:04:39Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190320EDT.tsv",
+            "size_bytes": 396981,
+            "etag": "aed8d33f643d241258a2e11fcee7e647",
+            "sha256": "ef7db439dc2b4c0592a81d27f7f1fd9c84a762dec5e5bad0b9d1f472ca5fccb0"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190321EDT.tsv",
+          "object_key": "2019/20190321EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 299,
+            "date": "2019-03-21",
+            "time": "12:00Z",
+            "observed_at": "2019-03-21T11:53:49Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190321EDT.tsv",
+            "size_bytes": 396597,
+            "etag": "4d7f2ab06c0b13b3dea95fb4a869b5d7",
+            "sha256": "e7490ca5299bd950a3304742ec643cf65786cc3315a2af51b8fb436d8595d81a"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190322EDT.tsv",
+          "object_key": "2019/20190322EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 300,
+            "date": "2019-03-22",
+            "time": "12:00Z",
+            "observed_at": "2019-03-22T12:00:01Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190322EDT.tsv",
+            "size_bytes": 417333,
+            "etag": "1bfa2bd0eadf674d7f20f15574978919",
+            "sha256": "26f651973f9f98c5e7a8f47aab514686b600ee8ffb9d577e7cdb36e2dd747d38"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190325EDT.tsv",
+          "object_key": "2019/20190325EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 301,
+            "date": "2019-03-25",
+            "time": "12:00Z",
+            "observed_at": "2019-03-25T12:06:26Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190325EDT.tsv",
+            "size_bytes": 410037,
+            "etag": "b85125f94b3388738ab9d869b802405c",
+            "sha256": "81bd934e4a6bbd1b524b56492a07be13d476a0784e3e03ea8503d6b4b849d1ba"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190326EDT.tsv",
+          "object_key": "2019/20190326EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 302,
+            "date": "2019-03-26",
+            "time": "12:00Z",
+            "observed_at": "2019-03-26T12:01:08Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190326EDT.tsv",
+            "size_bytes": 420981,
+            "etag": "7cea0d03e8ab07d276fb8d7b3baf9fda",
+            "sha256": "fc7ff5e98cb7556c28acc7ea292ecb0a649f13cf51cad31bc4622ab592f568bc"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190327EDT.tsv",
+          "object_key": "2019/20190327EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 303,
+            "date": "2019-03-27",
+            "time": "12:00Z",
+            "observed_at": "2019-03-27T11:57:30Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190327EDT.tsv",
+            "size_bytes": 489525,
+            "etag": "ad716b430d28f5ead3ec45663776910c",
+            "sha256": "1b90baf8d6a939cc1d06c18a2bcbdef46a3706621b505e0971bc739b68a0b6ad"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190328EDT.tsv",
+          "object_key": "2019/20190328EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 304,
+            "date": "2019-03-28",
+            "time": "12:00Z",
+            "observed_at": "2019-03-28T11:55:31Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190328EDT.tsv",
+            "size_bytes": 256429,
+            "etag": "311c502b616238311166bea6bc72303e",
+            "sha256": "5e1d4ac9cb4cf28eda5da4a0dab39fcb45fd9a3cdb33e947fdab8658fd86b103"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190329EDT.tsv",
+          "object_key": "2019/20190329EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 305,
+            "date": "2019-03-29",
+            "time": "12:00Z",
+            "observed_at": "2019-03-29T11:57:53Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190329EDT.tsv",
+            "size_bytes": 397941,
+            "etag": "a077004be239c736698886b7d84d47d5",
+            "sha256": "bc5c6d16add4bc127060d43fb2653724e5e9c99bb91b6fc56c2f11df95d70c6a"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190401EDT.tsv",
+          "object_key": "2019/20190401EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 306,
+            "date": "2019-04-01",
+            "time": "12:00Z",
+            "observed_at": "2019-04-01T11:55:41Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190401EDT.tsv",
+            "size_bytes": 390837,
+            "etag": "bd50bfe837e0e8cb38afd9e03637c9b7",
+            "sha256": "1fa4bb8de1719e51e16ed138894e989b13c60ae95821ddb48f91a85892d7abba"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "bucket": "radiosondes",
+      "prefix": "2019/",
+      "status": "completed_with_errors",
+      "total": 20,
+      "uploaded": 5,
+      "skipped": 0,
+      "failed": 15,
+      "results": [
+        {
+          "filename": "20190402EDT.tsv",
+          "object_key": "2019/20190402EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 307,
+            "date": "2019-04-02",
+            "time": "12:00Z",
+            "observed_at": "2019-04-02T11:59:40Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190402EDT.tsv",
+            "size_bytes": 379509,
+            "etag": "83b8711631aaa49486bf06bfb61b4543",
+            "sha256": "ca7f9edb929f2f3541042c35fa31bcc2a1d145d95be41cb98b1a21b2d5d22f48"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190403EDT.tsv",
+          "object_key": "2019/20190403EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 308,
+            "date": "2019-04-03",
+            "time": "12:00Z",
+            "observed_at": "2019-04-03T11:58:23Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190403EDT.tsv",
+            "size_bytes": 482421,
+            "etag": "1c4715270f3f6c63d6a243cc306a3257",
+            "sha256": "40f05f1fd4e47410a9ecc4749831afb2f3e2eaeb25a9eb14715d1a9da53b89ff"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190404EDT.tsv",
+          "object_key": "2019/20190404EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 309,
+            "date": "2019-04-04",
+            "time": "12:00Z",
+            "observed_at": "2019-04-04T12:03:07Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190404EDT.tsv",
+            "size_bytes": 395061,
+            "etag": "77850d47186a5c0959378389b94c35db",
+            "sha256": "ad3aa095cf41ae2670f548b3d8de479bb2e9dc23a5eceb5bbde3857dd6806837"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190405EDT.tsv",
+          "object_key": "2019/20190405EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 310,
+            "date": "2019-04-05",
+            "time": "12:00Z",
+            "observed_at": "2019-04-05T11:59:35Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190405EDT.tsv",
+            "size_bytes": 406965,
+            "etag": "750eed4403525b1fdc4514926c7409f4",
+            "sha256": "5496c5b247e81408af7cd5ac07dda49985e870a08194f2eae4b790933b3fcd5d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190408EDT.tsv",
+          "object_key": "2019/20190408EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190409EDT.tsv",
+          "object_key": "2019/20190409EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 311,
+            "date": "2019-04-09",
+            "time": "12:00Z",
+            "observed_at": "2019-04-09T11:58:09Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190409EDT.tsv",
+            "size_bytes": 425397,
+            "etag": "f6d90ca1de2b6df93adc69ec41bd64ef",
+            "sha256": "29f1bcd44e40b44ed7f402294a2e1a92851212eea608acc5a65dec243c10ea44"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190410EDT.tsv",
+          "object_key": "2019/20190410EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190411EDT.tsv",
+          "object_key": "2019/20190411EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190412EDT.tsv",
+          "object_key": "2019/20190412EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190415EDT.tsv",
+          "object_key": "2019/20190415EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190416EDT.tsv",
+          "object_key": "2019/20190416EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190417EDT.tsv",
+          "object_key": "2019/20190417EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190418EDT.tsv",
+          "object_key": "2019/20190418EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190422EDT.tsv",
+          "object_key": "2019/20190422EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190423EDT.tsv",
+          "object_key": "2019/20190423EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190424EDT.tsv",
+          "object_key": "2019/20190424EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190425EDT.tsv",
+          "object_key": "2019/20190425EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190426EDT.tsv",
+          "object_key": "2019/20190426EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190429EDT.tsv",
+          "object_key": "2019/20190429EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190506EDT.tsv",
+          "object_key": "2019/20190506EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "bucket": "radiosondes",
+      "prefix": "2019/",
+      "status": "completed_with_errors",
+      "total": 20,
+      "uploaded": 7,
+      "skipped": 0,
+      "failed": 13,
+      "results": [
+        {
+          "filename": "20190507EDT.tsv",
+          "object_key": "2019/20190507EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190613EDT.tsv",
+          "object_key": "2019/20190613EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 312,
+            "date": "2019-06-13",
+            "time": "12:00Z",
+            "observed_at": "2019-06-13T12:02:53Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190613EDT.tsv",
+            "size_bytes": 368757,
+            "etag": "54e12c7d3b197af16f69ae8548a6bde7",
+            "sha256": "ff2c4d3a16ea4346839ff984cf7a86ea62cf9034bcdcba35bd033c775ae96da8"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190617EDT.tsv",
+          "object_key": "2019/20190617EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 313,
+            "date": "2019-06-17",
+            "time": "12:00Z",
+            "observed_at": "2019-06-17T12:01:25Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190617EDT.tsv",
+            "size_bytes": 401781,
+            "etag": "de1b9871835e9f63ad7820043241f026",
+            "sha256": "cb6cd396a070c2f3f5e27ebd6316204c6028fc31da2e3f463076e659fca21b4a"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190618EDT.tsv",
+          "object_key": "2019/20190618EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 314,
+            "date": "2019-06-18",
+            "time": "12:00Z",
+            "observed_at": "2019-06-18T12:03:27Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190618EDT.tsv",
+            "size_bytes": 407925,
+            "etag": "fb0c3039ceb4b24c10a7b9de36b8c73f",
+            "sha256": "d090bc666f682a7cfe6ae91c00f83486ed01bb00ce0b3507d0dd57276e6ce5c7"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190619EDT.tsv",
+          "object_key": "2019/20190619EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190623EDT.tsv",
+          "object_key": "2019/20190623EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190624EDT.tsv",
+          "object_key": "2019/20190624EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190625EDT.tsv",
+          "object_key": "2019/20190625EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190626EDT.tsv",
+          "object_key": "2019/20190626EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 315,
+            "date": "2019-06-26",
+            "time": "12:00Z",
+            "observed_at": "2019-06-26T12:03:39Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190626EDT.tsv",
+            "size_bytes": 388725,
+            "etag": "cbdc9509a98ed0851d2ed905b89c4acb",
+            "sha256": "a7f620241b5af899a5352cd4941237cf6f81d114256ab5445c7d4603618d543b"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190627EDT.tsv",
+          "object_key": "2019/20190627EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190628EDT.tsv",
+          "object_key": "2019/20190628EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190701EDT.tsv",
+          "object_key": "2019/20190701EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190702EDT.tsv",
+          "object_key": "2019/20190702EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190703EDT.tsv",
+          "object_key": "2019/20190703EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 316,
+            "date": "2019-07-03",
+            "time": "12:00Z",
+            "observed_at": "2019-07-03T11:58:02Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190703EDT.tsv",
+            "size_bytes": 381813,
+            "etag": "e7f8e445a18c59558e4917ca98b4172e",
+            "sha256": "846cd13f5afbd727fd7182556e1871576378dade0ba59ea58b0c69500b84a0ee"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190704EDT.tsv",
+          "object_key": "2019/20190704EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 317,
+            "date": "2019-07-04",
+            "time": "12:00Z",
+            "observed_at": "2019-07-04T12:00:54Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190704EDT.tsv",
+            "size_bytes": 383157,
+            "etag": "60eee94a71f7a3963feffa6b4d541421",
+            "sha256": "651177d2bf36619e29227943fea1dd668f6a08643408fb1f0536a6915a9cad39"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190705EDT.tsv",
+          "object_key": "2019/20190705EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190708EDT.tsv",
+          "object_key": "2019/20190708EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190709EDT.tsv",
+          "object_key": "2019/20190709EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 318,
+            "date": "2019-07-09",
+            "time": "12:00Z",
+            "observed_at": "2019-07-09T12:13:48Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190709EDT.tsv",
+            "size_bytes": 405813,
+            "etag": "9f870e72a225dab47f4db89d3576e2c5",
+            "sha256": "50bbddca2ab5f5205ec92148b72d02c9f7f213175370a40c2c9fd77eaf8a5cae"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190710EDT.tsv",
+          "object_key": "2019/20190710EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190711EDT.tsv",
+          "object_key": "2019/20190711EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "bucket": "radiosondes",
+      "prefix": "2019/",
+      "status": "completed_with_errors",
+      "total": 20,
+      "uploaded": 2,
+      "skipped": 0,
+      "failed": 18,
+      "results": [
+        {
+          "filename": "20190712EDT.tsv",
+          "object_key": "2019/20190712EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190715EDT.tsv",
+          "object_key": "2019/20190715EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190717EDT.tsv",
+          "object_key": "2019/20190717EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190719EDT.tsv",
+          "object_key": "2019/20190719EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 319,
+            "date": "2019-07-19",
+            "time": "12:00Z",
+            "observed_at": "2019-07-19T12:06:15Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190719EDT.tsv",
+            "size_bytes": 396597,
+            "etag": "ed7b5e28514ea84aa2f801b9978e381a",
+            "sha256": "5d52c82301a5b5bb4ab5c174634c4f3917250d330f68c9749b86b508dd7cbd15"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190722EDT.tsv",
+          "object_key": "2019/20190722EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 320,
+            "date": "2019-07-22",
+            "time": "12:00Z",
+            "observed_at": "2019-07-22T11:59:50Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190722EDT.tsv",
+            "size_bytes": 404085,
+            "etag": "a49a032fe469e8c9a6f793db610ce759",
+            "sha256": "86ab333fc7059abeae56eec5ac1e63430c206e84d3c5eb1fabfb47a8d3cf03f0"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190723EDT.tsv",
+          "object_key": "2019/20190723EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190724EDT.tsv",
+          "object_key": "2019/20190724EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190725EDT.tsv",
+          "object_key": "2019/20190725EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190726EDT.tsv",
+          "object_key": "2019/20190726EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190729EDT.tsv",
+          "object_key": "2019/20190729EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190730EDT.tsv",
+          "object_key": "2019/20190730EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190731EDT.tsv",
+          "object_key": "2019/20190731EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190801EDT.tsv",
+          "object_key": "2019/20190801EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190802EDT.tsv",
+          "object_key": "2019/20190802EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190805EDT.tsv",
+          "object_key": "2019/20190805EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190807EDT.tsv",
+          "object_key": "2019/20190807EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190808EDT.tsv",
+          "object_key": "2019/20190808EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190809EDT.tsv",
+          "object_key": "2019/20190809EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190812EDT.tsv",
+          "object_key": "2019/20190812EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190813EDT.tsv",
+          "object_key": "2019/20190813EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "bucket": "radiosondes",
+      "prefix": "2019/",
+      "status": "completed_with_errors",
+      "total": 20,
+      "uploaded": 4,
+      "skipped": 0,
+      "failed": 16,
+      "results": [
+        {
+          "filename": "20190814EDT.tsv",
+          "object_key": "2019/20190814EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190815EDT.tsv",
+          "object_key": "2019/20190815EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190816EDT.tsv",
+          "object_key": "2019/20190816EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 1999, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190819EDT.tsv",
+          "object_key": "2019/20190819EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190820EDT.tsv",
+          "object_key": "2019/20190820EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190821EDT.tsv",
+          "object_key": "2019/20190821EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190822EDT.tsv",
+          "object_key": "2019/20190822EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 321,
+            "date": "2019-08-22",
+            "time": "12:00Z",
+            "observed_at": "2019-08-22T12:00:30Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190822EDT.tsv",
+            "size_bytes": 355317,
+            "etag": "ac2d65b62f486c070125382a95ffa4bf",
+            "sha256": "2d724252c6440289cf23884a0f25aba382ac54c32569658dcccf8c4090ca5f39"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190823EDT.tsv",
+          "object_key": "2019/20190823EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190826EDT.tsv",
+          "object_key": "2019/20190826EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190827EDT.tsv",
+          "object_key": "2019/20190827EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190828EDT.tsv",
+          "object_key": "2019/20190828EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190829EDT.tsv",
+          "object_key": "2019/20190829EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 322,
+            "date": "2019-08-29",
+            "time": "12:00Z",
+            "observed_at": "2019-08-29T11:57:05Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190829EDT.tsv",
+            "size_bytes": 386421,
+            "etag": "b356d92c571829841e10a1ca6358c232",
+            "sha256": "410c2de72465dbc361226d5197c5f780103ebffb1135296b3257ddaf25bd61fe"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190830EDT.tsv",
+          "object_key": "2019/20190830EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 323,
+            "date": "2019-08-30",
+            "time": "12:00Z",
+            "observed_at": "2019-08-30T11:59:28Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190830EDT.tsv",
+            "size_bytes": 384501,
+            "etag": "ed59ae3787d9da112f5c68bff4000e5a",
+            "sha256": "95672b955d7bae5805b595d6a6fd9a4c5b3318d6554b80ad74ba6366c19f864a"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190902EDT.tsv",
+          "object_key": "2019/20190902EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190903EDT.tsv",
+          "object_key": "2019/20190903EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190904EDT.tsv",
+          "object_key": "2019/20190904EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190905EDT.tsv",
+          "object_key": "2019/20190905EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190906EDT.tsv",
+          "object_key": "2019/20190906EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 324,
+            "date": "2019-09-06",
+            "time": "12:00Z",
+            "observed_at": "2019-09-06T12:38:43Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190906EDT.tsv",
+            "size_bytes": 466677,
+            "etag": "fcdee861df77f75a3f7ce724b1d2b7ba",
+            "sha256": "d47ea579b0ab91f8f39b0d42bc856fba7a8362dd7f55ad107085daa2955b8d4f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190909EDT.tsv",
+          "object_key": "2019/20190909EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190910EDT.tsv",
+          "object_key": "2019/20190910EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "bucket": "radiosondes",
+      "prefix": "2019/",
+      "status": "completed_with_errors",
+      "total": 20,
+      "uploaded": 7,
+      "skipped": 0,
+      "failed": 13,
+      "results": [
+        {
+          "filename": "20190912EDT.tsv",
+          "object_key": "2019/20190912EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190913EDT.tsv",
+          "object_key": "2019/20190913EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190916EDT.tsv",
+          "object_key": "2019/20190916EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190917EDT.tsv",
+          "object_key": "2019/20190917EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 325,
+            "date": "2019-09-17",
+            "time": "12:00Z",
+            "observed_at": "2019-09-17T11:58:19Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190917EDT.tsv",
+            "size_bytes": 417333,
+            "etag": "f5e4a599611916fc4d9ea80645d6644e",
+            "sha256": "f4549965417ea845a0fa055c2bd4681ab137d13be153e9a137cb4151dffe8928"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190918EDT.tsv",
+          "object_key": "2019/20190918EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190919EDT.tsv",
+          "object_key": "2019/20190919EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190923EDT.tsv",
+          "object_key": "2019/20190923EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190924EDT.tsv",
+          "object_key": "2019/20190924EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190925EDT.tsv",
+          "object_key": "2019/20190925EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190926EDT.tsv",
+          "object_key": "2019/20190926EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 326,
+            "date": "2019-09-26",
+            "time": "12:00Z",
+            "observed_at": "2019-09-26T11:58:58Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20190926EDT.tsv",
+            "size_bytes": 409077,
+            "etag": "f025263345defa2c4ed23998c413426b",
+            "sha256": "a77c143f36d9a6e0f2ae0f00e4d18e771dbfcd321f014029f7d14d5aaab5ce65"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20190927EDT.tsv",
+          "object_key": "2019/20190927EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20190930EDT.tsv",
+          "object_key": "2019/20190930EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191001EDT.tsv",
+          "object_key": "2019/20191001EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 327,
+            "date": "2019-10-01",
+            "time": "12:00Z",
+            "observed_at": "2019-10-01T12:01:11Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191001EDT.tsv",
+            "size_bytes": 410229,
+            "etag": "415680f818cb22a0a93411ca27733037",
+            "sha256": "6b80e00799075f468dcb72f273acea799c82bf4f9ba431d5bcc719beb3bed79d"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191002EDT.tsv",
+          "object_key": "2019/20191002EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 328,
+            "date": "2019-10-02",
+            "time": "12:00Z",
+            "observed_at": "2019-10-02T11:54:20Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191002EDT.tsv",
+            "size_bytes": 381621,
+            "etag": "2091166006fc71c4171c81bb9625ef7a",
+            "sha256": "0fb8545afafc679b7e7e85e4f722bed2847ffca3f6a1cb249da0843a46a6e75f"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191003EDT.tsv",
+          "object_key": "2019/20191003EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 329,
+            "date": "2019-10-03",
+            "time": "12:00Z",
+            "observed_at": "2019-10-03T12:02:44Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191003EDT.tsv",
+            "size_bytes": 365493,
+            "etag": "2887dc136e1ce07ca16a514dbdf7d26f",
+            "sha256": "997af432180ce6739ab8d94a739be303fa38935ff32f6fbf0be4270bb41d42b7"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191004EDT.tsv",
+          "object_key": "2019/20191004EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191007EDT.tsv",
+          "object_key": "2019/20191007EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191008EDT.tsv",
+          "object_key": "2019/20191008EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191009EDT.tsv",
+          "object_key": "2019/20191009EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 330,
+            "date": "2019-10-09",
+            "time": "12:00Z",
+            "observed_at": "2019-10-09T12:01:18Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191009EDT.tsv",
+            "size_bytes": 383349,
+            "etag": "ca28a670764d1a160647356dd9a760e8",
+            "sha256": "269e01d96b346d2901c5643968f5ad8db85c57e838ad8d0444aa0bcd13e348ce"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191010EDT.tsv",
+          "object_key": "2019/20191010EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 331,
+            "date": "2019-10-10",
+            "time": "12:00Z",
+            "observed_at": "2019-10-10T12:00:48Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191010EDT.tsv",
+            "size_bytes": 422901,
+            "etag": "9a7b0f507a6124e209929f30b347facd",
+            "sha256": "ecb7893fb92c0ddaa44aa3eaf2f9a86d676f64a9aba7d5ae04ddecb98d74b99b"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "bucket": "radiosondes",
+      "prefix": "2019/",
+      "status": "completed_with_errors",
+      "total": 20,
+      "uploaded": 1,
+      "skipped": 0,
+      "failed": 19,
+      "results": [
+        {
+          "filename": "20191011EDT.tsv",
+          "object_key": "2019/20191011EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191014EDT.tsv",
+          "object_key": "2019/20191014EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191015EDT.tsv",
+          "object_key": "2019/20191015EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191016EDT.tsv",
+          "object_key": "2019/20191016EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 332,
+            "date": "2019-10-16",
+            "time": "12:00Z",
+            "observed_at": "2019-10-16T12:08:18Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191016EDT.tsv",
+            "size_bytes": 394677,
+            "etag": "9ce3fae03c952f913baa2ed48b9f1255",
+            "sha256": "7a9b299695370f178daaf533541db7beb20c4c25f4ec9b2fff016b8c5f9a9a5c"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191017EDT.tsv",
+          "object_key": "2019/20191017EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191018EDT.tsv",
+          "object_key": "2019/20191018EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191021EDT.tsv",
+          "object_key": "2019/20191021EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191022EDT.tsv",
+          "object_key": "2019/20191022EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191023EDT.tsv",
+          "object_key": "2019/20191023EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191024EDT.tsv",
+          "object_key": "2019/20191024EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191029EDT.tsv",
+          "object_key": "2019/20191029EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191030EDT.tsv",
+          "object_key": "2019/20191030EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191031EDT.tsv",
+          "object_key": "2019/20191031EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191101EDT.tsv",
+          "object_key": "2019/20191101EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191104EDT.tsv",
+          "object_key": "2019/20191104EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191105EDT.tsv",
+          "object_key": "2019/20191105EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191106EDT.tsv",
+          "object_key": "2019/20191106EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191107EDT.tsv",
+          "object_key": "2019/20191107EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191108EDT.tsv",
+          "object_key": "2019/20191108EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191111EDT.tsv",
+          "object_key": "2019/20191111EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "bucket": "radiosondes",
+      "prefix": "2019/",
+      "status": "completed_with_errors",
+      "total": 20,
+      "uploaded": 10,
+      "skipped": 0,
+      "failed": 10,
+      "results": [
+        {
+          "filename": "20191112EDT.tsv",
+          "object_key": "2019/20191112EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191113EDT.tsv",
+          "object_key": "2019/20191113EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191114EDT.tsv",
+          "object_key": "2019/20191114EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191115EDT.tsv",
+          "object_key": "2019/20191115EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191118EDT.tsv",
+          "object_key": "2019/20191118EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191119EDT.tsv",
+          "object_key": "2019/20191119EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191120EDT.tsv",
+          "object_key": "2019/20191120EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 333,
+            "date": "2019-11-20",
+            "time": "12:00Z",
+            "observed_at": "2019-11-20T12:00:52Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191120EDT.tsv",
+            "size_bytes": 379701,
+            "etag": "04d2f1555a8ac80fab29c256d4131a26",
+            "sha256": "d7972e0fcc671590e1c01e974feb946ba6619beed10702d5b616cbe0f2100691"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191121EDT.tsv",
+          "object_key": "2019/20191121EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191122EDT.tsv",
+          "object_key": "2019/20191122EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191125EDT.tsv",
+          "object_key": "2019/20191125EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 334,
+            "date": "2019-11-25",
+            "time": "12:00Z",
+            "observed_at": "2019-11-25T12:00:21Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191125EDT.tsv",
+            "size_bytes": 365877,
+            "etag": "57934da34eb4893cbfeb4fe443c7ee8a",
+            "sha256": "9252e3dc76bef711312459ccf0cf4de97829096e56ef0dd038ced0de4ecbbe40"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191126EDT.tsv",
+          "object_key": "2019/20191126EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 335,
+            "date": "2019-11-26",
+            "time": "12:00Z",
+            "observed_at": "2019-11-26T12:00:28Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191126EDT.tsv",
+            "size_bytes": 373941,
+            "etag": "0b69439a9a3ff7fb0f6ce7413f4bf2d8",
+            "sha256": "47983a97d2c063666378bdb9ff07203d91ea0d4393246a2595e0c642dde19816"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191127EDT.tsv",
+          "object_key": "2019/20191127EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 336,
+            "date": "2019-11-27",
+            "time": "12:00Z",
+            "observed_at": "2019-11-27T12:17:00Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191127EDT.tsv",
+            "size_bytes": 367797,
+            "etag": "d9409fbccfc59a372fe6531641f648b5",
+            "sha256": "00cde78d0c2a91f3aa73b4c8e0db5e906363795a68e3e669ba2c87c872d556dd"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191128EDT.tsv",
+          "object_key": "2019/20191128EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 337,
+            "date": "2019-11-28",
+            "time": "12:00Z",
+            "observed_at": "2019-11-28T12:05:35Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191128EDT.tsv",
+            "size_bytes": 467061,
+            "etag": "45fc57e4d12c5084831fac008a6c1c74",
+            "sha256": "f43a2226ecdf0523b281f37fe7cdd626fbc0e7b1606f183127b5cfb3f7d3a48e"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191209EDT.tsv",
+          "object_key": "2019/20191209EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 338,
+            "date": "2019-12-09",
+            "time": "12:00Z",
+            "observed_at": "2019-12-09T12:03:37Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191209EDT.tsv",
+            "size_bytes": 493557,
+            "etag": "1174a1ccb441fcd9ac60db1c70d47fbc",
+            "sha256": "cac13d0b93e99dada626ebed6f4b851faa4cf84a76b0b4191eac2ee92fe2f937"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191210EDT.tsv",
+          "object_key": "2019/20191210EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 339,
+            "date": "2019-12-10",
+            "time": "12:00Z",
+            "observed_at": "2019-12-10T12:02:44Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191210EDT.tsv",
+            "size_bytes": 398517,
+            "etag": "0f5e3b94d552f8a7df38def36131d6d1",
+            "sha256": "6d06dcef416c199f1c4514fb4635c9687c4c82da6ed2626ad0213ebb2c2c0864"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191211EDT.tsv",
+          "object_key": "2019/20191211EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 340,
+            "date": "2019-12-11",
+            "time": "12:00Z",
+            "observed_at": "2019-12-11T11:59:49Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191211EDT.tsv",
+            "size_bytes": 389109,
+            "etag": "68b33c7e0aec3ab291232b90e0ca05c9",
+            "sha256": "4c96d1ed15f0183b35edce5abc2b00938a2bc69de6b55b58741454b3b9e5237a"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191212EDT.tsv",
+          "object_key": "2019/20191212EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 341,
+            "date": "2019-12-12",
+            "time": "12:00Z",
+            "observed_at": "2019-12-12T12:00:15Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191212EDT.tsv",
+            "size_bytes": 385077,
+            "etag": "7741c5e1a685f763d09ce4207866ba9c",
+            "sha256": "1635437ffd01df95091da790d9ce387fe94c95a4eec4c7f63ce68abd2e3ed9d4"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191213EDT.tsv",
+          "object_key": "2019/20191213EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 342,
+            "date": "2019-12-13",
+            "time": "12:00Z",
+            "observed_at": "2019-12-13T11:57:45Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2019/20191213EDT.tsv",
+            "size_bytes": 398133,
+            "etag": "8da3fa7b95527065eb022a6c984a7dd8",
+            "sha256": "87d28d2730427b003695f60758ef5836f6658c3f4c1de54dbc2b229711854eaf"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20191216EDT.tsv",
+          "object_key": "2019/20191216EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191217EDT.tsv",
+          "object_key": "2019/20191217EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "bucket": "radiosondes",
+      "prefix": "2019/",
+      "status": "completed_with_errors",
+      "total": 8,
+      "uploaded": 0,
+      "skipped": 0,
+      "failed": 8,
+      "results": [
+        {
+          "filename": "20191218EDT.tsv",
+          "object_key": "2019/20191218EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191219EDT.tsv",
+          "object_key": "2019/20191219EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191220EDT.tsv",
+          "object_key": "2019/20191220EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191223EDT.tsv",
+          "object_key": "2019/20191223EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191226EDT.tsv",
+          "object_key": "2019/20191226EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191227EDT.tsv",
+          "object_key": "2019/20191227EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191230EDT.tsv",
+          "object_key": "2019/20191230EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        },
+        {
+          "filename": "20191231EDT.tsv",
+          "object_key": "2019/20191231EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2019."
+        }
+      ]
+    }
+  ],
+  "uploaded": 96,
+  "skipped": 0,
+  "failed": 112
+}
