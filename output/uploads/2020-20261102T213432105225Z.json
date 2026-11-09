@@ -1,0 +1,399 @@
+{
+  "year": 2020,
+  "bucket": "radiosondes",
+  "total": 38,
+  "status": "completed_with_errors",
+  "batches": [
+    {
+      "year": 2020,
+      "bucket": "radiosondes",
+      "prefix": "2020/",
+      "status": "completed_with_errors",
+      "total": 20,
+      "uploaded": 2,
+      "skipped": 0,
+      "failed": 18,
+      "results": [
+        {
+          "filename": "02012020EDT.tsv",
+          "object_key": "2020/02012020EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "03012020EDT.tsv",
+          "object_key": "2020/03012020EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200102EDT.tsv",
+          "object_key": "2020/20200102EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200103EDT.tsv",
+          "object_key": "2020/20200103EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200106EDT.tsv",
+          "object_key": "2020/20200106EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200107EDT.tsv",
+          "object_key": "2020/20200107EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200108EDT.tsv",
+          "object_key": "2020/20200108EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200109EDT.tsv",
+          "object_key": "2020/20200109EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200110EDT.tsv",
+          "object_key": "2020/20200110EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200113EDT.tsv",
+          "object_key": "2020/20200113EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200114EDT.tsv",
+          "object_key": "2020/20200114EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200115EDT.tsv",
+          "object_key": "2020/20200115EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200116EDT.tsv",
+          "object_key": "2020/20200116EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200117EDT.tsv",
+          "object_key": "2020/20200117EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200120EDT.tsv",
+          "object_key": "2020/20200120EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200121EDT.tsv",
+          "object_key": "2020/20200121EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200122EDT.tsv",
+          "object_key": "2020/20200122EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200123EDT.tsv",
+          "object_key": "2020/20200123EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200124EDT.tsv",
+          "object_key": "2020/20200124EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 343,
+            "date": "2020-01-24",
+            "time": "12:00Z",
+            "observed_at": "2020-01-24T11:56:55Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2020/20200124EDT.tsv",
+            "size_bytes": 356085,
+            "etag": "153945c765b024732d0d76ff796da541",
+            "sha256": "e1049cde8cdc2aa25bdec0c7612bfa645963935f7d54113f734774e97454cbc9"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20200128EDT.tsv",
+          "object_key": "2020/20200128EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 344,
+            "date": "2020-01-28",
+            "time": "12:00Z",
+            "observed_at": "2020-01-28T12:02:24Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2020/20200128EDT.tsv",
+            "size_bytes": 392181,
+            "etag": "225eff53f048a12b53ff36c6e6aa7b32",
+            "sha256": "74e3ce7bd8802211c100e4130fa2ebe0f0f160238a93f38e2b24da2f3592e56b"
+          },
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "year": 2020,
+      "bucket": "radiosondes",
+      "prefix": "2020/",
+      "status": "completed_with_errors",
+      "total": 18,
+      "uploaded": 6,
+      "skipped": 0,
+      "failed": 12,
+      "results": [
+        {
+          "filename": "20200129EDT.tsv",
+          "object_key": "2020/20200129EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 345,
+            "date": "2020-01-29",
+            "time": "12:00Z",
+            "observed_at": "2020-01-29T12:04:24Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2020/20200129EDT.tsv",
+            "size_bytes": 346869,
+            "etag": "bd8b4165e299d19e3df42ae33cc53d64",
+            "sha256": "62510ee10d0672211ed5e2d274b861770eda0d431292d64acfb1ab6177cb9ff6"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20200130EDT.tsv",
+          "object_key": "2020/20200130EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 346,
+            "date": "2020-01-30",
+            "time": "12:00Z",
+            "observed_at": "2020-01-30T11:58:11Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2020/20200130EDT.tsv",
+            "size_bytes": 404853,
+            "etag": "c97c52865a5fe259761f49de93180fe8",
+            "sha256": "0e75b8931771cff8bd18f7c3686e6e5cfcfe8b29a67d080a0bd554f68d3e00ac"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20200131EDT.tsv",
+          "object_key": "2020/20200131EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200203EDT.tsv",
+          "object_key": "2020/20200203EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200204EDT.tsv",
+          "object_key": "2020/20200204EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200205EDT.tsv",
+          "object_key": "2020/20200205EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200206EDT.tsv",
+          "object_key": "2020/20200206EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 347,
+            "date": "2020-02-06",
+            "time": "12:00Z",
+            "observed_at": "2020-02-06T12:06:12Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2020/20200206EDT.tsv",
+            "size_bytes": 349749,
+            "etag": "2e515483d58579a474fa2731eba14670",
+            "sha256": "b9d2aed170c47ef3ce2cf430b42f02f19617e375380e216c22952d55a75d81eb"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20200207EDT.tsv",
+          "object_key": "2020/20200207EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 348,
+            "date": "2020-02-07",
+            "time": "12:00Z",
+            "observed_at": "2020-02-07T12:01:07Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2020/20200207EDT.tsv",
+            "size_bytes": 389301,
+            "etag": "2359a1dfcad85a875285103f1ec6b11c",
+            "sha256": "da218e377c5095d358d14a5bbeefa4e42481064fb134a435299ead64ddaa0a46"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20200210EDT.tsv",
+          "object_key": "2020/20200210EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 349,
+            "date": "2020-02-10",
+            "time": "12:00Z",
+            "observed_at": "2020-02-10T12:13:05Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2020/20200210EDT.tsv",
+            "size_bytes": 387189,
+            "etag": "3db8656a3d624d26bb1fae8e76436196",
+            "sha256": "6004958709588e25e8283b3a339f636b1d3a00ac7cd6f48399b7f5298b7ad5ed"
+          },
+          "warnings": []
+        },
+        {
+          "filename": "20200211EDT.tsv",
+          "object_key": "2020/20200211EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200214EDT.tsv",
+          "object_key": "2020/20200214EDT.tsv",
+          "status": "uploaded",
+          "profile": {
+            "profile_id": 350,
+            "date": "2020-02-14",
+            "time": null,
+            "observed_at": "2020-02-14T14:17:12Z"
+          },
+          "storage": {
+            "bucket": "radiosondes",
+            "object_key": "2020/20200214EDT.tsv",
+            "size_bytes": 397559,
+            "etag": "02a653f32d16252a8a351cd11452fea2",
+            "sha256": "fc1f2e4d171c1fba7fea29acf58927cf4cfb30590407abb6c58885cfcc6ce878"
+          },
+          "warnings": [
+            "La hora de lanzamiento no está a menos de 60 minutos de 00:00Z o 12:00Z; time se guardó como null."
+          ]
+        },
+        {
+          "filename": "20200217EDT.tsv",
+          "object_key": "2020/20200217EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200218EDT.tsv",
+          "object_key": "2020/20200218EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200219EDT.tsv",
+          "object_key": "2020/20200219EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200220EDT.tsv",
+          "object_key": "2020/20200220EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200221EDT.tsv",
+          "object_key": "2020/20200221EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200226EDT.tsv",
+          "object_key": "2020/20200226EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        },
+        {
+          "filename": "20200227EDT.tsv",
+          "object_key": "2020/20200227EDT.tsv",
+          "status": "failed",
+          "reason": "invalid_file",
+          "detail": "El TSV declara un lanzamiento de 2000, pero la carpeta corresponde a 2020."
+        }
+      ]
+    }
+  ],
+  "uploaded": 8,
+  "skipped": 0,
+  "failed": 30
+}

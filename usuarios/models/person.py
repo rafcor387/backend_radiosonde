@@ -70,6 +70,9 @@ class Person(models.Model):
         ]
 
     def save(self, *args, **kwargs):
+        self.name = self.name.strip().upper()
+        self.paternal_surname = self.paternal_surname.strip().upper()
+        self.maternal_surname = self.maternal_surname.strip().upper()
         self.email = self.email.strip().casefold()
         super().save(*args, **kwargs)
 

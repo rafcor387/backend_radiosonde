@@ -6,7 +6,7 @@ from django.core import mail
 from django.core.cache import cache
 from django.db import IntegrityError, transaction
 from django.db.models.deletion import ProtectedError
-from django.test import TestCase, override_settings
+from django.test import SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework import status
@@ -14,10 +14,78 @@ from rest_framework.test import APITestCase
 from rest_framework_simplejwt.tokens import AccessToken
 
 from usuarios.models import Invitation, Person, PersonRole, User, UserRole
+from usuarios.serializers.invitation import InvitationAcceptSerializer
+from usuarios.serializers.user import BootstrapAdminSerializer, OwnProfileUpdateSerializer
 from usuarios.services.password_reset_token_service import (
     PasswordResetTokenService,
 )
 from usuarios.services.invitation_token_service import InvitationTokenService
+
+
+class PersonNameValidationTests(SimpleTestCase):
+    fields = ("name", "paternal_surname", "maternal_surname")
+    serializers = (InvitationAcceptSerializer, BootstrapAdminSerializer, OwnProfileUpdateSerializer)
+
+    def setUp(self):
+        self.payload = {
+            "name": "José María",
+            "paternal_surname": "Muñoz",
+            "maternal_surname": "De la Peña",
+            "email": "jose@example.com",
+            "person_role_code": "STUDENT",
+            "password": "ClaveSegura!842",
+            "password_confirm": "ClaveSegura!842",
+        }
+
+    def payload_for(self, serializer_class):
+        fields = serializer_class().fields
+        return {key: value for key, value in self.payload.items() if key in fields}
+
+    def test_names_reject_numbers_and_symbols_in_every_write_serializer(self):
+        invalid_values = [
+            "Ana123", "123", 123, "Pérez9", "Ana@", "Ana-María", "O'Neil",
+            "Ana\tMaría", "Ana\nMaría", "Ana１２３", "\u0301Ana",
+        ]
+        for serializer_class in self.serializers:
+            for field in self.fields:
+                for value in invalid_values:
+                    with self.subTest(serializer=serializer_class.__name__, field=field, value=value):
+                        serializer = serializer_class(data={**self.payload_for(serializer_class), field: value})
+                        self.assertFalse(serializer.is_valid())
+                        self.assertEqual(serializer.errors[field][0].code, "invalid_name")
+
+    def test_names_accept_accents_enye_spaces_and_combining_accents(self):
+        for serializer_class in self.serializers:
+            for value in ["José María", "Muñoz", "De la Peña", "Mari\u0301a", "  José  María  "]:
+                with self.subTest(serializer=serializer_class.__name__, value=value):
+                    serializer = serializer_class(data={
+                        **self.payload_for(serializer_class), **dict.fromkeys(self.fields, value),
+                    })
+                    self.assertTrue(serializer.is_valid(), serializer.errors)
+
+    def test_passwords_keep_numbers_symbols_and_whitespace(self):
+        for serializer_class in (InvitationAcceptSerializer, BootstrapAdminSerializer):
+            password = "  Clave!84#2  "
+            serializer = serializer_class(data={
+                **self.payload, "password": password, "password_confirm": password,
+            })
+            self.assertTrue(serializer.is_valid(), serializer.errors)
+            self.assertEqual(serializer.validated_data["password"], password)
+            self.assertEqual(serializer.validated_data["password_confirm"], password)
+
+    def test_names_remain_required_and_non_nullable_at_registration(self):
+        for serializer_class in (InvitationAcceptSerializer, BootstrapAdminSerializer):
+            for field in self.fields:
+                for value in [None, "", "   "]:
+                    with self.subTest(serializer=serializer_class.__name__, field=field, value=value):
+                        serializer = serializer_class(data={**self.payload, field: value})
+                        self.assertFalse(serializer.is_valid())
+                        self.assertIn(field, serializer.errors)
+                payload = self.payload.copy()
+                payload.pop(field)
+                serializer = serializer_class(data=payload)
+                self.assertFalse(serializer.is_valid())
+                self.assertEqual(serializer.errors[field][0].code, "required")
 
 
 class UserSchemaTests(TestCase):
@@ -84,6 +152,24 @@ class UserSchemaTests(TestCase):
 
         with self.assertRaises(IntegrityError), transaction.atomic():
             self.create_person(email="PERSON@example.com")
+
+    def test_person_names_are_saved_in_uppercase_on_create_and_update(self):
+        person = Person.objects.create(
+            name="  joSé maRía  ", paternal_surname="  muÑOz  ",
+            maternal_surname=" de la peÑa ", email="uppercase@example.com",
+            person_role=self.person_role,
+        )
+        person.refresh_from_db()
+        self.assertEqual(person.name, "JOSÉ MARÍA")
+        self.assertEqual(person.paternal_surname, "MUÑOZ")
+        self.assertEqual(person.maternal_surname, "DE LA PEÑA")
+
+        person.name = "  carLa  "
+        person.save(update_fields=["name"])
+        person.refresh_from_db()
+        self.assertEqual(person.name, "CARLA")
+        self.assertEqual(person.paternal_surname, "MUÑOZ")
+        self.assertEqual(person.maternal_surname, "DE LA PEÑA")
 
     def test_username_is_normalized_and_case_insensitive_unique(self):
         user = self.create_user()
@@ -338,7 +424,7 @@ class AuthenticationControllerTests(APITestCase):
         response = self.client.get(reverse("auth-me"))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["id"], self.user.id)
-        self.assertEqual(response.data["person"]["name"], "Ana")
+        self.assertEqual(response.data["person"]["name"], "ANA")
 
     def test_logout_invalidates_the_access_token(self):
         self.authenticate()
@@ -454,9 +540,9 @@ class UserListControllerTests(APITestCase):
             listed_user["person"],
             {
                 "id": self.normal_user.person.id,
-                "name": "Normal",
-                "paternal_surname": "Perez",
-                "maternal_surname": "Mamani",
+                "name": "NORMAL",
+                "paternal_surname": "PEREZ",
+                "maternal_surname": "MAMANI",
                 "email": "user@example.com",
                 "person_role": {
                     "id": self.student_role.id,
@@ -642,9 +728,9 @@ class UserListControllerTests(APITestCase):
         self.assertEqual(response.data["username"], "USR123456")
         self.assertTrue(response.data["is_active"])
         self.assertIsNotNone(response.data["created_at"])
-        self.assertEqual(response.data["person"]["name"], "Normal")
-        self.assertEqual(response.data["person"]["paternal_surname"], "Perez")
-        self.assertEqual(response.data["person"]["maternal_surname"], "Mamani")
+        self.assertEqual(response.data["person"]["name"], "NORMAL")
+        self.assertEqual(response.data["person"]["paternal_surname"], "PEREZ")
+        self.assertEqual(response.data["person"]["maternal_surname"], "MAMANI")
         self.assertEqual(response.data["person"]["email"], "user@example.com")
         self.assertIsNotNone(response.data["person"]["created_at"])
         self.assertEqual(
@@ -875,14 +961,14 @@ class OwnProfileUpdateControllerTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["id"], self.user.id)
         self.assertEqual(response.data["username"], "CPB145631")
-        self.assertEqual(response.data["person"]["name"], "Carla")
+        self.assertEqual(response.data["person"]["name"], "CARLA")
         self.assertEqual(
             response.data["person"]["paternal_surname"],
-            "Quispe",
+            "QUISPE",
         )
         self.assertEqual(
             response.data["person"]["maternal_surname"],
-            "Mamani",
+            "MAMANI",
         )
         self.assertEqual(
             response.data["person"]["email"],
@@ -909,10 +995,22 @@ class OwnProfileUpdateControllerTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.user.person.refresh_from_db()
-        self.assertEqual(self.user.person.name, "Carlota")
-        self.assertEqual(self.user.person.paternal_surname, "Perez")
-        self.assertEqual(self.user.person.maternal_surname, "Bravo")
+        self.assertEqual(self.user.person.name, "CARLOTA")
+        self.assertEqual(self.user.person.paternal_surname, "PEREZ")
+        self.assertEqual(self.user.person.maternal_surname, "BRAVO")
         self.assertEqual(self.user.person.email, "carlos@example.com")
+
+    def test_profile_rejects_numbers_in_names_without_saving(self):
+        self.authenticate()
+        for field in ("name", "paternal_surname", "maternal_surname"):
+            with self.subTest(field=field):
+                response = self.client.patch(self.url, {field: "Ana123"}, format="json")
+                self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+                self.assertEqual(response.data["errors"][field][0]["code"], "invalid_name")
+        self.user.person.refresh_from_db()
+        self.assertEqual(self.user.person.name, "CARLOS")
+        self.assertEqual(self.user.person.paternal_surname, "PEREZ")
+        self.assertEqual(self.user.person.maternal_surname, "BRAVO")
 
     def test_profile_update_requires_authentication(self):
         response = self.client.patch(
@@ -1392,7 +1490,7 @@ class InvitationCreateControllerTests(APITestCase):
             {
                 "id": self.admin.id,
                 "username": self.admin.username,
-                "full_name": "Test ADM User",
+                "full_name": "TEST ADM USER",
             },
         )
         self.assertIsNotNone(response.data["items"][0]["created_at"])
@@ -1873,6 +1971,142 @@ class InvitationCreateControllerTests(APITestCase):
         self.assertEqual(invitation.status, Invitation.Status.ACCEPTED)
         self.assertEqual(invitation.accepted_user, created_user)
         self.assertIsNotNone(invitation.accepted_at)
+
+    def test_accept_rejects_numbers_in_names_without_consuming_invitation(self):
+        token = "name-validation-invitation"
+        invitation = self.create_invitation_for_token(token)
+        initial_users = User.objects.count()
+        initial_persons = Person.objects.count()
+        url = reverse("invitation-accept", kwargs={"token": token})
+        for field in ("name", "paternal_surname", "maternal_surname"):
+            for value in ("Ana123", "123", "Ana@"):
+                with self.subTest(field=field, value=value):
+                    response = self.client.post(url, {**self.accept_payload, field: value}, format="json")
+                    self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+                    self.assertEqual(response.data["errors"][field][0]["code"], "invalid_name")
+                    self.assertEqual(User.objects.count(), initial_users)
+                    self.assertEqual(Person.objects.count(), initial_persons)
+                    invitation.refresh_from_db()
+                    self.assertEqual(invitation.status, Invitation.Status.PENDING)
+
+        response = self.client.post(url, {
+            **self.accept_payload, "name": "José María", "paternal_surname": "Muñoz",
+            "maternal_surname": "De la Peña",
+        }, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        user = User.objects.get(pk=response.data["id"])
+        self.assertTrue(user.check_password(self.accept_payload["password"]))
+        self.assertFalse(user.check_password(self.accept_payload["password"].upper()))
+        self.assertEqual(response.data["person"]["name"], "JOSÉ MARÍA")
+        user.person.refresh_from_db()
+        self.assertEqual(user.person.name, "JOSÉ MARÍA")
+        self.assertEqual(user.person.paternal_surname, "MUÑOZ")
+        self.assertEqual(user.person.maternal_surname, "DE LA PEÑA")
+
+    def test_account_created_email_contains_saved_username_after_commit(self):
+        token = "account-created-email-token"
+        invitation = self.create_invitation_for_token(token)
+
+        with self.captureOnCommitCallbacks(execute=True) as callbacks:
+            response = self.client.post(
+                reverse("invitation-accept", kwargs={"token": token}),
+                self.accept_payload, format="json",
+            )
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            user = User.objects.select_related("person").get(pk=response.data["id"])
+            invitation.refresh_from_db()
+            self.assertEqual(invitation.status, Invitation.Status.ACCEPTED)
+            self.assertEqual(len(mail.outbox), 0)
+
+        self.assertEqual(len(callbacks), 1)
+        self.assertEqual(len(mail.outbox), 1)
+        email = mail.outbox[0]
+        self.assertEqual(email.subject, "Tu cuenta ha sido creada")
+        self.assertEqual(email.to, [user.person.email])
+        self.assertIn(f"Tu nombre de usuario es: {user.username}", email.body)
+        self.assertEqual(user.username, response.data["username"])
+        self.assertNotIn(self.accept_payload["password"], email.body)
+        self.assertNotIn(user.password, email.body)
+        self.assertNotIn(token, email.body)
+
+    def test_failed_registration_does_not_schedule_account_created_email(self):
+        token = "invalid-account-email-token"
+        invitation = self.create_invitation_for_token(token)
+        invalid_payloads = [
+            {**self.accept_payload, "name": "Ana123"},
+            {**self.accept_payload, "password_confirm": "DifferentPassword!72"},
+            {**self.accept_payload, "password": "123", "password_confirm": "123"},
+        ]
+        for payload in invalid_payloads:
+            with self.subTest(payload_fields=list(payload)):
+                with self.captureOnCommitCallbacks(execute=True) as callbacks:
+                    response = self.client.post(
+                        reverse("invitation-accept", kwargs={"token": token}),
+                        payload, format="json",
+                    )
+                self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+                self.assertEqual(callbacks, [])
+                self.assertEqual(len(mail.outbox), 0)
+                self.assertFalse(Person.objects.filter(email=invitation.email).exists())
+                invitation.refresh_from_db()
+                self.assertEqual(invitation.status, Invitation.Status.PENDING)
+
+    def test_account_created_email_is_discarded_if_transaction_rolls_back(self):
+        token = "rollback-account-email-token"
+        invitation = self.create_invitation_for_token(token)
+
+        with self.captureOnCommitCallbacks(execute=True) as callbacks:
+            with self.assertRaisesMessage(RuntimeError, "Rollback registration"):
+                with transaction.atomic():
+                    response = self.client.post(
+                        reverse("invitation-accept", kwargs={"token": token}),
+                        self.accept_payload, format="json",
+                    )
+                    self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+                    raise RuntimeError("Rollback registration")
+
+        self.assertEqual(callbacks, [])
+        self.assertEqual(len(mail.outbox), 0)
+        self.assertFalse(Person.objects.filter(email=invitation.email).exists())
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.status, Invitation.Status.PENDING)
+
+    @patch(
+        "usuarios.services.account_email_service.send_mail",
+        side_effect=RuntimeError("SMTP unavailable"),
+    )
+    def test_account_email_failure_does_not_fail_or_undo_registration(self, send_mail):
+        token = "smtp-failure-account-email-token"
+        invitation = self.create_invitation_for_token(token)
+
+        with self.assertLogs(level="ERROR"):
+            with self.captureOnCommitCallbacks(execute=True):
+                response = self.client.post(
+                    reverse("invitation-accept", kwargs={"token": token}),
+                    self.accept_payload, format="json",
+                )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        user = User.objects.get(pk=response.data["id"])
+        self.assertTrue(user.check_password(self.accept_payload["password"]))
+        invitation.refresh_from_db()
+        self.assertEqual(invitation.status, Invitation.Status.ACCEPTED)
+        self.assertEqual(invitation.accepted_user_id, user.id)
+        send_mail.assert_called_once()
+
+    def test_accepting_same_invitation_again_does_not_send_second_account_email(self):
+        token = "single-account-email-token"
+        self.create_invitation_for_token(token)
+        url = reverse("invitation-accept", kwargs={"token": token})
+
+        with self.captureOnCommitCallbacks(execute=True) as callbacks:
+            first = self.client.post(url, self.accept_payload, format="json")
+            second = self.client.post(url, self.accept_payload, format="json")
+
+        self.assertEqual(first.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(second.status_code, status.HTTP_409_CONFLICT)
+        self.assertEqual(len(callbacks), 1)
+        self.assertEqual(len(mail.outbox), 1)
 
     def test_accept_cannot_reuse_invitation(self):
         raw_token = "single-use-invitation-token"

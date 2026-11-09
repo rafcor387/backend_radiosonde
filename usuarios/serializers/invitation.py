@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from usuarios.models import Invitation, PersonRole, User
+from usuarios.validators import validate_person_name
 from usuarios.serializers.authentication import (
     PersonRoleSerializer,
     field_errors,
@@ -127,14 +128,17 @@ class InvitationValidationResponseSerializer(serializers.Serializer):
 class InvitationAcceptSerializer(serializers.Serializer):
     name = serializers.CharField(
         max_length=100,
+        validators=[validate_person_name],
         error_messages=field_errors("name"),
     )
     paternal_surname = serializers.CharField(
         max_length=100,
+        validators=[validate_person_name],
         error_messages=field_errors("paternal_surname"),
     )
     maternal_surname = serializers.CharField(
         max_length=100,
+        validators=[validate_person_name],
         error_messages=field_errors("maternal_surname"),
     )
     password = serializers.CharField(

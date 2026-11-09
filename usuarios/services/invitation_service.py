@@ -7,6 +7,7 @@ from django.utils import timezone
 from usuarios.error_codes import ErrorCode
 from usuarios.exceptions import ServiceError
 from usuarios.models import Invitation, Person, PersonRole, User, UserRole
+from usuarios.services.account_email_service import AccountEmailService
 from usuarios.services.invitation_email_service import InvitationEmailService
 from usuarios.services.invitation_token_service import InvitationTokenService
 from usuarios.services.password_service import PasswordService
@@ -315,6 +316,10 @@ class InvitationService:
                         "accepted_user",
                         "updated_at",
                     ]
+                )
+                transaction.on_commit(
+                    lambda user=created_user: AccountEmailService.send_account_created(user),
+                    robust=True,
                 )
 
         if created_user is None:

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from usuarios.models import Person, PersonRole, User, UserRole
+from usuarios.validators import validate_person_name
 from usuarios.serializers.authentication import (
     PersonRoleSerializer,
     UserRoleSerializer,
@@ -154,18 +155,21 @@ class OwnProfileUpdateSerializer(serializers.Serializer):
         max_length=100,
         required=False,
         allow_blank=False,
+        validators=[validate_person_name],
         error_messages=field_errors("name"),
     )
     paternal_surname = serializers.CharField(
         max_length=100,
         required=False,
         allow_blank=False,
+        validators=[validate_person_name],
         error_messages=field_errors("paternal_surname"),
     )
     maternal_surname = serializers.CharField(
         max_length=100,
         required=False,
         allow_blank=False,
+        validators=[validate_person_name],
         error_messages=field_errors("maternal_surname"),
     )
 
@@ -189,9 +193,9 @@ class OwnProfileUpdateSerializer(serializers.Serializer):
 
 
 class BootstrapAdminSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=100, allow_blank=False)
-    paternal_surname = serializers.CharField(max_length=100, allow_blank=False)
-    maternal_surname = serializers.CharField(max_length=100, allow_blank=False)
+    name = serializers.CharField(max_length=100, allow_blank=False, validators=[validate_person_name])
+    paternal_surname = serializers.CharField(max_length=100, allow_blank=False, validators=[validate_person_name])
+    maternal_surname = serializers.CharField(max_length=100, allow_blank=False, validators=[validate_person_name])
     email = serializers.EmailField()
     person_role_code = serializers.ChoiceField(choices=PersonRole.Code.choices)
     password = serializers.CharField(write_only=True, trim_whitespace=False)

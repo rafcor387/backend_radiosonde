@@ -21,7 +21,7 @@ from .radiosonde_thermodynamics import (
 )
 
 
-PLOT_VERSION = "v4"
+PLOT_VERSION = "v8"
 MAX_SKEWT_BYTES = 5 * 1024 * 1024
 
 
@@ -212,11 +212,11 @@ def render_skewt_png(
 
         try:
             skew.shade_cape(pressure, temperature_c, parcel, alpha=0.22, color="#ef4444")
+            # Sin dewpoint se sombrean todas las áreas donde la parcela es más fría.
             skew.shade_cin(
                 pressure,
                 temperature_c,
                 parcel,
-                dewpoint_c,
                 alpha=0.18,
                 color="#2563eb",
             )
@@ -294,6 +294,20 @@ def _plot_diagnostics_panel(axis, diagnostics):
             "J/kg",
             "#1d4ed8",
         )
+        if (
+            key == "surface_based"
+            and diagnostics["levels"]["lfc_pressure_hpa"] is None
+            and values["cin_j_kg"] == 0
+        ):
+            axis.text(
+                0.04,
+                y,
+                "Sin LFC; MetPy devuelve 0.",
+                fontsize=7,
+                color="#475569",
+                va="top",
+            )
+            y -= 0.028
         y -= 0.008
 
     y = _panel_section(axis, y, "NIVELES")
@@ -327,7 +341,7 @@ def _plot_diagnostics_panel(axis, diagnostics):
     axis.text(
         0.04,
         0.025,
-        "Rojo: CAPE  ·  Azul: CIN\n—: no calculable con este perfil",
+        "Rojo: CAPE\nAzul: parcela más fría\nque el ambiente\n—: no calculable con este perfil",
         fontsize=7.5,
         color="#475569",
         va="bottom",
